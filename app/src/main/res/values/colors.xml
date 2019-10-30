@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#52D355</color>
+    <color name="colorPrimaryDark">#52D355</color>
+    <color name="colorAccent">#E45021</color>
+    <color name="biru">#04A2F7</color>
+    <color name="ijoo">#49BD4C</color>
+    <color name="view_backg_color">#c7c7C7</color>
+    <color name="et_login_color">#4EB852</color>
+
+    <color name="hijau_tua">#5BB95C</color>
+    <color name="primar">#5770f3</color>
+    <color name="abu">#E6DFDF</color>
+    <color name="primdark">#5770f3</color>
+    <color name="ascen">#D81B60</color>
+    <color name="gradient_start">#5770f3</color>
+    <color name="gradient_end">#8e5aeb</color>
+    <color name="profile_desc">#D1D1FF</color>
+    <color name="bg_meta_container">#000000</color>
+    <color name="profile_default_tint">#e0e0e0</color>
+    <color name="view_bg_color">#c7c7c7</color>
+</resources>

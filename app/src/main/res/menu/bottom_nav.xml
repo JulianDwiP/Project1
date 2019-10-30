@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_beranda"
+        android:icon="@drawable/ic_home"
+        android:title="Beranda"/>
+    <item
+        android:id="@+id/menu_kategori"
+        android:title="Kategori"
+        android:icon="@drawable/ic_categori"/>
+    <item
+        android:id="@+id/menu_rakBuku"
+        android:icon="@drawable/ic_rak_buku"
+        android:title="Rak Buku"/>
+</menu>

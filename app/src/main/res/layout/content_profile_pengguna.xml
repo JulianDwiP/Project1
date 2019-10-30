@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:orientation="vertical"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+tools:context=".profilePengguna"
+tools:showIn="@layout/activity_profile_pengguna">
+
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Profile Penguna"
+    android:textAlignment="center"
+    android:layout_marginTop="10dp"
+    android:textSize="@dimen/dimen_40dp"
+    />
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_marginTop="30dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Nama"/>
+    <TextView
+        android:id="@+id/prof_nama"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="48dp"
+        android:text="nama"
+        android:textSize="18dp"/>
+</TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Username"/>
+            <TextView
+                android:id="@+id/prof_username"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:text="nama"
+                android:textSize="18dp"/>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Email"/>
+            <TextView
+                android:id="@+id/prof_email"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Juliansadwi7552@gmail.com"
+                android:layout_marginLeft="52dp"
+                android:textSize="18dp"/>
+        </TableRow>
+    <Button
+        android:id="@+id/btnProf_ubah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ubah"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"/>
+
+</LinearLayout>
