@@ -10,9 +10,12 @@ public class SharedPrefManager {
     public static final String USERNAME = "username";
     public static final String ID = "id";
     public static final String PASSWORD = "password";
+    public static final String IMAGE = "image";
+
 
 
     public static final String CEK_SESSION = "CekSession";
+    public static final String CEK_GAMBAR = "CekGambar";
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -51,6 +54,9 @@ public class SharedPrefManager {
     public String getSPEmail(){
         return sp.getString(EMAIL, "");
     }
+    public String getSPImage(){
+        return sp.getString(IMAGE, "");
+    }
     public String getUsername(){
         return sp.getString(USERNAME, "");
     }
@@ -62,4 +68,7 @@ public class SharedPrefManager {
         return sp.getBoolean(CEK_SESSION, false);
     }
 
+    public Boolean AdaGambarApaNgga(){
+        return sp.getBoolean(CEK_GAMBAR, false);
+    }
 }

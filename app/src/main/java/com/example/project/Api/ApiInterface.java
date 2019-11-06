@@ -9,10 +9,6 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @FormUrlEncoded
-    @POST("ambilData.php")
-    Call<ResponseBody> getData(@Field("email") String email);
-
-    @FormUrlEncoded
     @POST("login.php")
     Call<ResponseBody> loginRequest(@Field("email") String email,
                                     @Field("password") String password);
@@ -28,4 +24,9 @@ public interface ApiInterface {
     Call<ResponseBody> updateRequest(@Field("nama") String nama,
                                      @Field("username") String username,
                                      @Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("ambilPoto.php")
+    Call<ResponseBody> ambilPoto(@Field("email") String email);
+
 }

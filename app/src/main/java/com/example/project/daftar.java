@@ -99,14 +99,6 @@ public class daftar extends AppCompatActivity {
                             try {
                                 JSONObject jsonRESULT = new JSONObject(response.body().string());
                                 if (jsonRESULT.getString("error").equals("false")){
-                                    String nama = jsonRESULT.getJSONObject("user").getString("nama");
-                                    String email = jsonRESULT.getJSONObject("user").getString("email");
-                                    String username = jsonRESULT.getJSONObject("user").getString("username");
-                                    String password = jsonRESULT.getJSONObject("user").getString("password");
-                                    sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, nama);
-                                    sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, email);
-                                    sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, username);
-                                    sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD, password);
                                     Toast.makeText(mContext, "Berhasil Daftar",Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(mContext, MainActivity.class));
                                 }else {
@@ -134,16 +126,16 @@ public class daftar extends AppCompatActivity {
 //                namaText.getText().toString(),
 //                usernameText.getText().toString(),
 //                emailText.getText().toString(),
-//                passwordText.getText().toString()).enqueue(new Callback<UserResponse>() {
+//                passwordText.getText().toString()).enqueue(new Callback<UserModel>() {
 //            @Override
-//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+//            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
 //                if (response.isSuccessful()){
 //                    Toast.makeText(mContext, "Berhasil Daftar",Toast.LENGTH_SHORT).show();
 //                    startActivity(new Intent(mContext, MainActivity.class));
 //                }
 //            }
 //            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
+//            public void onFailure(Call<UserModel> call, Throwable t) {
 //                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
 //            }
 //        });

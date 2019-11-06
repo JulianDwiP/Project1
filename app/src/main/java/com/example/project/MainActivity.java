@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,57 +94,44 @@ public class MainActivity extends AppCompatActivity {
     private void reqLogin(){
         mApiInterface.loginRequest(
                 emailText.getText().toString(),
-                passwordText.getText().toString())
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            loading.dismiss();
-                            try {
-                                JSONObject jsonRESULT = new JSONObject(response.body().string());
-                                if (jsonRESULT.getString("error").equals("false")){
-                                    Toast.makeText(mContext, "Berhasil Login", Toast.LENGTH_SHORT).show();
-                                    sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, true);
-                                    startActivity(new Intent(mContext, Beranda.class)
-                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    finish();
-                                }else{
-                                    String error_message = jsonRESULT.getString("error_msg");
-                                    Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
-                                }
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }catch (IOException e){
-                                e.printStackTrace();
-                            }
-                        }else{
-                            loading.dismiss();
-                        }
+                passwordText.getText().toString()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String id = jsonObject.getString("id");
+                        String nama = jsonObject.getString("nama");
+                        String username = jsonObject.getString("username");
+                        String email = jsonObject.getString("email");
+                        String password = jsonObject.getString("en_password");
+                        String image = jsonObject.getString("image");
+                        sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, true);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.ID, id);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, nama);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, username);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, email);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD,password);
+                        sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, image);
+                        Toast.makeText(mContext, "Berhasil Login ",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(mContext, Beranda.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "onFailure: ERROR > " + t.toString());
-                        loading.dismiss();
-                        Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
-                    }
-                });
-//        mApiInterface.loginRequest(
-//                emailText.getText().toString(),
-//                passwordText.getText().toString()).enqueue(new Callback<UserResponse>() {
-//            @Override
-//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                if (response.isSuccessful()){
-//                    sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, true);
-//                    Toast.makeText(mContext, "Berhasil Login",Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(mContext, Beranda.class));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                }else{
+                    Toast.makeText(mContext, "Gagal Login ",Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     public static boolean isValidEmail(String email) {
         boolean validate;

@@ -3,7 +3,10 @@ package com.example.project;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,15 +33,17 @@ import com.example.project.fragment.fragment_rakbuk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 
-public class Beranda extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener { private static final String TAG = Beranda.class.getSimpleName();
-
+public class Beranda extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout ndrawer;
     private NavigationView nVdrawer;
     int foto;
+    Bitmap bitmap;
     public ImageView potoPropil;
-    String nama,email;
     TextView emailuser;
     TextView namauser;
     SharedPrefManager sharedPrefManager;
@@ -49,7 +54,11 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
+        userModel = new UserModel();
         setToolbar();
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setFragment(new fragment_beranda());
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav2);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -57,8 +66,9 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         nVdrawer = findViewById(R.id.nvView);
         content(nVdrawer);
         sharedPrefManager = new SharedPrefManager(this);
-        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         init();
+        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+
     }
 
 
@@ -69,6 +79,27 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         namauser = headerView.findViewById(R.id.namaUser);
         namauser.setText(sharedPrefManager.getSPNama());
         emailuser.setText(sharedPrefManager.getSPEmail());
+        String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
+        String shared = sharedPrefManager.getSPImage();
+
+        if (shared.equals(email)) {
+        URL url = null;
+        try {
+            url = new URL(sharedPrefManager.getSPImage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap bmp = null;
+        try {
+            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        potoPropil.setImageBitmap(null);
+        potoPropil.setImageBitmap(bmp);
+        }else{
+            potoPropil.setImageResource(R.drawable.images);
+        }
     }
 
     private void setToolbar() {
@@ -131,9 +162,14 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 break;
             case R.id.keluar:
                 sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, false);
+                sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, "");
+                sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, "");
+                sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD, "");
+                sharedPrefManager.simpanSPSring(SharedPrefManager.ID, "");
+                sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, "");
+                sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "");
                 startActivity(new Intent(Beranda.this, MainActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                finish();
                 break;
             default:
                     FragmentClass = fragment_beranda.class;
