@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".deskripsiBuku"></activity>
+        <activity android:name=".PdfActivity"></activity>
+        <activity android:name=".deskripsiBuku" />
         <activity android:name=".editUser" />
         <activity android:name=".Beranda" />
         <activity android:name=".SearchResult">
