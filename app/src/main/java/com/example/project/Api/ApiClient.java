@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
         public  static  String BASE_URL ="http://192.168.43.143/perpus_db/";
-        private static Retrofit retrofit = null ;
+
+    private static Retrofit retrofit = null ;
 
         public static  Retrofit getClient(String baseUrl){
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

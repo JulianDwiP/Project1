@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".editUser"></activity>
+        <activity android:name=".deskripsiBuku"></activity>
+        <activity android:name=".editUser" />
         <activity android:name=".Beranda" />
         <activity android:name=".SearchResult">
             <intent-filter>
@@ -30,14 +31,13 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".NotesActivity"></activity>
+        <activity android:name=".NotesActivity" />
         <activity
             android:name=".EditNoteActivity"
             android:parentActivityName=".NotesActivity" />
         <activity android:name=".profilePengguna" />
         <activity android:name=".LupaPassword" />
         <activity android:name=".daftar" />
-        <activity android:name=".ImagePickerActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -46,10 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
