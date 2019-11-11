@@ -82,7 +82,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();
 
-        if (shared.equals(email)) {
+        if (shared.equals(email)){
         URL url = null;
         try {
             url = new URL(sharedPrefManager.getSPImage());

@@ -12,58 +12,93 @@
         android:orientation="vertical">
 
         <ImageView
+            android:layout_margin="5dp"
             android:id="@+id/imgDesBuku"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="500dp"/>
+
         <Button
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:text="Download"
             android:id="@+id/btnDownload"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/biru"
+            android:text="Download"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/judulDesBuku"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:text="Judul Buku"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
             android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+            android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Judul        : "
-                    android:textSize="16dp"
-                    android:layout_marginLeft="@dimen/dimen_20dp"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:text="Judul buku"
-                    android:textSize="16dp"
-                    android:id="@+id/judulDesBuku"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penerbit "
+                android:paddingLeft="10dp"
+                android:textSize="17dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/authorDesBuku"
+                android:textSize="17dp"
+                android:text="Author"
+                android:layout_marginLeft="14dp"
+                android:paddingLeft="10dp"/>
         </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Deskripsi : "
-                    android:textSize="16dp"
-                    android:layout_marginLeft="@dimen/dimen_20dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Peringkat "
+                    android:paddingLeft="10dp"
+                    android:textSize="17dp"/>
                 <TextView
-                    android:id="@+id/deskripsiBuku"
-                    android:text="Judul buku"
-                    android:textSize="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/peringkatDesBuku"
+                    android:textSize="17dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                </LinearLayout>
+                    android:text="4.5"
+                    android:paddingLeft="10dp"/>
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:textSize="19dp"
+            android:text="Sinopsis"/>
+        <TextView
+            android:id="@+id/sinopsisDesBuku"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text=""
+            android:layout_marginLeft="5dp"
+            android:textSize="17dp"/>
+    </LinearLayout>
 
 </ScrollView>

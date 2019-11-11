@@ -46,12 +46,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         init();
-        if (sharedPrefManager.getSPSudahLogin()){
-            startActivity(new Intent(mContext, Beranda.class)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK));
-            finish();
-        }
-
     }
 
     private void init() {

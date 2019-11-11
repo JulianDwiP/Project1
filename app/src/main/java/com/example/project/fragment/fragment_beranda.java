@@ -39,7 +39,6 @@ public class fragment_beranda extends Fragment {
     fragment_beranda context;
 
     public fragment_beranda() {
-        // Required empty public constructor
     }
 
 
