@@ -14,24 +14,32 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Api.ApiClient;
+import com.example.project.Api.ApiInterface;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.rakBukuInsert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class deskripsiBuku extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku;
     ImageView imageDesBuku;
-    Button download;
+    Button baca, add;
     SharedPrefManager sharedPrefManager;
+    ApiInterface mApiInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deskripsi_buku);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         init();
         ambilDataBuku();
         sharedPrefManager = new SharedPrefManager(this);
@@ -44,6 +52,7 @@ public class deskripsiBuku extends AppCompatActivity {
         String pdf_url = getIntent().getStringExtra("pdf_url");
         String peringkat = getIntent().getStringExtra("peringkat");
         String author = getIntent().getStringExtra("author");
+        String kategori = getIntent().getStringExtra("kategori");
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -59,7 +68,7 @@ public class deskripsiBuku extends AppCompatActivity {
         perinkatDesBuku.setText(": "+peringkat);
         authorDesBuku.setText(": "+author);
 
-        download.setOnClickListener(new View.OnClickListener() {
+        baca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
@@ -73,14 +82,43 @@ public class deskripsiBuku extends AppCompatActivity {
                 }
             }
         });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mApiInterface.insertRakBuku(judul,deskripsi,author,img_url,pdf_url,peringkat,kategori, sharedPrefManager.getId())
+                        .enqueue(new Callback<rakBukuInsert>() {
+                            @Override
+                            public void onResponse(Call<rakBukuInsert> call, Response<rakBukuInsert> response) {
+                                if (response.isSuccessful()){
+                                    Boolean Status = response.body().getStatus();
+                                    if (Status == true){
+                                        Toast.makeText(getApplicationContext(), "Ditambahkan ke RakBuku",Toast.LENGTH_LONG).show();
+                                    }if (sharedPrefManager.getId().equals("")){
+                                        Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<rakBukuInsert> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
     }
+
 
     private void init() {
         judulBuku = findViewById(R.id.judulDesBuku);
         deskripsiBuku1 = findViewById(R.id.sinopsisDesBuku);
         imageDesBuku = findViewById(R.id.imgDesBuku);
-        download = findViewById(R.id.btnDownload);
+        baca = findViewById(R.id.btnBaca);
         authorDesBuku = findViewById(R.id.authorDesBuku);
+        add = findViewById(R.id.btnTambah);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
     }
 }

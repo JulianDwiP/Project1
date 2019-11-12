@@ -68,7 +68,6 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         sharedPrefManager = new SharedPrefManager(this);
         init();
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
-
     }
 
 
@@ -81,6 +80,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         emailuser.setText(sharedPrefManager.getSPEmail());
         String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();
+
 
         if (shared.equals(email)){
         URL url = null;
@@ -168,7 +168,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 sharedPrefManager.simpanSPSring(SharedPrefManager.ID, "");
                 sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, "");
                 sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "");
-                startActivity(new Intent(Beranda.this, MainActivity.class)
+                startActivity(new Intent(Beranda.this, Beranda.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
             default:

@@ -12,7 +12,7 @@
         <FrameLayout
             android:id="@+id/flContent"
             android:layout_width="match_parent"
-            android:layout_height="580dp"
+            android:layout_height="570dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 

@@ -85,6 +85,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
                 i.putExtra("pdf_url", buku.getPdfUrl());
                 i.putExtra("peringkat", buku.getPeringkat());
                 i.putExtra("author", buku.getAuthor());
+                i.putExtra("kategori", buku.getKategori());
                 mContext.startActivity(i);
             }
         });
