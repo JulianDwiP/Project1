@@ -41,8 +41,6 @@ import java.util.Objects;
 public class Beranda extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout ndrawer;
     private NavigationView nVdrawer;
-    int foto;
-    Bitmap bitmap;
     public ImageView potoPropil;
     TextView emailuser;
     TextView namauser;
@@ -56,18 +54,24 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         setContentView(R.layout.activity_beranda);
         userModel = new UserModel();
         setToolbar();
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         setFragment(new fragment_beranda());
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav2);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
         ndrawer = findViewById(R.id.drawer_layout);
         nVdrawer = findViewById(R.id.nvView);
         content(nVdrawer);
+
         sharedPrefManager = new SharedPrefManager(this);
         init();
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+        if (sharedPrefManager.getSPSudahLogin()){
+            hideItem();
+        }
     }
 
 
@@ -171,6 +175,9 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(new Intent(Beranda.this, Beranda.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
+            case R.id.login:
+                Intent masuk = new Intent(Beranda.this, MainActivity.class);
+                Beranda.this.startActivity(masuk);
             default:
                     FragmentClass = fragment_beranda.class;
         }
@@ -218,4 +225,9 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         return onOptionsItemSelected(menuItem);
     }
 
+    private void hideItem()
+    {
+        Menu nav_Menu = nVdrawer.getMenu();
+        nav_Menu.findItem(R.id.login).setVisible(false);
+    }
 }
