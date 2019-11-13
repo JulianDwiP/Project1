@@ -1,5 +1,7 @@
 package com.example.project.Api;
 
+import com.example.project.Model.KategoriResponse;
+import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.entity.rakBukuResponse;
@@ -47,4 +49,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("ambilRakBuku.php")
     Call<rakBukuResponse> getSemuaRakbuku(@Field("id_user") String id_user);
+
+    @FormUrlEncoded
+    @POST("kategori.php")
+    Call<KategoriResponse> getByKategori(@Field("kategori") String kategori);
+
+    @GET("listKategori.php")
+    Call<ListSpinnerResponse> getListSpinner();
 }
