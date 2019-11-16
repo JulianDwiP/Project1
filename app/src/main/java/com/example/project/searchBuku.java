@@ -2,11 +2,14 @@ package com.example.project;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,7 @@ import com.example.project.entity.SearchModel;
 import com.example.project.entity.SearchResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +44,7 @@ public class searchBuku extends AppCompatActivity {
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         rvSearchbuku = findViewById(R.id.rvSearch);
         rvSearchbuku.setLayoutManager(new LinearLayoutManager(this));
-//        rvSearchbuku.setHasFixedSize(true);
+
         getBuku("buku", "");
     }
 
@@ -48,8 +52,16 @@ public class searchBuku extends AppCompatActivity {
             Toolbar toolbar = findViewById(R.id.searchToolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("");
-//            Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(searchBuku.this, Beranda.class);
+                    startActivity(intent);
+                }
+            });
     }
 
     private void getBuku(String type, String key) {
@@ -83,10 +95,11 @@ public class searchBuku extends AppCompatActivity {
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconified(false);
+        searchView.setImeOptions(searchView.getImeOptions()| EditorInfo.IME_ACTION_SEARCH| EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getBuku("buku", query);
+//                getBuku("buku", query);
                 return false;
             }
 

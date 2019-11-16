@@ -63,7 +63,7 @@ public interface ApiInterface {
     @GET("listKategori.php")
     Call<ListSpinnerResponse> getListSpinner();
 
-    @GET("searchB.php")
+    @GET("searchBuku.php")
     Call<SearchResponse> search(
             @Query("item_type") String item_type,
             @Query("key") String keyword);
