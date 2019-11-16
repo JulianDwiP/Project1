@@ -17,22 +17,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".deskripsiRakBuku"></activity>
+        <activity android:name=".searchBuku">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+        <activity android:name=".deskripsiRakBuku" />
         <activity android:name=".PdfActivity" />
         <activity android:name=".deskripsiBuku" />
         <activity android:name=".editUser" />
         <activity android:name=".Beranda" />
-        <activity android:name=".SearchResult">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
         <activity android:name=".NotesActivity" />
         <activity
             android:name=".EditNoteActivity"

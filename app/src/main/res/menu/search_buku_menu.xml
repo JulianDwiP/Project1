@@ -4,8 +4,9 @@
 
     <item
         android:title="@string/mencari"
-        android:id="@+id/menu_search"
+        android:id="@+id/search_buku_menu"
         android:icon="@drawable/ic_search"
-        app:showAsAction="collapseActionView|ifRoom"
-        />
+        android:imeOptions="actionSearch"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
 </menu>

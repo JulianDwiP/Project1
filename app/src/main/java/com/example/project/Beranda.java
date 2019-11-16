@@ -1,7 +1,5 @@
 package com.example.project;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,40 +67,43 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         init();
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         if (sharedPrefManager.getSPSudahLogin()){
-            hideItem();
+            hideLogin();
+            namauser.setText(sharedPrefManager.getSPNama());
+            emailuser.setText(sharedPrefManager.getSPEmail());
+            String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
+            String shared = sharedPrefManager.getSPImage();
+
+            if (shared.equals(email)){
+                URL url = null;
+                try {
+                    url = new URL(sharedPrefManager.getSPImage());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                Bitmap bmp = null;
+                try {
+                    bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                potoPropil.setImageBitmap(null);
+                potoPropil.setImageBitmap(bmp);
+            }else{
+                potoPropil.setImageResource(R.drawable.images);
+            }
+        }else{
+            showNavMenu();
+            namauser.setText("Pengguna");
+            emailuser.setText("example@gmail.com");
         }
     }
-
 
     public void init() {
         View headerView = nVdrawer.getHeaderView(0);
         potoPropil = headerView.findViewById(R.id.potoPropil);
         emailuser = headerView.findViewById(R.id.emailUser);
         namauser = headerView.findViewById(R.id.namaUser);
-        namauser.setText(sharedPrefManager.getSPNama());
-        emailuser.setText(sharedPrefManager.getSPEmail());
-        String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
-        String shared = sharedPrefManager.getSPImage();
 
-
-        if (shared.equals(email)){
-        URL url = null;
-        try {
-            url = new URL(sharedPrefManager.getSPImage());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Bitmap bmp = null;
-        try {
-            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        potoPropil.setImageBitmap(null);
-        potoPropil.setImageBitmap(bmp);
-        }else{
-            potoPropil.setImageResource(R.drawable.images);
-        }
     }
 
     private void setToolbar() {
@@ -128,11 +128,6 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.menu_search) ;
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconified(false);
         return true;
     }
     @Override
@@ -140,6 +135,10 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         if (item.getItemId() == android.R.id.home){
                 ndrawer.openDrawer(GravityCompat.START);
                 return true;
+        }
+        if (item.getItemId() == R.id.menu_search){
+            Intent intent = new Intent(Beranda.this, searchBuku.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -225,9 +224,15 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         return onOptionsItemSelected(menuItem);
     }
 
-    private void hideItem()
+    private void hideLogin()
     {
         Menu nav_Menu = nVdrawer.getMenu();
         nav_Menu.findItem(R.id.login).setVisible(false);
+    }
+    private void showNavMenu(){
+        Menu nav_menu = nVdrawer.getMenu();
+        nav_menu.findItem(R.id.profile_pengguna).setVisible(false);
+        nav_menu.findItem(R.id.catatan_pribadi).setVisible(false);
+        nav_menu.findItem(R.id.keluar).setVisible(false);
     }
 }

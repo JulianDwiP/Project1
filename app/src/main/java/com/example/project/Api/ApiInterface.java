@@ -3,6 +3,7 @@ package com.example.project.Api;
 import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
+import com.example.project.entity.SearchResponse;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.entity.rakBukuResponse;
 
@@ -12,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -43,9 +45,6 @@ public interface ApiInterface {
                                       @Field("Rb_kategori") String Rb_kategori,
                                       @Field("id_user") String id_user);
 
-    @GET("ambilBuku.php")
-    Call<BukuResponse> getSemuaBuku();
-
     @FormUrlEncoded
     @POST("ambilRakBuku.php")
     Call<rakBukuResponse> getSemuaRakbuku(@Field("id_user") String id_user);
@@ -54,6 +53,18 @@ public interface ApiInterface {
     @POST("kategori.php")
     Call<KategoriResponse> getByKategori(@Field("kategori") String kategori);
 
+//    @FormUrlEncoded
+//    @POST("searchBuku.php")
+//    Call<SearchResponse> getSearch(@Field("nama") String nama);
+//
+    @GET("ambilBuku.php")
+    Call<BukuResponse> getSemuaBuku();
+
     @GET("listKategori.php")
     Call<ListSpinnerResponse> getListSpinner();
+
+    @GET("searchB.php")
+    Call<SearchResponse> search(
+            @Query("item_type") String item_type,
+            @Query("key") String keyword);
 }
