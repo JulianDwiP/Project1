@@ -40,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class editUser extends AppCompatActivity implements View.OnClickListener {
-    public static final String UPLOAD_URL = "http://192.168.43.143/perpus_db/Upload.php";
+    public static final String UPLOAD_URL = "http://192.168.43.236/perpus_db/Upload.php";
     public static final String UPLOAD_KEY = "image";
 
     private int PICK_IMAGE_REQUEST = 1;
@@ -80,7 +80,7 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
         simpan = findViewById(R.id.btnUser_simpan);
         edt_prof_poto = findViewById(R.id.edit_prof_poto);
 
-        String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
+        String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();
 
         if (shared.equals(email)){
@@ -225,7 +225,7 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
                 if (bitmap != null){
                     uploadImage();
                     reqUpdate();
-                    sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "http://192.168.43.143/perpus_db/uploads/"+sharedPrefManager.getId()+".png");
+                    sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "http://192.168.43.236/perpus_db/uploads/"+sharedPrefManager.getId()+".png");
                 }else{
                     reqUpdate();
                 }

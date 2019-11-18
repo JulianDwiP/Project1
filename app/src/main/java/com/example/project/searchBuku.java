@@ -44,14 +44,13 @@ public class searchBuku extends AppCompatActivity {
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         rvSearchbuku = findViewById(R.id.rvSearch);
         rvSearchbuku.setLayoutManager(new LinearLayoutManager(this));
-
         getBuku("buku", "");
     }
 
     private void initToolbar() {
             Toolbar toolbar = findViewById(R.id.searchToolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("");
+            getSupportActionBar().setTitle("Cari Buku");
             Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -77,7 +76,6 @@ public class searchBuku extends AppCompatActivity {
                     searchAdapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 Log.i("debug", "Error\n"+t.getMessage());

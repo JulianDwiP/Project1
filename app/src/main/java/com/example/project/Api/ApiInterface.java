@@ -36,13 +36,13 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("insertRakBuku.php")
-    Call<rakBukuInsert> insertRakBuku(@Field("Rb_nama") String Rb_nama,
-                                      @Field("Rb_deskripsi") String Rb_deskripsi,
-                                      @Field("Rb_author") String Rb_author,
-                                      @Field("Rb_pdf_icon") String Rb_pdf_icon,
-                                      @Field("Rb_pdf_url") String Rb_pdf_url,
-                                      @Field("Rb_peringkat") String Rb_peringkat,
-                                      @Field("Rb_kategori") String Rb_kategori,
+    Call<rakBukuInsert> insertRakBuku(@Field("nama") String nama,
+                                      @Field("deskripsi") String deskripsi,
+                                      @Field("author") String author,
+                                      @Field("pdf_icon") String pdf_icon,
+                                      @Field("pdf_url") String pdf_url,
+                                      @Field("peringkat") String peringkat,
+                                      @Field("kategori") String kategori,
                                       @Field("id_user") String id_user);
 
     @FormUrlEncoded
@@ -53,10 +53,6 @@ public interface ApiInterface {
     @POST("kategori.php")
     Call<KategoriResponse> getByKategori(@Field("kategori") String kategori);
 
-//    @FormUrlEncoded
-//    @POST("searchBuku.php")
-//    Call<SearchResponse> getSearch(@Field("nama") String nama);
-//
     @GET("ambilBuku.php")
     Call<BukuResponse> getSemuaBuku();
 

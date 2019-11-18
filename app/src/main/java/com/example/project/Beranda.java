@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,7 +72,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
             hideLogin();
             namauser.setText(sharedPrefManager.getSPNama());
             emailuser.setText(sharedPrefManager.getSPEmail());
-            String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
+            String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
             String shared = sharedPrefManager.getSPImage();
 
             if (shared.equals(email)){
@@ -103,6 +105,15 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         potoPropil = headerView.findViewById(R.id.potoPropil);
         emailuser = headerView.findViewById(R.id.emailUser);
         namauser = headerView.findViewById(R.id.namaUser);
+
+        Button drawLogin = headerView.findViewById(R.id.drawLogin);
+        drawLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Beranda.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -174,9 +185,6 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(new Intent(Beranda.this, Beranda.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
-            case R.id.login:
-                Intent masuk = new Intent(Beranda.this, MainActivity.class);
-                Beranda.this.startActivity(masuk);
             default:
                     FragmentClass = fragment_beranda.class;
         }
@@ -227,12 +235,21 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
     private void hideLogin()
     {
         Menu nav_Menu = nVdrawer.getMenu();
-        nav_Menu.findItem(R.id.login).setVisible(false);
+//        nav_Menu.findItem(R.id.login).setVisible(false);
+        View headerView = nVdrawer.getHeaderView(0);
+        headerView.findViewById(R.id.drawLogin).setVisibility(View.GONE);
+        headerView.findViewById(R.id.textlogin).setVisibility(View.GONE);
+
     }
     private void showNavMenu(){
         Menu nav_menu = nVdrawer.getMenu();
         nav_menu.findItem(R.id.profile_pengguna).setVisible(false);
         nav_menu.findItem(R.id.catatan_pribadi).setVisible(false);
         nav_menu.findItem(R.id.keluar).setVisible(false);
+        View headerView = nVdrawer.getHeaderView(0);
+        headerView.findViewById(R.id.namaUser).setVisibility(View.GONE);
+        headerView.findViewById(R.id.emailUser).setVisibility(View.GONE);
+
+
     }
 }

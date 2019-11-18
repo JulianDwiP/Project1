@@ -53,7 +53,7 @@ public class profilePengguna extends AppCompatActivity {
         prof_email.setText(": "+sharedPrefManager.getSPEmail());
         prof_username.setText(": "+sharedPrefManager.getUsername());
 
-        String email = "http://192.168.43.143/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
+        String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();
 
         if (shared.equals(email)){

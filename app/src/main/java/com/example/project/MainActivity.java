@@ -115,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else{
-                    Toast.makeText(mContext, "Gagal Login ",Toast.LENGTH_SHORT).show();
                     loading.dismiss();
-
+                    Toast.makeText(mContext, "Gagal Login ",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                loading.dismiss();
                 Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });

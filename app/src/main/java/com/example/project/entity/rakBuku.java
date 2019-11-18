@@ -7,48 +7,40 @@ public class rakBuku {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("Rb_nama")
+    @SerializedName("nama")
     @Expose
-    private String Rb_nama;
-    @SerializedName("Rb_deskripsi")
+    private String nama;
+    @SerializedName("deskripsi")
     @Expose
-    private String Rb_deskripsi;
-    @SerializedName("Rb_author")
+    private String deskripsi;
+    @SerializedName("author")
     @Expose
-    private String Rb_author;
-    @SerializedName("Rb_pdf_url")
+    private String author;
+    @SerializedName("pdf_url")
     @Expose
-    private String Rb_pdfUrl;
-    @SerializedName("Rb_pdf_icon")
+    private String pdfUrl;
+    @SerializedName("pdf_icon")
     @Expose
-    private String Rb_pdfIcon;
+    private String pdfIcon;
     @SerializedName("peringkat")
     @Expose
-    private String Rb_peringkat;
-    @SerializedName("Rb_kategori")
+    private String peringkat;
+    @SerializedName("kategori")
     @Expose
-    private String Rb_kategori;
+    private String kategori;
     @SerializedName("id_user")
     @Expose
     private String id_user;
 
-    public rakBuku(String id, String rb_nama, String rb_deskripsi, String rb_author, String rb_pdfUrl, String rb_pdfIcon, String rb_peringkat, String rb_kategori, String id_user) {
+    public rakBuku(String id, String nama, String deskripsi, String author, String pdfUrl, String pdfIcon, String peringkat, String kategori, String id_user) {
         this.id = id;
-        Rb_nama = rb_nama;
-        Rb_deskripsi = rb_deskripsi;
-        Rb_author = rb_author;
-        Rb_pdfUrl = rb_pdfUrl;
-        Rb_pdfIcon = rb_pdfIcon;
-        Rb_peringkat = rb_peringkat;
-        Rb_kategori = rb_kategori;
-        id_user = id_user;
-    }
-
-    public String getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(String id_user) {
+        this.nama = nama;
+        this.deskripsi = deskripsi;
+        this.author = author;
+        this.pdfUrl = pdfUrl;
+        this.pdfIcon = pdfIcon;
+        this.peringkat = peringkat;
+        this.kategori = kategori;
         this.id_user = id_user;
     }
 
@@ -60,59 +52,67 @@ public class rakBuku {
         this.id = id;
     }
 
-    public String getRb_nama() {
-        return Rb_nama;
+    public String getNama() {
+        return nama;
     }
 
-    public void setRb_nama(String rb_nama) {
-        Rb_nama = rb_nama;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public String getRb_deskripsi() {
-        return Rb_deskripsi;
+    public String getDeskripsi() {
+        return deskripsi;
     }
 
-    public void setRb_deskripsi(String rb_deskripsi) {
-        Rb_deskripsi = rb_deskripsi;
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 
-    public String getRb_author() {
-        return Rb_author;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setRb_author(String rb_author) {
-        Rb_author = rb_author;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getRb_pdfUrl() {
-        return Rb_pdfUrl;
+    public String getPdfUrl() {
+        return pdfUrl;
     }
 
-    public void setRb_pdfUrl(String rb_pdfUrl) {
-        Rb_pdfUrl = rb_pdfUrl;
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
     }
 
-    public String getRb_pdfIcon() {
-        return Rb_pdfIcon;
+    public String getPdfIcon() {
+        return pdfIcon;
     }
 
-    public void setRb_pdfIcon(String rb_pdfIcon) {
-        Rb_pdfIcon = rb_pdfIcon;
+    public void setPdfIcon(String pdfIcon) {
+        this.pdfIcon = pdfIcon;
     }
 
-    public String getRb_peringkat() {
-        return Rb_peringkat;
+    public String getPeringkat() {
+        return peringkat;
     }
 
-    public void setRb_peringkat(String rb_peringkat) {
-        Rb_peringkat = rb_peringkat;
+    public void setPeringkat(String peringkat) {
+        this.peringkat = peringkat;
     }
 
-    public String getRb_kategori() {
-        return Rb_kategori;
+    public String getKategori() {
+        return kategori;
     }
 
-    public void setRb_kategori(String rb_kategori) {
-        Rb_kategori = rb_kategori;
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public String getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
     }
 }

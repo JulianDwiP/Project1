@@ -27,7 +27,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/biru"
-                android:text="Tambah ke rak buku"
+                android:text="Tambah ke list"
                 android:textSize="12dp"/>
             <Button
                 android:id="@+id/btnBaca"

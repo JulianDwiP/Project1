@@ -11,5 +11,5 @@
     <item
         android:id="@+id/menu_rakBuku"
         android:icon="@drawable/ic_rak_buku"
-        android:title="Rak Buku"/>
+        android:title="List Bacaan"/>
 </menu>

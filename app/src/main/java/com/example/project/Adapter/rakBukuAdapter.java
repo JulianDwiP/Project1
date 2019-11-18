@@ -58,10 +58,10 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
         final  rakBuku rakBuku = semuaBuku.get(position);
         Bitmap bmp = null;
         String poto;
-        if (rakBuku.getRb_pdfIcon().equals("")){
+        if (rakBuku.getPdfIcon().equals("")){
             poto = "pdf-icons/pingu.jpg";
         }else{
-            poto = rakBuku.getRb_pdfIcon();
+            poto = rakBuku.getPdfIcon();
         }
         try{
             URL url = new URL(ApiClient.BASE_URL+poto);
@@ -72,21 +72,21 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
             e.printStackTrace();
         }
         holder.Rb_fotoBuku.setImageBitmap(bmp);
-        holder.Rb_judulBuku.setText(rakBuku.getRb_nama());
-        holder.Rb_penulisBuku.setText(rakBuku.getRb_author());
-        holder.Rb_sinopsisBuku.setText(rakBuku.getRb_deskripsi());
+        holder.Rb_judulBuku.setText(rakBuku.getNama());
+        holder.Rb_penulisBuku.setText(rakBuku.getAuthor());
+        holder.Rb_sinopsisBuku.setText(rakBuku.getDeskripsi());
 
         holder.Rb_cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, deskripsiRakBuku.class);
-                i.putExtra("judul", rakBuku.getRb_nama());
-                i.putExtra("deskripsi", rakBuku.getRb_deskripsi());
-                i.putExtra("img", rakBuku.getRb_pdfIcon());
-                i.putExtra("pdf_url", rakBuku.getRb_pdfUrl());
-                i.putExtra("peringkat", rakBuku.getRb_peringkat());
-                i.putExtra("author",rakBuku.getRb_author());
-                i.putExtra("kategori", rakBuku.getRb_kategori());
+                i.putExtra("judul", rakBuku.getNama());
+                i.putExtra("deskripsi", rakBuku.getDeskripsi());
+                i.putExtra("img", rakBuku.getPdfIcon());
+                i.putExtra("pdf_url", rakBuku.getPdfUrl());
+                i.putExtra("peringkat", rakBuku.getPeringkat());
+                i.putExtra("author",rakBuku.getAuthor());
+                i.putExtra("kategori", rakBuku.getKategori());
                 i.putExtra("id_user", rakBuku.getId_user());
                 mContext.startActivity(i);
             }

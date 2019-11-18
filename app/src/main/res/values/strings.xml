@@ -51,4 +51,5 @@
         </string>
     <string name="title_activity_note">NoteActivity</string>
     <string name="catatanPribadi">Catatan Pribadi</string>
+    <string name="textBlumLogin">Login untuk dpt mengakses fitur-fitur di aplikasi ini</string>
 </resources>

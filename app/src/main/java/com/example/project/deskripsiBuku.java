@@ -92,11 +92,13 @@ public class deskripsiBuku extends AppCompatActivity {
                                 if (response.isSuccessful()){
                                     Boolean Status = response.body().getStatus();
                                     if (Status == true){
-                                        Toast.makeText(getApplicationContext(), "Ditambahkan ke RakBuku",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Ditambahkan ke List Bacaan",Toast.LENGTH_LONG).show();
                                     }if (sharedPrefManager.getId().equals("")){
                                         Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
                                         startActivity(intent);
+                                    }if (Status == false){
+                                        Toast.makeText(deskripsiBuku.this, "Gagal, buku sudah ada", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
