@@ -68,6 +68,7 @@ public class fragment_rakbuk extends Fragment {
                     final List<rakBuku> rakBukus = response.body().getRakBukuList();
                     context = fragment_rakbuk.this;
                     rakBukuAdapter = new rakBukuAdapter(getContext(), rakBukus);
+                    rakBukuAdapter.notifyDataSetChanged();
                     rvRakBuku.setAdapter(rakBukuAdapter);
                 }else{
                     Toast.makeText(getContext(), "Gagal", Toast.LENGTH_LONG).show();

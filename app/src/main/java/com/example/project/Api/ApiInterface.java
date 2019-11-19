@@ -4,6 +4,8 @@ import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
 import com.example.project.entity.SearchResponse;
+import com.example.project.entity.deleteListBuku;
+import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.entity.rakBukuResponse;
 
@@ -46,12 +48,21 @@ public interface ApiInterface {
                                       @Field("id_user") String id_user);
 
     @FormUrlEncoded
+    @POST("insertPeringkat.php")
+    Call<masukanPeringkatModel> masukanPeringkat(@Field("id_buku") String id_buku,
+                                                 @Field("dPeringkat") Float dPeringkat);
+    @FormUrlEncoded
     @POST("ambilRakBuku.php")
     Call<rakBukuResponse> getSemuaRakbuku(@Field("id_user") String id_user);
 
     @FormUrlEncoded
     @POST("kategori.php")
     Call<KategoriResponse> getByKategori(@Field("kategori") String kategori);
+
+    @FormUrlEncoded
+    @POST("deleteListBuku.php")
+    Call<deleteListBuku> deleteBuku(@Field("nama") String nama,
+                                    @Field("id_user") String id_user);
 
     @GET("ambilBuku.php")
     Call<BukuResponse> getSemuaBuku();

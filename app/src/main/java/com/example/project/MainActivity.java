@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, email);
                         sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD,password);
                         sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, image);
-                        Toast.makeText(mContext, "Berhasil Login ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, image,Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(mContext, Beranda.class));
                     } catch (JSONException e) {
                         e.printStackTrace();

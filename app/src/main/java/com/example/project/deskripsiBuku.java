@@ -1,21 +1,27 @@
 package com.example.project;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
 
 import java.io.ByteArrayOutputStream;
@@ -30,7 +36,7 @@ public class deskripsiBuku extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku;
     ImageView imageDesBuku;
-    Button baca, add;
+    Button baca, add, rating;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     @Override
@@ -46,6 +52,7 @@ public class deskripsiBuku extends AppCompatActivity {
     }
 
     private void ambilDataBuku() {
+        String id_buku = getIntent().getStringExtra("id_buku");
         String img_url = getIntent().getStringExtra("img");
         String judul = getIntent().getStringExtra("judul");
         String deskripsi = getIntent().getStringExtra("deskripsi");
@@ -107,12 +114,54 @@ public class deskripsiBuku extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
                                 startActivity(intent);
+                     }
+                });
+            }
+        });
+
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(deskripsiBuku.this);
+                    View layout = null;
+                    LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    layout = inflater.inflate(R.layout.rating, null);
+                    final RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
+                    builder.setTitle("Beri Peringkat");
+                    builder.setMessage("Terima kasih sudah memberi peringkat untuk buku ini");
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Float value = ratingBar.getRating();
+                            mApiInterface.masukanPeringkat(id_buku, value).enqueue(new Callback<masukanPeringkatModel>() {
+                                @Override
+                                public void onResponse(Call<masukanPeringkatModel> call, Response<masukanPeringkatModel> response) {
+                                    if (response.isSuccessful()){
+                                        String peringkat = response.body().getPeringkat();
+                                        perinkatDesBuku.setText(peringkat);
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<masukanPeringkatModel> call, Throwable t) {
+                                }
+                            });
                             }
                         });
+                        builder.setNegativeButton("Maaf, Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.setView(layout);
+                    builder.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
-
 
     private void init() {
         judulBuku = findViewById(R.id.judulDesBuku);
@@ -122,5 +171,6 @@ public class deskripsiBuku extends AppCompatActivity {
         authorDesBuku = findViewById(R.id.authorDesBuku);
         add = findViewById(R.id.btnTambah);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
+        rating = findViewById(R.id.btnRating);
     }
 }

@@ -11,6 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/desListToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primar" />
+
         <ImageView
             android:layout_margin="5dp"
             android:id="@+id/imgDesBuku"
@@ -25,6 +31,16 @@
                 android:layout_marginRight="@dimen/dimen_20dp"
                 android:background="@color/biru"
                 android:text="Baca buku"
+                android:textSize="12dp"/>
+            <Button
+                android:id="@+id/btnHapus"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="@dimen/dimen_20dp"
+                android:background="@color/biru"
+                android:text="Hapus dari list bacaan"
                 android:textSize="12dp"/>
 
         <TextView

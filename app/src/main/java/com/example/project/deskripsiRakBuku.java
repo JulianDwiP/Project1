@@ -12,22 +12,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.deleteListBuku;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class deskripsiRakBuku extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku;
     ImageView imageDesBuku;
-    Button baca;
+    Button baca, hapus;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
+    Toolbar desListToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,35 @@ public class deskripsiRakBuku extends AppCompatActivity {
                 }
             }
         });
+
+        hapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mApiInterface.deleteBuku(judul, id_user).enqueue(new Callback<deleteListBuku>() {
+                    @Override
+                    public void onResponse(Call<deleteListBuku> call, Response<deleteListBuku> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(deskripsiRakBuku.this, "Berhasil dihapus dari list", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            Toast.makeText(deskripsiRakBuku.this, "Gagal Menghapus", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<deleteListBuku> call, Throwable t) {
+                        Toast.makeText(deskripsiRakBuku.this, "Cek koneksi anda", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        desListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class );
+                startActivity(intent);
+            }
+        });
     }
     private void init() {
         judulBuku = findViewById(R.id.judulDesBuku);
@@ -87,5 +123,18 @@ public class deskripsiRakBuku extends AppCompatActivity {
         baca = findViewById(R.id.btnBaca);
         authorDesBuku = findViewById(R.id.authorDesBuku);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
+        hapus = findViewById(R.id.btnHapus);
+        desListToolbar = findViewById(R.id.desListToolbar);
+
+        setSupportActionBar(desListToolbar);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
+        startActivity(intent);
     }
 }

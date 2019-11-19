@@ -79,6 +79,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, deskripsiBuku.class);
+                i.putExtra("id_buku", buku.getId());
                 i.putExtra("judul", buku.getNama());
                 i.putExtra("deskripsi", buku.getDeskripsi());
                 i.putExtra("img", buku.getPdfIcon());
