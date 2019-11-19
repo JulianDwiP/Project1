@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project.Api.ApiClient;
+import com.example.project.R;
+import com.example.project.SharedPref.SharedPrefManager;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
@@ -20,12 +22,13 @@ import java.io.File;
 
 public class PdfActivity extends AppCompatActivity implements OnLoadCompleteListener, OnPageErrorListener {
 
+    SharedPrefManager sharedPrefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
         final PDFView pdfView = findViewById(R.id.pdfView);
-
+        sharedPrefManager = new SharedPrefManager(this);
 
         Intent i = this.getIntent();
         final String pdf_url = i.getExtras().getString("pdf_urll");

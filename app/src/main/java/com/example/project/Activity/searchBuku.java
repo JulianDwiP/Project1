@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.Adapter.SearchAdapter;
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
+import com.example.project.R;
 import com.example.project.entity.SearchModel;
 import com.example.project.entity.SearchResponse;
 

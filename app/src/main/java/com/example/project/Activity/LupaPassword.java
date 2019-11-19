@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,24 +11,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.example.project.R;
 
 public class LupaPassword extends AppCompatActivity {
     private static final String TAG = "KirimEmail";
     private static final int REQUEST_SIGNUP = 0;
-    @BindView(R.id.etEmail)
     EditText emailText;
-    @BindView(R.id.btnKirim)
     Button kirimBtn;
-    @BindView(R.id.btnKembali)
     Button kembali;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lupa_password);
-        ButterKnife.bind(this);
+        emailText = findViewById(R.id.etEmail);
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

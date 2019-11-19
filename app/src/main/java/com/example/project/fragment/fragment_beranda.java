@@ -67,6 +67,7 @@ public class fragment_beranda extends Fragment {
                     context = fragment_beranda.this;
                     bukuAdapter = new BukuAdapter(getContext(), semuaBukus);
                     recyclerView.setAdapter(bukuAdapter);
+                    bukuAdapter.notifyDataSetChanged();
                 }else{
                     Toast.makeText(getContext(), "Gagal", Toast.LENGTH_LONG).show();
                 }

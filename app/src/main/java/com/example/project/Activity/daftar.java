@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
+import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
 
 import org.json.JSONException;

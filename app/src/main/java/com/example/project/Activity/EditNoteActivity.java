@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.project.Model.Note;
+import com.example.project.R;
 import com.example.project.db_note.NotesDB;
 import com.example.project.db_note.NotesDao;
 

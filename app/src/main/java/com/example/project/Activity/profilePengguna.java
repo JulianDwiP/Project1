@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;

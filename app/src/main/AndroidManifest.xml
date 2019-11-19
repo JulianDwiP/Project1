@@ -17,27 +17,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".searchBuku">
+        <activity android:name=".Activity.searchBuku">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
-        <activity android:name=".deskripsiRakBuku" />
-        <activity android:name=".PdfActivity" />
-        <activity android:name=".deskripsiBuku" />
-        <activity android:name=".editUser" />
-        <activity android:name=".Beranda" />
-        <activity android:name=".NotesActivity" />
+        <activity android:name=".Activity.deskripsiRakBuku" />
+        <activity android:name=".Activity.PdfActivity" />
+        <activity android:name=".Activity.deskripsiBuku" />
+        <activity android:name=".Activity.editUser" />
+        <activity android:name=".Activity.Beranda" />
+        <activity android:name=".Activity.NotesActivity" />
         <activity
-            android:name=".EditNoteActivity"
-            android:parentActivityName=".NotesActivity" />
-        <activity android:name=".profilePengguna" />
-        <activity android:name=".LupaPassword" />
-        <activity android:name=".daftar" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Splash">
+            android:name=".Activity.EditNoteActivity"
+            android:parentActivityName=".Activity.NotesActivity" />
+        <activity android:name=".Activity.profilePengguna" />
+        <activity android:name=".Activity.LupaPassword" />
+        <activity android:name=".Activity.daftar" />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

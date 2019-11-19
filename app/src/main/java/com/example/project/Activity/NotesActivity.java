@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Adapter.NotesAdapter;
 import com.example.project.Model.Note;
+import com.example.project.R;
 import com.example.project.callbacks.MainActionModeCallback;
 import com.example.project.callbacks.NoteEventListener;
 import com.example.project.db_note.NotesDB;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.project.EditNoteActivity.NOTE_EXTRA_Key;
+import static com.example.project.Activity.EditNoteActivity.NOTE_EXTRA_Key;
 
 
 public class NotesActivity extends AppCompatActivity implements NoteEventListener, Drawer.OnDrawerItemClickListener {

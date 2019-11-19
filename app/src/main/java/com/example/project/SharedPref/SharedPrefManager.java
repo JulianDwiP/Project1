@@ -16,6 +16,7 @@ public class SharedPrefManager {
 
     public static final String CEK_SESSION = "CekSession";
     public static final String CEK_GAMBAR = "CekGambar";
+    public static final String CEK_BACA = "CekBaca";
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -70,5 +71,9 @@ public class SharedPrefManager {
 
     public Boolean AdaGambarApaNgga(){
         return sp.getBoolean(CEK_GAMBAR, false);
+    }
+
+    public Boolean udahBacaBlum(){
+        return sp.getBoolean(CEK_BACA, false);
     }
 }

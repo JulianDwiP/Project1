@@ -13,9 +13,9 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.Activity.deskripsiRakBuku;
 import com.example.project.Api.ApiClient;
 import com.example.project.R;
-import com.example.project.deskripsiRakBuku;
 import com.example.project.entity.rakBuku;
 
 import java.io.ByteArrayOutputStream;
@@ -83,6 +83,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
                 i.putExtra("judul", rakBuku.getNama());
                 i.putExtra("deskripsi", rakBuku.getDeskripsi());
                 i.putExtra("img", rakBuku.getPdfIcon());
+                i.putExtra("id_buku", rakBuku.getId());
                 i.putExtra("pdf_url", rakBuku.getPdfUrl());
                 i.putExtra("peringkat", rakBuku.getPeringkat());
                 i.putExtra("author",rakBuku.getAuthor());

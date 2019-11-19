@@ -5,20 +5,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profilePengguna">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    tools:context=".Activity.profilePengguna">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar3"
             android:layout_width="match_parent"
+            app:titleTextColor="@color/md_white_1000"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </com.google.android.material.appbar.AppBarLayout>
     <include layout="@layout/layout_toolbar_profile" />
     <include layout="@layout/content_profile_pengguna" />
 
