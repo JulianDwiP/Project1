@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +37,13 @@ import retrofit2.Response;
 
 public class deskripsiBuku extends AppCompatActivity {
 
-    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku;
+    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku;
     ImageView imageDesBuku;
     Button baca, add, rating;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     Toolbar desToolbar;
+    LinearLayout linearRating;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +77,10 @@ public class deskripsiBuku extends AppCompatActivity {
         judulBuku.setText(judul);
         deskripsiBuku1.setText(deskripsi);
         imageDesBuku.setImageBitmap(bmp);
-        perinkatDesBuku.setText(": "+peringkat);
-        authorDesBuku.setText(": "+author);
+        perinkatDesBuku.setText(peringkat);
+        authorDesBuku.setText(author);
+        kategoriDesBuku.setText(kategori);
+        getSupportActionBar().setTitle(judul);
 
         baca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +125,7 @@ public class deskripsiBuku extends AppCompatActivity {
                 });
             }
         });
-
-        rating.setOnClickListener(new View.OnClickListener() {
+        linearRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
@@ -131,8 +134,8 @@ public class deskripsiBuku extends AppCompatActivity {
                     LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     layout = inflater.inflate(R.layout.rating, null);
                     final RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
-                    builder.setTitle("Beri Peringkat");
-                    builder.setMessage("Terima kasih sudah memberi peringkat untuk buku ini");
+                    builder.setTitle("Sentuh untuk memberi rating");
+                    builder.setMessage("Terima kasih");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Float value = ratingBar.getRating();
@@ -164,6 +167,13 @@ public class deskripsiBuku extends AppCompatActivity {
                 }
             }
         });
+        desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init() {
@@ -172,10 +182,12 @@ public class deskripsiBuku extends AppCompatActivity {
         imageDesBuku = findViewById(R.id.imgDesBuku);
         baca = findViewById(R.id.btnBaca);
         authorDesBuku = findViewById(R.id.authorDesBuku);
+        kategoriDesBuku = findViewById(R.id.tvDesKategori);
         add = findViewById(R.id.btnTambah);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
-        rating = findViewById(R.id.btnRating);
+//        rating = findViewById(R.id.btnRating);
         desToolbar = findViewById(R.id.desToolbar);
+        linearRating  = findViewById(R.id.ratingLinear);
 
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

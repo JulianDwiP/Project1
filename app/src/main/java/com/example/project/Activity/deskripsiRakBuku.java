@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.masukanPeringkatModel;
+import com.example.project.entity.rakBukuInsert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,12 +39,13 @@ import retrofit2.Response;
 
 public class deskripsiRakBuku extends AppCompatActivity {
 
-    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku;
+    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku;
     ImageView imageDesBuku;
-    Button baca, hapus, btnPeringkat;
+    Button baca, hapus;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
-    Toolbar desListToolbar;
+    Toolbar desToolbar;
+    LinearLayout linearRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,35 +70,36 @@ public class deskripsiRakBuku extends AppCompatActivity {
         String kategori = getIntent().getStringExtra("kategori");
         String id_user = getIntent().getStringExtra("id_user");
         Bitmap bmp = null;
-        try {
-            URL url = new URL(ApiClient.BASE_URL + img_url);
+        try{
+            URL url = new URL(ApiClient.BASE_URL+img_url);
             bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-        } catch (IOException e) {
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, bos );
+        }catch (IOException e){
             e.printStackTrace();
         }
         judulBuku.setText(judul);
         deskripsiBuku1.setText(deskripsi);
         imageDesBuku.setImageBitmap(bmp);
-        perinkatDesBuku.setText(": " + peringkat);
-        authorDesBuku.setText(": " + author);
+        perinkatDesBuku.setText(peringkat);
+        authorDesBuku.setText(author);
+        kategoriDesBuku.setText(kategori);
+        getSupportActionBar().setTitle(judul);
 
         baca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sharedPrefManager.getSPSudahLogin()) {
+                if (sharedPrefManager.getSPSudahLogin()){
                     Intent i = new Intent(deskripsiRakBuku.this, PdfActivity.class);
                     i.putExtra("pdf_urll", pdf_url);
                     startActivity(i);
-                } else {
+                }else{
                     Toast.makeText(getApplicationContext(), "Harap Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(deskripsiRakBuku.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
         });
-
         hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,16 +120,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
                 });
             }
         });
-
-        desListToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class );
-                startActivity(intent);
-            }
-        });
-
-        btnPeringkat.setOnClickListener(new View.OnClickListener() {
+        linearRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
@@ -133,27 +129,24 @@ public class deskripsiRakBuku extends AppCompatActivity {
                     LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     layout = inflater.inflate(R.layout.rating, null);
                     final RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
-                    builder.setTitle("Beri Peringkat");
-                    builder.setMessage("Terima kasih sudah memberi peringkat untuk buku ini");
+                    builder.setTitle("Sentuh untuk memberi rating");
+                    builder.setMessage("Terima kasih");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Float value = ratingBar.getRating();
-                                mApiInterface.masukanPeringkat(id_buku, value).enqueue(new Callback<masukanPeringkatModel>() {
-                                    @Override
-                                    public void onResponse(Call<masukanPeringkatModel> call, Response<masukanPeringkatModel> response) {
-                                        if (response.isSuccessful()){
-                                            String peringkat = response.body().getPeringkat();
-                                            perinkatDesBuku.setText(peringkat);
-                                        }else{
-                                            Toast.makeText(deskripsiRakBuku.this, "Gagal memberi rating", Toast.LENGTH_SHORT).show();
-                                        }
+                            mApiInterface.masukanPeringkat(id_buku, value).enqueue(new Callback<masukanPeringkatModel>() {
+                                @Override
+                                public void onResponse(Call<masukanPeringkatModel> call, Response<masukanPeringkatModel> response) {
+                                    if (response.isSuccessful()){
+                                        String peringkat = response.body().getPeringkat();
+                                        perinkatDesBuku.setText(peringkat);
                                     }
-                                    @Override
-                                    public void onFailure(Call<masukanPeringkatModel> call, Throwable t) {
-                                        Toast.makeText(deskripsiRakBuku.this, "Cek Koneksi Anda", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
+                                }
+                                @Override
+                                public void onFailure(Call<masukanPeringkatModel> call, Throwable t) {
+                                }
+                            });
+                        }
                     });
                     builder.setNegativeButton("Maaf, Tidak", new DialogInterface.OnClickListener() {
                         @Override
@@ -169,24 +162,31 @@ public class deskripsiRakBuku extends AppCompatActivity {
                 }
             }
         });
+        desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
+                startActivity(intent);
+            }
+        });
     }
     private void init() {
-        judulBuku = findViewById(R.id.judulDesBuku);
-        deskripsiBuku1 = findViewById(R.id.sinopsisDesBuku);
-        imageDesBuku = findViewById(R.id.imgDesBuku);
-        baca = findViewById(R.id.btnBaca);
-        authorDesBuku = findViewById(R.id.authorDesBuku);
-        perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
-        hapus = findViewById(R.id.btnHapus);
-        desListToolbar = findViewById(R.id.desListToolbar);
-        btnPeringkat = findViewById(R.id.btnPeringkat);
+        judulBuku = findViewById(R.id.judulDesRakBuku);
+        deskripsiBuku1 = findViewById(R.id.sinopsisDesRakBuku);
+        imageDesBuku = findViewById(R.id.imgDesRakBuku);
+        baca = findViewById(R.id.btnDesRakBaca);
+        hapus = findViewById(R.id.btnDesRakHapus);
+        authorDesBuku = findViewById(R.id.authorDesRakBuku);
+        kategoriDesBuku = findViewById(R.id.tvDesRakKategori);
+        perinkatDesBuku = findViewById(R.id.peringkatDesRakBuku);
+//        rating = findViewById(R.id.btnRating);
+        desToolbar = findViewById(R.id.desRakToolbar);
+        linearRating  = findViewById(R.id.ratingRakLinear);
 
-        setSupportActionBar(desListToolbar);
-
+        setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
