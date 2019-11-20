@@ -43,8 +43,8 @@
                 android:textAlignment="viewStart"
                 android:layout_marginRight="5dp"
                 android:text="Judul Buku"
-                android:textStyle="bold"
-                android:textSize="24dp" />
+                android:textColor="#353434"
+                android:textSize="22dp" />
             <TextView
                 android:id="@+id/authorDesBuku"
                 android:layout_width="wrap_content"
@@ -59,7 +59,6 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_height="80dp">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,8 +72,8 @@
                 android:paddingLeft="10dp"/>
             <TextView
                 android:layout_width="3dp"
-                android:layout_marginLeft="30dp"
-                android:background="#8F8A8A"
+                android:layout_marginLeft="35dp"
+                android:background="#ACA8A8"
                 android:layout_gravity="center_vertical"
                 android:layout_height="35dp"/>
             <TextView
@@ -83,7 +82,7 @@
                 android:layout_gravity="center_vertical"
                 android:drawableTop="@drawable/ic_ebook"
                 android:text="eBook"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="35dp"
                 />
             <TextView
                 android:layout_width="3dp"
@@ -97,7 +96,7 @@
                 android:text="Kategori"
                 android:textAlignment="center"
                 android:textSize="14dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="35dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"/>
@@ -115,7 +114,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="34dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="34dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:background="@color/biru"
@@ -165,6 +164,17 @@
 <!--            android:text="beri peringkat"-->
 <!--            android:layout_gravity="center"/>-->
 
+        <Button
+            android:id="@+id/btnSebelumloginDesBuk"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/biru"
+            android:text="Lanjut Baca"
+            android:textSize="12dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/ratingLinear"
@@ -173,7 +183,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Masukan Rating Buku"
+                android:text="Beri Rating Buku"
                 android:layout_gravity="center_horizontal"
                 android:textSize="19dp"
                 android:textStyle="bold"

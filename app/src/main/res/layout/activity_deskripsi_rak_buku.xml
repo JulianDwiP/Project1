@@ -33,18 +33,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/judulDesRakBuku"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAlignment="viewStart"
                     android:layout_marginRight="5dp"
                     android:text="Judul Buku"
-                    android:textStyle="bold"
-                    android:textSize="24dp" />
+                    android:textAlignment="viewStart"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/authorDesRakBuku"
                     android:layout_width="wrap_content"
@@ -103,6 +105,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <RelativeLayout
+            android:id="@+id/btnSesudahLoginDesRakBuku"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -157,14 +160,6 @@
             android:text=""
             android:layout_marginLeft="20dp"
             android:textSize="17dp"/>
-
-        <!--        <Button-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/btnRating"-->
-        <!--            android:text="beri peringkat"-->
-        <!--            android:layout_gravity="center"/>-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/ratingRakLinear"
@@ -173,7 +168,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Masukan Rating Buku"
+                android:text="Beri Rating Buku"
                 android:layout_gravity="center_horizontal"
                 android:textSize="19dp"
                 android:textStyle="bold"

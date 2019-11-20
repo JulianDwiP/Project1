@@ -179,7 +179,6 @@ public class deskripsiRakBuku extends AppCompatActivity {
         authorDesBuku = findViewById(R.id.authorDesRakBuku);
         kategoriDesBuku = findViewById(R.id.tvDesRakKategori);
         perinkatDesBuku = findViewById(R.id.peringkatDesRakBuku);
-//        rating = findViewById(R.id.btnRating);
         desToolbar = findViewById(R.id.desRakToolbar);
         linearRating  = findViewById(R.id.ratingRakLinear);
 

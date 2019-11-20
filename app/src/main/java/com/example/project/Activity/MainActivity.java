@@ -95,35 +95,38 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
-                        String id = jsonObject.getString("id");
-                        String nama = jsonObject.getString("nama");
-                        String username = jsonObject.getString("username");
-                        String email = jsonObject.getString("email");
-                        String password = jsonObject.getString("en_password");
-                        String image = jsonObject.getString("image");
-                        sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, true);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.ID, id);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, nama);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, username);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, email);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD,password);
-                        sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, image);
-                        Toast.makeText(mContext, image,Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(mContext, Beranda.class));
+                        if (jsonObject.getString("error").equals("false")){
+                            String id = jsonObject.getJSONObject("list").getString("id");
+                            String nama = jsonObject.getJSONObject("list").getString("nama");
+                            String username = jsonObject.getJSONObject("list").getString("username");
+                            String email = jsonObject.getJSONObject("list").getString("email");
+                            String password = jsonObject.getJSONObject("list").getString("en_password");
+                            String image = jsonObject.getJSONObject("list").getString("image");
+                            sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, true);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.ID, id);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, nama);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, username);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, email);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.PASSWORD,password);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, image);
+                            Toast.makeText(mContext, "Login Berhasil",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(mContext, Beranda.class));
+                        }else{
+                            loading.dismiss();
+                            Toast.makeText(mContext, "Login Gagal, Email atau Password Salah", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }else{
-                    loading.dismiss();
                     Toast.makeText(mContext, "Gagal Login ",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                loading.dismiss();
                 Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });

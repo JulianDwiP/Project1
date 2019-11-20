@@ -36,10 +36,6 @@ public class SharedPrefManager {
         loginEditor.commit();
     }
 
-    public void simpanSPInt(String keySP, int value){
-        loginEditor.putInt(keySP, value);
-        loginEditor.commit();
-    }
     public void simpanSPBoolean(String keySP, boolean value){
         loginEditor.putBoolean(keySP, value);
         loginEditor.commit();

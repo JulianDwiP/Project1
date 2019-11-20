@@ -28,7 +28,13 @@
         <activity android:name=".Activity.PdfActivity" />
         <activity android:name=".Activity.deskripsiBuku" />
         <activity android:name=".Activity.editUser" />
-        <activity android:name=".Activity.Beranda" />
+        <activity android:name=".Activity.Beranda" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.NotesActivity" />
         <activity
             android:name=".Activity.EditNoteActivity"
@@ -38,11 +44,7 @@
         <activity android:name=".Activity.daftar" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class deskripsiBuku extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku;
     ImageView imageDesBuku;
-    Button baca, add, rating;
+    Button baca, add, sebelumLogin;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     Toolbar desToolbar;
@@ -52,8 +53,15 @@ public class deskripsiBuku extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         init();
-        ambilDataBuku();
         sharedPrefManager = new SharedPrefManager(this);
+        if(sharedPrefManager.getSPSudahLogin()){
+            sebelumLogin.setVisibility(View.GONE);
+        }else{
+            baca.setVisibility(View.GONE);
+            add.setVisibility(View.GONE);
+            linearRating.setVisibility(View.GONE);
+        }
+        ambilDataBuku();
     }
 
     private void ambilDataBuku() {
@@ -174,6 +182,15 @@ public class deskripsiBuku extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        sebelumLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(deskripsiBuku.this, "Harap login terlebih dahulu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init() {
@@ -188,7 +205,7 @@ public class deskripsiBuku extends AppCompatActivity {
 //        rating = findViewById(R.id.btnRating);
         desToolbar = findViewById(R.id.desToolbar);
         linearRating  = findViewById(R.id.ratingLinear);
-
+        sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

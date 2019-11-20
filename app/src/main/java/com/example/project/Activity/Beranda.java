@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -207,10 +208,16 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
         switch (menuItem.getItemId() ){
             case R.id.menu_rakBuku:
-                fragmentClass = fragment_rakbuk.class;
+                if (sharedPrefManager.getSPSudahLogin()){
+                    fragmentClass = fragment_rakbuk.class;    
+                }else{
+                    Toast.makeText(this, "Harap login terlebih dahulu", Toast.LENGTH_SHORT).show();
+                 Intent intent = new Intent(Beranda.this, MainActivity.class);
+                 startActivity(intent);
+                }
                 break;
             case R.id.menu_kategori:
                 fragmentClass = fragment_kategori.class;

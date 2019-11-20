@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -90,22 +90,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="80dp"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:text="Belum punya akun?"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="Belum punya akun?"/>
             <TextView
                 android:id="@+id/tvDaftar"
                 android:layout_marginLeft="5dp"
@@ -113,30 +109,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daftar Disini"/>
-        </LinearLayout>
-    <TextView
-        android:layout_marginBottom="20dp"
-        android:text="atau masuk dengan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/btnGoogle"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/google"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-        <ImageButton
-            android:id="@+id/btnFacebook"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/facebook_box"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-        </LinearLayout>
     </LinearLayout>
-
-
 
 </RelativeLayout>
