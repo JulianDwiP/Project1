@@ -258,7 +258,5 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         View headerView = nVdrawer.getHeaderView(0);
         headerView.findViewById(R.id.namaUser).setVisibility(View.GONE);
         headerView.findViewById(R.id.emailUser).setVisibility(View.GONE);
-
-
     }
 }

@@ -98,5 +98,10 @@ public class profilePengguna extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(profilePengguna.this, Beranda.class);
+        startActivity(intent);
+    }
 }
 

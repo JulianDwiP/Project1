@@ -58,6 +58,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Pengarang  : "
                                 android:textSize="16dp" />
+
                             <TextView
                                 android:id="@+id/penulisBuku"
                                 android:layout_width="wrap_content"
@@ -65,6 +66,16 @@
                                 android:text=""
                                 android:textSize="18dp"/>
                         </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/peringkatRecyclerView"
+                            android:textSize="16dp"
+                            android:textColor="#535353"
+                            android:drawableRight="@drawable/ic_star_rv"
+                            android:text="4.5 "
+                            android:layout_gravity="center_vertical"
+                            android:paddingLeft="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:paddingLeft="5dp"

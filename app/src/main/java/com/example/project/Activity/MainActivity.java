@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(
-                        MainActivity.this, LupaPassword.class);
+                        MainActivity.this, LupaPasswordVerifiAcc.class);
                 startActivity(intent);
             }
         });
@@ -145,5 +145,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return validate;
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MainActivity.this, Beranda.class);
+        startActivity(intent);
     }
 }

@@ -234,4 +234,9 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
             }
         }
     }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(editUser.this, profilePengguna.class);
+        startActivity(intent);
+    }
 }

@@ -28,7 +28,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
     Context mContext;
 
     public class rakBukuHolder extends RecyclerView.ViewHolder {
-        TextView Rb_judulBuku, Rb_penulisBuku, Rb_sinopsisBuku;
+        TextView Rb_judulBuku, Rb_penulisBuku, Rb_sinopsisBuku, peringkat;
         ImageView Rb_fotoBuku;
         CardView Rb_cardViewBuku;
         public rakBukuHolder(View view) {
@@ -38,6 +38,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
             Rb_sinopsisBuku = view.findViewById(R.id.sinopsisBuku);
             Rb_fotoBuku = view.findViewById(R.id.fotoBuku);
             Rb_cardViewBuku = view.findViewById(R.id.CardViewBuku);
+            peringkat = view.findViewById(R.id.peringkatRecyclerView);
         }
     }
 
@@ -75,7 +76,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
         holder.Rb_judulBuku.setText(rakBuku.getNama());
         holder.Rb_penulisBuku.setText(rakBuku.getAuthor());
         holder.Rb_sinopsisBuku.setText(rakBuku.getDeskripsi());
-
+        holder.peringkat.setText(rakBuku.getPeringkat());
         holder.Rb_cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

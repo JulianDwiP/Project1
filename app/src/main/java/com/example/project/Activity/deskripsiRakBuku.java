@@ -186,9 +186,4 @@ public class deskripsiRakBuku extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
-        startActivity(intent);
-    }
 }

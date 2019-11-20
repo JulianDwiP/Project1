@@ -61,6 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
         holder.judulBuku.setText(searchModel.getNama());
         holder.penulisBuku.setText(searchModel.getAuthor());
         holder.sinopsisBuku.setText(searchModel.getDeskripsi());
+        holder.peringkat.setText(searchModel.getPeringkat());
 
         holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +86,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
     }
 
     public class SearchHolder extends RecyclerView.ViewHolder {
-        TextView judulBuku, penulisBuku, sinopsisBuku;
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkat;
         ImageView fotoBuku;
         CardView cardViewBuku;
         public SearchHolder( View itemView) {
@@ -95,6 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
             sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
+            peringkat = itemView.findViewById(R.id.peringkatRecyclerView);
         }
     }
 }

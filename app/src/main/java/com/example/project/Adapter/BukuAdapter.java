@@ -29,7 +29,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
     List<Buku> semuaBuku;
     Context mContext;
     class BukuViewHolder extends  RecyclerView.ViewHolder{
-        TextView judulBuku, penulisBuku, sinopsisBuku;
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku;
         ImageView fotoBuku;
         CardView cardViewBuku;
 
@@ -40,6 +40,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
             sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
+            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
         }
     }
     public BukuAdapter (Context context, List<Buku> bukuList ){
@@ -74,6 +75,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
         holder.judulBuku.setText(buku.getNama());
         holder.penulisBuku.setText(buku.getAuthor());
         holder.sinopsisBuku.setText(buku.getDeskripsi());
+        holder.peringkatBuku.setText(buku.getPeringkat());
 
         holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override

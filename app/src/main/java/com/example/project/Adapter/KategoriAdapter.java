@@ -28,7 +28,7 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.Katego
     List<Kategori> semuaIsiKategori;
     Context mContext;
     public class KategoriViewHolder extends RecyclerView.ViewHolder {
-        TextView Kat_judulBuku, Kat_penulisBuku, Kat_sinopsisBuku;
+        TextView Kat_judulBuku, Kat_penulisBuku, Kat_sinopsisBuku, peringkat ;
         ImageView Kat_fotoBuku;
         CardView Kat_cardViewBuku;
         public KategoriViewHolder(@NonNull View itemView) {
@@ -38,7 +38,7 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.Katego
             Kat_sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             Kat_fotoBuku = itemView.findViewById(R.id.fotoBuku);
             Kat_cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
-
+            peringkat = itemView.findViewById(R.id.peringkatRecyclerView);
         }
     }
 
@@ -75,6 +75,7 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.Katego
         holder.Kat_judulBuku.setText(kategori.getNama());
         holder.Kat_penulisBuku.setText(kategori.getAuthor());
         holder.Kat_sinopsisBuku.setText(kategori.getDeskripsi());
+        holder.peringkat.setText(kategori.getPeringkat());
 
         holder.Kat_cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override

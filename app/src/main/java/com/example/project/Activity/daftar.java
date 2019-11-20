@@ -123,24 +123,7 @@ public class daftar extends AppCompatActivity {
                         Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
                     }
                 });
-//        mApiInterface.registerRequest(
-//                namaText.getText().toString(),
-//                usernameText.getText().toString(),
-//                emailText.getText().toString(),
-//                passwordText.getText().toString()).enqueue(new Callback<UserModel>() {
-//            @Override
-//            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-//                if (response.isSuccessful()){
-//                    Toast.makeText(mContext, "Berhasil Daftar",Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(mContext, MainActivity.class));
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<UserModel> call, Throwable t) {
-//                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
+            }
 
     public static boolean isValidEmail(String email) {
         boolean validate;

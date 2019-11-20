@@ -64,6 +64,15 @@ public interface ApiInterface {
     Call<deleteListBuku> deleteBuku(@Field("nama") String nama,
                                     @Field("id_user") String id_user);
 
+    @FormUrlEncoded
+    @POST("verifikasiAcc.php")
+    Call<ResponseBody> getAkun(@Field("email") String email,
+                             @Field("username") String username);
+    @FormUrlEncoded
+    @POST("gantiPassword.php")
+    Call<ResponseBody> setPassword(@Field("id") String id,
+                                   @Field("password") String password);
+
     @GET("ambilBuku.php")
     Call<BukuResponse> getSemuaBuku();
 
