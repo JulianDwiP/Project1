@@ -128,6 +128,8 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
                             String username = jsonRESULT.getJSONObject("user").getString("username");
                             sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, nama);
                             sharedPrefManager.simpanSPSring(SharedPrefManager.USERNAME, username);
+                            sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE,
+                                    "http://192.168.43.236/perpus_db/uploads/"+sharedPrefManager.getId()+".png");
                             Toast.makeText(mContext, "Berhasil Merubah",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(editUser.this, profilePengguna.class);
                             startActivity(intent);
@@ -227,8 +229,7 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
                 if (bitmap != null){
                     uploadImage();
                     reqUpdate();
-                    sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "http://192.168.43.236/perpus_db/uploads/"+sharedPrefManager.getId()+".png");
-                }else{
+                    }else{
                     reqUpdate();
                 }
             }

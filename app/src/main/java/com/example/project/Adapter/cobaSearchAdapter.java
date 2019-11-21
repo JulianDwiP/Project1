@@ -45,7 +45,6 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
             peringkat = itemView.findViewById(R.id.peringkatRecyclerView);
-//            gadaBuku = itemView.findViewById(R.id.gadaBuku);
         }
     }
     @Override
@@ -57,8 +56,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
     @Override
     public void onBindViewHolder(cobaSearchAdapter.ViewHolder holder, int position) {
         final cobaSearchModel search = cobaSearchModels.get(position);
-//        if (search !=null){
-//            holder.gadaBuku.setVisibility(View.GONE);
+
             Bitmap bmp = null;
             String poto;
             if (search.getPdfIcon().equals("")){
@@ -83,21 +81,22 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
             holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(mContext, deskripsiBuku.class);
-                    i.putExtra("judul", search.getNama());
-                    i.putExtra("deskripsi", search.getDeskripsi());
-                    i.putExtra("img", search.getPdfIcon());
-                    i.putExtra("pdf_url", search.getPdfUrl());
-                    i.putExtra("peringkat", search.getPeringkat());
-                    i.putExtra("author", search.getAuthor());
-                    i.putExtra("kategori", search.getKategori());
-                    mContext.startActivity(i);
+                    try{
+                        Intent i = new Intent(mContext, deskripsiBuku.class);
+                        i.putExtra("judul", search.getNama());
+                        i.putExtra("deskripsi", search.getDeskripsi());
+                        i.putExtra("img", search.getPdfIcon());
+                        i.putExtra("pdf_url", search.getPdfUrl());
+                        i.putExtra("peringkat", search.getPeringkat());
+                        i.putExtra("author", search.getAuthor());
+                        i.putExtra("kategori", search.getKategori());
+                        i.putExtra("pengunjung", String.valueOf(search.getPengunjung()));
+                        mContext.startActivity(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
-//        }else{
-//            holder.
-//        }
-
     }
 
     @Override

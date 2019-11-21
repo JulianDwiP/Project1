@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class searchCoba extends AppCompatActivity {
     ApiInterface mApiInterface;
     RecyclerView rvCobaSearch;
-    Context mContext;
+    Context context;
     EditText cobaSearch;
     ImageView img;
     cobaSearchAdapter cobaSearchAdapter;
@@ -77,11 +77,12 @@ public class searchCoba extends AppCompatActivity {
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     final List<Buku> semuaBukus = response.body().getList();
-                    cobaAdapterr = new cobaAdapter(semuaBukus, mContext);
+                    context = searchCoba.this;
+                    cobaAdapterr = new cobaAdapter(semuaBukus, context);
                     rvCobaSearch.setAdapter(cobaAdapterr);
                     cobaAdapterr.notifyDataSetChanged();
                 }else{
-                    Toast.makeText(mContext, "Gagal", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Gagal", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -103,10 +104,11 @@ public class searchCoba extends AppCompatActivity {
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     final List<cobaSearchModel> cobaSearchModels = response.body().getList();
-                    cobaSearchAdapter = new cobaSearchAdapter(cobaSearchModels, mContext);
+                    context = searchCoba.this;
+                    cobaSearchAdapter = new cobaSearchAdapter(cobaSearchModels, context);
                     rvCobaSearch.setAdapter(cobaSearchAdapter);
                     }else{
-                    Toast.makeText(mContext, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Gagal", Toast.LENGTH_SHORT).show();
                 }
             }
 

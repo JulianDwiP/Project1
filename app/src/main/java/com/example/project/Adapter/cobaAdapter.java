@@ -25,12 +25,26 @@ import java.net.URL;
 import java.util.List;
 
 public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
-    List<Buku> semuaBuku;
+    List<Buku> semuaBukus;
     Context mContext;
 
-    public cobaAdapter(List<Buku> semuaBuku, Context mContext) {
-        this.semuaBuku = semuaBuku;
-        this.mContext = mContext;
+    public cobaAdapter(List<Buku> semuaBuku, Context context) {
+        semuaBukus = semuaBuku;
+        mContext = context;
+    }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku;
+        ImageView fotoBuku;
+        CardView cardViewBuku;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            judulBuku = itemView.findViewById(R.id.judulBuku);
+            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
+            fotoBuku = itemView.findViewById(R.id.fotoBuku);
+            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
+            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
+        }
     }
 
     @Override
@@ -41,7 +55,7 @@ public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull cobaAdapter.ViewHolder holder, int position) {
-        final Buku buku = semuaBuku.get(position);
+        final Buku buku = semuaBukus.get(position);
         Bitmap bmp = null;
         String poto;
         if (buku.getPdfIcon().equals("")){
@@ -66,37 +80,25 @@ public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
         holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, deskripsiBuku.class);
-                i.putExtra("id_buku", buku.getId());
-                i.putExtra("judul", buku.getNama());
-                i.putExtra("deskripsi", buku.getDeskripsi());
-                i.putExtra("img", buku.getPdfIcon());
-                i.putExtra("pdf_url", buku.getPdfUrl());
-                i.putExtra("peringkat", buku.getPeringkat());
-                i.putExtra("author", buku.getAuthor());
-                i.putExtra("kategori", buku.getKategori());
-                mContext.startActivity(i);
+                Intent intent = new Intent(mContext, deskripsiBuku.class);
+                intent.putExtra("id_buku", buku.getId());
+                intent.putExtra("judul", buku.getNama());
+                intent.putExtra("deskripsi", buku.getDeskripsi());
+                intent.putExtra("img", buku.getPdfIcon());
+                intent.putExtra("pdf_url", buku.getPdfUrl());
+                intent.putExtra("peringkat", buku.getPeringkat());
+                intent.putExtra("author", buku.getAuthor());
+                intent.putExtra("kategori", buku.getKategori());
+                intent.putExtra("pengunjung", String.valueOf(buku.getPengunjung()));
+                mContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return semuaBuku.size();
+        return semuaBukus.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku;
-        ImageView fotoBuku;
-        CardView cardViewBuku;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            judulBuku = itemView.findViewById(R.id.judulBuku);
-            penulisBuku = itemView.findViewById(R.id.penulisBuku);
-            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
-            fotoBuku = itemView.findViewById(R.id.fotoBuku);
-            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
-            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
-        }
-    }
+
 }

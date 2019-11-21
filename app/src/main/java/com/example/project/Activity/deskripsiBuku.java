@@ -101,7 +101,7 @@ public class deskripsiBuku extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
-                    mApiInterface.tambahView(id_buku, 1).enqueue(new Callback<ResponseBody>() {
+                    mApiInterface.tambahView(id_buku, 1, id_buku).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
@@ -126,7 +126,7 @@ public class deskripsiBuku extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mApiInterface.insertRakBuku(judul,deskripsi,author,img_url,pdf_url,peringkat,kategori, sharedPrefManager.getId())
+                mApiInterface.insertRakBuku(judul,deskripsi,author,img_url,pdf_url,peringkat,kategori, sharedPrefManager.getId(), id_buku)
                         .enqueue(new Callback<rakBukuInsert>() {
                             @Override
                             public void onResponse(Call<rakBukuInsert> call, Response<rakBukuInsert> response) {
@@ -197,8 +197,7 @@ public class deskripsiBuku extends AppCompatActivity {
         desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -231,7 +230,6 @@ public class deskripsiBuku extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-        startActivity(intent);
+        finish();
     }
 }

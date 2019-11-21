@@ -84,12 +84,14 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
                 i.putExtra("judul", rakBuku.getNama());
                 i.putExtra("deskripsi", rakBuku.getDeskripsi());
                 i.putExtra("img", rakBuku.getPdfIcon());
-                i.putExtra("id_buku", rakBuku.getId());
+                i.putExtra("id", rakBuku.getId());
                 i.putExtra("pdf_url", rakBuku.getPdfUrl());
                 i.putExtra("peringkat", rakBuku.getPeringkat());
                 i.putExtra("author",rakBuku.getAuthor());
                 i.putExtra("kategori", rakBuku.getKategori());
                 i.putExtra("id_user", rakBuku.getId_user());
+                i.putExtra("id_buku", rakBuku.getId_buku());
+                i.putExtra("pengunjung", String.valueOf(rakBuku.getPengunjung()));
                 mContext.startActivity(i);
             }
         });

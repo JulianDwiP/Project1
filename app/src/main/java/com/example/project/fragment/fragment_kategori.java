@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerKategori;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.R;
+import com.example.project.entity.Buku;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class fragment_kategori extends Fragment {
     Spinner spinner;
     RecyclerView rvKategori;
     fragment_kategori context;
+    TextView tvNull;
     KategoriAdapter kategoriAdapter;
     public fragment_kategori() {
     }
@@ -56,7 +59,7 @@ public class fragment_kategori extends Fragment {
 
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         spinner = view.findViewById(R.id.spinner);
-
+        tvNull = view.findViewById(R.id.tvKategoriNull);
         rvKategori = view.findViewById(R.id.rvKategori);
         rvKategori.setLayoutManager(new LinearLayoutManager(c));
 
@@ -69,6 +72,8 @@ public class fragment_kategori extends Fragment {
                     @Override
                     public void onResponse(Call<KategoriResponse> call, Response<KategoriResponse> response) {
                         if (response.isSuccessful()){
+                            tvNull.setVisibility(View.GONE);
+                            rvKategori.setVisibility(View.VISIBLE);
                             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                             StrictMode.setThreadPolicy(policy);
                             final List<Kategori> semuaKategori = response.body().getKategoriList();
@@ -81,7 +86,8 @@ public class fragment_kategori extends Fragment {
                     }
                     @Override
                     public void onFailure(Call<KategoriResponse> call, Throwable t) {
-                        Toast.makeText(getContext(), "Tidak Ada Buku", Toast.LENGTH_SHORT).show();
+                        tvNull.setVisibility(View.VISIBLE);
+                        rvKategori.setVisibility(View.GONE);
                     }
                 });
             }

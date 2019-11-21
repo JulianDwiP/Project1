@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.project.Api.ApiClient;
@@ -65,6 +66,13 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
 
                     }
                 });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PdfListBacaan.this, deskripsiRakBuku.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -76,5 +84,10 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
     @Override
     public void onPageError(int page, Throwable t) {
         Toast.makeText(PdfListBacaan.this, t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

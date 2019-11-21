@@ -72,7 +72,7 @@
                 android:paddingLeft="10dp"/>
             <TextView
                 android:layout_width="3dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="30dp"
                 android:background="#ACA8A8"
                 android:layout_gravity="center_vertical"
                 android:layout_height="35dp"/>
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="3dp"
                 android:layout_marginLeft="30dp"
-                android:background="#8F8A8A"
+                android:background="#ACA8A8"
                 android:layout_gravity="center_vertical"
                 android:layout_height="35dp"/>
             <TextView

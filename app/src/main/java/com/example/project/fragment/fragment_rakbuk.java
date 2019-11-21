@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.Buku;
 import com.example.project.entity.rakBuku;
 import com.example.project.entity.rakBukuResponse;
 
@@ -39,6 +41,7 @@ public class fragment_rakbuk extends Fragment {
     RecyclerView rvRakBuku;
     fragment_rakbuk context;
     SharedPrefManager sharedPrefManager;
+    TextView tvNull;
 
 
     public fragment_rakbuk() {
@@ -52,6 +55,7 @@ public class fragment_rakbuk extends Fragment {
         final FragmentActivity c = getActivity();
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         rvRakBuku = view.findViewById(R.id.rvRakBuku);
+        tvNull = view.findViewById(R.id.tvRakBukNull);
         rvRakBuku.setLayoutManager(new LinearLayoutManager(c));
         sharedPrefManager = new SharedPrefManager(c);
         getRakBuku();
@@ -63,6 +67,8 @@ public class fragment_rakbuk extends Fragment {
             @Override
             public void onResponse(Call<rakBukuResponse> call, Response<rakBukuResponse> response) {
                 if (response.isSuccessful()){
+                    tvNull.setVisibility(View.GONE);
+                    rvRakBuku.setVisibility(View.VISIBLE);
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     final List<rakBuku> rakBukus = response.body().getRakBukuList();
@@ -76,7 +82,8 @@ public class fragment_rakbuk extends Fragment {
             }
             @Override
             public void onFailure(Call<rakBukuResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Tidak Ada Buku", Toast.LENGTH_SHORT).show();
+                tvNull.setVisibility(View.VISIBLE);
+                rvRakBuku.setVisibility(View.GONE);
             }
         });
     }

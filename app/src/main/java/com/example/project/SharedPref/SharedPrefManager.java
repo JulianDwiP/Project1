@@ -17,6 +17,7 @@ public class SharedPrefManager {
     public static final String CEK_SESSION = "CekSession";
     public static final String CEK_GAMBAR = "CekGambar";
     public static final String CEK_BACA = "CekBaca";
+    public static final String ID_BUKU =  "Id_Buku";
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -25,6 +26,8 @@ public class SharedPrefManager {
         loginEditor.putString("", "");
         loginEditor.commit();
     }
+
+
 
     public SharedPrefManager(Context context){
         sp = context.getSharedPreferences(PERPUS_APP, context.MODE_PRIVATE);

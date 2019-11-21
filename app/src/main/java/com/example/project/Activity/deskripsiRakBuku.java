@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +34,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class deskripsiRakBuku extends AppCompatActivity {
 
-    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku;
+    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, listPembaca;
     ImageView imageDesBuku;
     Button baca, hapus;
     SharedPrefManager sharedPrefManager;
@@ -66,9 +68,11 @@ public class deskripsiRakBuku extends AppCompatActivity {
         String pdf_url = getIntent().getStringExtra("pdf_url");
         String peringkat = getIntent().getStringExtra("peringkat");
         String author = getIntent().getStringExtra("author");
-        String id_buku = getIntent().getStringExtra("id_buku");
+        String id = getIntent().getStringExtra("id");
         String kategori = getIntent().getStringExtra("kategori");
         String id_user = getIntent().getStringExtra("id_user");
+        String id_buku = getIntent().getStringExtra("id_buku");
+        String pembaca = getIntent().getStringExtra("pengunjung");
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -84,16 +88,29 @@ public class deskripsiRakBuku extends AppCompatActivity {
         perinkatDesBuku.setText(peringkat);
         authorDesBuku.setText(author);
         kategoriDesBuku.setText(kategori);
+        listPembaca.setText(pembaca);
         getSupportActionBar().setTitle(judul);
 
         baca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
-                    Intent i = new Intent(deskripsiRakBuku.this, PdfListBacaan.class);
-                    i.putExtra("nama", judul);
-                    i.putExtra("pdf_urll", pdf_url);
-                    startActivity(i);
+                    mApiInterface.tambahView(id_buku, 1, id_buku).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()){
+                                Intent i = new Intent(deskripsiRakBuku.this, PdfListBacaan.class);
+                                i.putExtra("nama", judul);
+                                i.putExtra("pdf_urll", pdf_url);
+                                startActivity(i);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.e("error", "Errornya : "+t.getMessage());
+
+                        }
+                    });
                 }else{
                     Toast.makeText(getApplicationContext(), "Harap Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(deskripsiRakBuku.this, MainActivity.class);
@@ -166,8 +183,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
@@ -182,6 +198,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         perinkatDesBuku = findViewById(R.id.peringkatDesRakBuku);
         desToolbar = findViewById(R.id.desRakToolbar);
         linearRating  = findViewById(R.id.ratingRakLinear);
+        listPembaca = findViewById(R.id.tvListPembaca);
 
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

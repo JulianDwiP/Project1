@@ -31,8 +31,17 @@ public class rakBuku {
     @SerializedName("id_user")
     @Expose
     private String id_user;
+    @SerializedName("pengunjung")
+    @Expose
+    private int pengunjung;
+    @SerializedName("id_buku")
+    @Expose
+    private String id_buku;
 
-    public rakBuku(String id, String nama, String deskripsi, String author, String pdfUrl, String pdfIcon, String peringkat, String kategori, String id_user) {
+
+    public rakBuku(String id, String nama, String deskripsi,
+                   String author, String pdfUrl, String pdfIcon,
+                   String peringkat, String kategori, String id_user, int pengunjung, String id_buku){
         this.id = id;
         this.nama = nama;
         this.deskripsi = deskripsi;
@@ -42,8 +51,25 @@ public class rakBuku {
         this.peringkat = peringkat;
         this.kategori = kategori;
         this.id_user = id_user;
+        this.pengunjung = pengunjung;
+        this.id_buku = id_buku;
     }
 
+    public String getId_buku() {
+        return id_buku;
+    }
+
+    public void setId_buku(String id_buku) {
+        this.id_buku = id_buku;
+    }
+
+    public int getPengunjung() {
+        return pengunjung;
+    }
+
+    public void setPengunjung(int pengunjung) {
+        this.pengunjung = pengunjung;
+    }
     public String getId() {
         return id;
     }

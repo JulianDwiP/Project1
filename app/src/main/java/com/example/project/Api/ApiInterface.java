@@ -44,7 +44,8 @@ public interface ApiInterface {
                                       @Field("pdf_url") String pdf_url,
                                       @Field("peringkat") String peringkat,
                                       @Field("kategori") String kategori,
-                                      @Field("id_user") String id_user);
+                                      @Field("id_user") String id_user,
+                                      @Field("id_buku") String id_buku);
 
     @FormUrlEncoded
     @POST("insertPeringkat.php")
@@ -75,7 +76,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("pengunjung.php")
     Call<ResponseBody> tambahView(@Field("id") String id,
-                                  @Field("pengunjung") int pengunjung);
+                                  @Field("pengunjung") int pengunjung,
+                                  @Field("id_buku") String id_buku);
 
     @FormUrlEncoded
     @POST("gantiPassword.php")
