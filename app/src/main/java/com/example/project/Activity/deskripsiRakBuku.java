@@ -90,7 +90,8 @@ public class deskripsiRakBuku extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
-                    Intent i = new Intent(deskripsiRakBuku.this, PdfActivity.class);
+                    Intent i = new Intent(deskripsiRakBuku.this, PdfListBacaan.class);
+                    i.putExtra("nama", judul);
                     i.putExtra("pdf_urll", pdf_url);
                     startActivity(i);
                 }else{

@@ -1,14 +1,12 @@
 package com.example.project.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.project.Adapter.BukuAdapter;
-import com.example.project.Adapter.SearchAdapter;
 import com.example.project.Adapter.cobaAdapter;
 import com.example.project.Adapter.cobaSearchAdapter;
 import com.example.project.Api.ApiClient;
@@ -26,10 +22,8 @@ import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.entity.Buku;
 import com.example.project.entity.BukuResponse;
-import com.example.project.entity.SearchModel;
 import com.example.project.entity.cobaSearchModel;
 import com.example.project.entity.cobaSearchResponse;
-import com.example.project.fragment.fragment_beranda;
 
 import java.util.List;
 

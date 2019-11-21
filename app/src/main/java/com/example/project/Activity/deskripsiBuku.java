@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -28,17 +29,21 @@ import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class deskripsiBuku extends AppCompatActivity {
 
-    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku;
+    TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, pembaca;
     ImageView imageDesBuku;
     Button baca, add, sebelumLogin;
     SharedPrefManager sharedPrefManager;
@@ -73,6 +78,7 @@ public class deskripsiBuku extends AppCompatActivity {
         String peringkat = getIntent().getStringExtra("peringkat");
         String author = getIntent().getStringExtra("author");
         String kategori = getIntent().getStringExtra("kategori");
+        String Stpembacaa = getIntent().getStringExtra("pengunjung");
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -83,6 +89,7 @@ public class deskripsiBuku extends AppCompatActivity {
             e.printStackTrace();
         }
         judulBuku.setText(judul);
+        pembaca.setText(Stpembacaa);
         deskripsiBuku1.setText(deskripsi);
         imageDesBuku.setImageBitmap(bmp);
         perinkatDesBuku.setText(peringkat);
@@ -94,9 +101,21 @@ public class deskripsiBuku extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
-                    Intent i = new Intent(deskripsiBuku.this, PdfActivity.class);
-                    i.putExtra("pdf_urll", pdf_url);
-                    startActivity(i);
+                    mApiInterface.tambahView(id_buku, 1).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                Intent i = new Intent(deskripsiBuku.this, PdfActivity.class);
+                                i.putExtra("pdf_urll", pdf_url);
+                                startActivity(i);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.e("error", "Errornya : "+t.getMessage());
+                        }
+                    });
+
                 }else{
                     Toast.makeText(getApplicationContext(), "Harap Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
@@ -202,7 +221,7 @@ public class deskripsiBuku extends AppCompatActivity {
         kategoriDesBuku = findViewById(R.id.tvDesKategori);
         add = findViewById(R.id.btnTambah);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
-//        rating = findViewById(R.id.btnRating);
+        pembaca = findViewById(R.id.tvPembaca);
         desToolbar = findViewById(R.id.desToolbar);
         linearRating  = findViewById(R.id.ratingLinear);
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);

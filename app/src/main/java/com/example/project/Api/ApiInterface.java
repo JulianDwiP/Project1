@@ -3,7 +3,6 @@ package com.example.project.Api;
 import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
-import com.example.project.entity.SearchResponse;
 import com.example.project.entity.cobaSearchResponse;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.masukanPeringkatModel;
@@ -16,7 +15,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -89,9 +87,4 @@ public interface ApiInterface {
 
     @GET("listKategori.php")
     Call<ListSpinnerResponse> getListSpinner();
-
-    @GET("searchBuku.php")
-    Call<SearchResponse> search(
-            @Query("item_type") String item_type,
-            @Query("key") String keyword);
 }

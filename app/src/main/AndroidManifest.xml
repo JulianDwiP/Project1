@@ -17,17 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.searchCoba"></activity>
+        <activity android:name=".Activity.PdfListBacaan"></activity>
+        <activity android:name=".Activity.searchCoba" />
         <activity android:name=".Activity.GantiPassword" />
-        <activity android:name=".Activity.searchBuku">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
         <activity android:name=".Activity.deskripsiRakBuku" />
         <activity android:name=".Activity.PdfActivity" />
         <activity android:name=".Activity.deskripsiBuku" />

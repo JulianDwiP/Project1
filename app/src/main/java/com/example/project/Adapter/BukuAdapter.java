@@ -71,6 +71,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
         }catch (IOException e){
             e.printStackTrace();
         }
+        int pembaca = buku.getPengunjung();
         holder.fotoBuku.setImageBitmap(bmp);
         holder.judulBuku.setText(buku.getNama());
         holder.penulisBuku.setText(buku.getAuthor());
@@ -89,7 +90,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
                 i.putExtra("peringkat", buku.getPeringkat());
                 i.putExtra("author", buku.getAuthor());
                 i.putExtra("kategori", buku.getKategori());
-                i.putExtra("pengunjung", buku.getPengunjung());
+                i.putExtra("pengunjung", String.valueOf(pembaca));
                 mContext.startActivity(i);
             }
         });
