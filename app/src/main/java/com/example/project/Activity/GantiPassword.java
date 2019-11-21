@@ -42,8 +42,10 @@ public class GantiPassword extends AppCompatActivity {
         btnLupaPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etLupaPassword.getText().toString().length() == etLupaPassword2.getText().toString().length()){
-                    mApiInterface.setPassword(sharedPrefManager.getId(), etLupaPassword.getText().toString()).enqueue(new Callback<ResponseBody>() {
+                String pasAwl = etLupaPassword.getText().toString();
+                String pasAkhir = etLupaPassword2.getText().toString();
+                if (pasAwl.equals(pasAkhir)){
+                    mApiInterface.setPassword(sharedPrefManager.getId(), pasAwl).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (response.isSuccessful()){

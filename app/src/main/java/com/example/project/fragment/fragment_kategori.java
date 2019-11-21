@@ -107,7 +107,7 @@ public class fragment_kategori extends Fragment {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
                 } else {
-                    Toast.makeText(getContext(), "Gagal mengambil data dosen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Gagal mengambil data ", Toast.LENGTH_SHORT).show();
                 }
             }
 

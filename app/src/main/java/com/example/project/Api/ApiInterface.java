@@ -4,6 +4,7 @@ import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
 import com.example.project.entity.SearchResponse;
+import com.example.project.entity.cobaSearchResponse;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
@@ -68,6 +69,16 @@ public interface ApiInterface {
     @POST("verifikasiAcc.php")
     Call<ResponseBody> getAkun(@Field("email") String email,
                              @Field("username") String username);
+
+    @FormUrlEncoded
+    @POST("search.php")
+    Call<cobaSearchResponse> cobaSearch(@Field("nama") String nama);
+
+    @FormUrlEncoded
+    @POST("pengunjung.php")
+    Call<ResponseBody> tambahView(@Field("id") String id,
+                                  @Field("pengunjung") int pengunjung);
+
     @FormUrlEncoded
     @POST("gantiPassword.php")
     Call<ResponseBody> setPassword(@Field("id") String id,

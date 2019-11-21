@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.GantiPassword"></activity>
+        <activity android:name=".Activity.searchCoba"></activity>
+        <activity android:name=".Activity.GantiPassword" />
         <activity android:name=".Activity.searchBuku">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -31,7 +32,7 @@
         <activity android:name=".Activity.PdfActivity" />
         <activity android:name=".Activity.deskripsiBuku" />
         <activity android:name=".Activity.editUser" />
-        <activity android:name=".Activity.Beranda"></activity>
+        <activity android:name=".Activity.Beranda" />
         <activity android:name=".Activity.NotesActivity" />
         <activity
             android:name=".Activity.EditNoteActivity"

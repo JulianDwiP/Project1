@@ -3,7 +3,7 @@ package com.example.project.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Buku {
+public class cobaSearchModel {
     @SerializedName("id")
     @Expose
     private String id;
@@ -28,16 +28,16 @@ public class Buku {
     @SerializedName("kategori")
     @Expose
     private String kategori;
-    @SerializedName("pengunjung")
-    @Expose
-    private int pengunjung;
 
-    public int getPengunjung() {
-        return pengunjung;
-    }
-
-    public void setPengunjung(int pengunjung) {
-        this.pengunjung = pengunjung;
+    public cobaSearchModel(String id, String nama, String deskripsi, String author, String pdfIcon, String pdfUrl, String peringkat, String kategori) {
+        this.id = id;
+        this.nama = nama;
+        this.deskripsi = deskripsi;
+        this.author = author;
+        this.pdfIcon = pdfIcon;
+        this.pdfUrl = pdfUrl;
+        this.peringkat = peringkat;
+        this.kategori = kategori;
     }
 
     public String getId() {

@@ -151,7 +151,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 return true;
         }
         if (item.getItemId() == R.id.menu_search){
-            Intent intent = new Intent(Beranda.this, searchBuku.class);
+            Intent intent = new Intent(Beranda.this, searchCoba.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

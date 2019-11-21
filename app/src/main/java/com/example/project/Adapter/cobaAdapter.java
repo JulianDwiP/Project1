@@ -24,37 +24,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder> {
-
+public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
     List<Buku> semuaBuku;
     Context mContext;
-    class BukuViewHolder extends  RecyclerView.ViewHolder{
-        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku;
-        ImageView fotoBuku;
-        CardView cardViewBuku;
 
-        public BukuViewHolder(@NonNull View itemView) {
-            super(itemView);
-            judulBuku = itemView.findViewById(R.id.judulBuku);
-            penulisBuku = itemView.findViewById(R.id.penulisBuku);
-            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
-            fotoBuku = itemView.findViewById(R.id.fotoBuku);
-            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
-            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
-        }
+    public cobaAdapter(List<Buku> semuaBuku, Context mContext) {
+        this.semuaBuku = semuaBuku;
+        this.mContext = mContext;
     }
-    public BukuAdapter (Context context, List<Buku> bukuList ){
-        mContext = context;
-        semuaBuku = bukuList;
-    }
+
     @Override
-    public BukuViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_recyclerview_buku, parent, false);
-        return  new BukuViewHolder(view);
+        return  new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final BukuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull cobaAdapter.ViewHolder holder, int position) {
         final Buku buku = semuaBuku.get(position);
         Bitmap bmp = null;
         String poto;
@@ -89,15 +75,28 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
                 i.putExtra("peringkat", buku.getPeringkat());
                 i.putExtra("author", buku.getAuthor());
                 i.putExtra("kategori", buku.getKategori());
-                i.putExtra("pengunjung", buku.getPengunjung());
                 mContext.startActivity(i);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
         return semuaBuku.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku;
+        ImageView fotoBuku;
+        CardView cardViewBuku;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            judulBuku = itemView.findViewById(R.id.judulBuku);
+            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
+            fotoBuku = itemView.findViewById(R.id.fotoBuku);
+            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
+            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
+        }
     }
 }
