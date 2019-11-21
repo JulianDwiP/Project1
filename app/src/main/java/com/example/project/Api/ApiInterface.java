@@ -6,6 +6,7 @@ import com.example.project.entity.BukuResponse;
 import com.example.project.entity.cobaSearchResponse;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.masukanPeringkatModel;
+import com.example.project.entity.View;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.entity.rakBukuResponse;
 
@@ -45,7 +46,8 @@ public interface ApiInterface {
                                       @Field("peringkat") String peringkat,
                                       @Field("kategori") String kategori,
                                       @Field("id_user") String id_user,
-                                      @Field("id_buku") String id_buku);
+                                      @Field("id_buku") String id_buku,
+                                      @Field("pengunjung") int pengunjung);
 
     @FormUrlEncoded
     @POST("insertPeringkat.php")
@@ -72,6 +74,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("search.php")
     Call<cobaSearchResponse> cobaSearch(@Field("nama") String nama);
+
+    @FormUrlEncoded
+    @POST("getView.php")
+    Call<View> getViewBuku(@Field("id") String id);
+    @FormUrlEncoded
+    @POST("getViewRak.php")
+    Call<View> getViewRak(@Field("id_buku") String id_buku);
 
     @FormUrlEncoded
     @POST("pengunjung.php")

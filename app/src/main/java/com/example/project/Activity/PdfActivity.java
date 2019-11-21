@@ -1,10 +1,12 @@
 package com.example.project.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.R;
@@ -21,15 +23,19 @@ import com.krishna.fileloader.request.FileLoadRequest;
 import java.io.File;
 
 public class PdfActivity extends AppCompatActivity implements OnLoadCompleteListener, OnPageErrorListener {
-
+    private ProgressDialog loading;
     SharedPrefManager sharedPrefManager;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
         final PDFView pdfView = findViewById(R.id.pdfView);
         sharedPrefManager = new SharedPrefManager(this);
-
+        toolbar = findViewById(R.id.ToolbarPdf);
+        setSupportActionBar(toolbar);
+        String judul = getIntent().getStringExtra("judul");
+        getSupportActionBar().setTitle(judul);
         Intent i = this.getIntent();
         final String pdf_url = i.getExtras().getString("pdf_urll");
         FileLoader.with(this)

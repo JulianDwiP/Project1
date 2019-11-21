@@ -67,7 +67,7 @@ public class fragment_kategori extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String  diClick = parent.getItemAtPosition(position).toString();
+                String diClick = parent.getItemAtPosition(position).toString();
                 mApiInterface.getByKategori(diClick).enqueue(new Callback<KategoriResponse>() {
                     @Override
                     public void onResponse(Call<KategoriResponse> call, Response<KategoriResponse> response) {

@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +25,8 @@ import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.masukanPeringkatModel;
+import com.example.project.entity.View;
 import com.example.project.entity.rakBukuInsert;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -60,14 +56,15 @@ public class deskripsiBuku extends AppCompatActivity {
         init();
         sharedPrefManager = new SharedPrefManager(this);
         if(sharedPrefManager.getSPSudahLogin()){
-            sebelumLogin.setVisibility(View.GONE);
+            sebelumLogin.setVisibility(android.view.View.GONE);
         }else{
-            baca.setVisibility(View.GONE);
-            add.setVisibility(View.GONE);
-            linearRating.setVisibility(View.GONE);
+            baca.setVisibility(android.view.View.GONE);
+            add.setVisibility(android.view.View.GONE);
+            linearRating.setVisibility(android.view.View.GONE);
         }
         ambilDataBuku();
     }
+
 
     private void ambilDataBuku() {
         String id_buku = getIntent().getStringExtra("id_buku");
@@ -79,6 +76,20 @@ public class deskripsiBuku extends AppCompatActivity {
         String author = getIntent().getStringExtra("author");
         String kategori = getIntent().getStringExtra("kategori");
         String Stpembacaa = getIntent().getStringExtra("pengunjung");
+
+        mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
+            @Override
+            public void onResponse(Call<View> call, Response<View> response) {
+                int c = response.body().getPengunjung();
+                sharedPrefManager.simpanSPInt(SharedPrefManager.View, c);
+                pembaca.setText(String.valueOf(c));
+            }
+
+            @Override
+            public void onFailure(Call<View> call, Throwable t) {
+
+            }
+        });
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -89,7 +100,7 @@ public class deskripsiBuku extends AppCompatActivity {
             e.printStackTrace();
         }
         judulBuku.setText(judul);
-        pembaca.setText(Stpembacaa);
+//        pembaca.setText(Stpembacaa);
         deskripsiBuku1.setText(deskripsi);
         imageDesBuku.setImageBitmap(bmp);
         perinkatDesBuku.setText(peringkat);
@@ -97,9 +108,9 @@ public class deskripsiBuku extends AppCompatActivity {
         kategoriDesBuku.setText(kategori);
         getSupportActionBar().setTitle(judul);
 
-        baca.setOnClickListener(new View.OnClickListener() {
+        baca.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 if (sharedPrefManager.getSPSudahLogin()){
                     mApiInterface.tambahView(id_buku, 1, id_buku).enqueue(new Callback<ResponseBody>() {
                         @Override
@@ -107,6 +118,7 @@ public class deskripsiBuku extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 Intent i = new Intent(deskripsiBuku.this, PdfActivity.class);
                                 i.putExtra("pdf_urll", pdf_url);
+                                i.putExtra("judul", judul);
                                 startActivity(i);
                             }
                         }
@@ -123,10 +135,11 @@ public class deskripsiBuku extends AppCompatActivity {
                 }
             }
         });
-        add.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mApiInterface.insertRakBuku(judul,deskripsi,author,img_url,pdf_url,peringkat,kategori, sharedPrefManager.getId(), id_buku)
+            public void onClick(android.view.View v) {
+                mApiInterface.insertRakBuku(judul,deskripsi,author,img_url,pdf_url,peringkat,kategori, sharedPrefManager.getId(),
+                        id_buku, sharedPrefManager.getView())
                         .enqueue(new Callback<rakBukuInsert>() {
                             @Override
                             public void onResponse(Call<rakBukuInsert> call, Response<rakBukuInsert> response) {
@@ -152,12 +165,12 @@ public class deskripsiBuku extends AppCompatActivity {
                 });
             }
         });
-        linearRating.setOnClickListener(new View.OnClickListener() {
+        linearRating.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(android.view.View view) {
                 try{
                     AlertDialog.Builder builder = new AlertDialog.Builder(deskripsiBuku.this);
-                    View layout = null;
+                    android.view.View layout = null;
                     LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     layout = inflater.inflate(R.layout.rating, null);
                     final RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
@@ -194,16 +207,16 @@ public class deskripsiBuku extends AppCompatActivity {
                 }
             }
         });
-        desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        desToolbar.setNavigationOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(android.view.View view) {
                 finish();
             }
         });
 
-        sebelumLogin.setOnClickListener(new View.OnClickListener() {
+        sebelumLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(android.view.View view) {
                 Toast.makeText(deskripsiBuku.this, "Harap login terlebih dahulu", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
                 startActivity(intent);

@@ -73,6 +73,18 @@ public class deskripsiRakBuku extends AppCompatActivity {
         String id_user = getIntent().getStringExtra("id_user");
         String id_buku = getIntent().getStringExtra("id_buku");
         String pembaca = getIntent().getStringExtra("pengunjung");
+        mApiInterface.getViewRak(id_buku).enqueue(new Callback<com.example.project.entity.View>() {
+            @Override
+            public void onResponse(Call<com.example.project.entity.View> call, Response<com.example.project.entity.View> response) {
+                int x = response.body().getPengunjung();
+                listPembaca.setText(String.valueOf(x));
+            }
+
+            @Override
+            public void onFailure(Call<com.example.project.entity.View> call, Throwable t) {
+
+            }
+        });
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -88,7 +100,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         perinkatDesBuku.setText(peringkat);
         authorDesBuku.setText(author);
         kategoriDesBuku.setText(kategori);
-        listPembaca.setText(pembaca);
+//        listPembaca.setText(pembaca);
         getSupportActionBar().setTitle(judul);
 
         baca.setOnClickListener(new View.OnClickListener() {

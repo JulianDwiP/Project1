@@ -17,7 +17,9 @@ public class SharedPrefManager {
     public static final String CEK_SESSION = "CekSession";
     public static final String CEK_GAMBAR = "CekGambar";
     public static final String CEK_BACA = "CekBaca";
-    public static final String ID_BUKU =  "Id_Buku";
+    public static final String View=  "view";
+
+
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -36,6 +38,10 @@ public class SharedPrefManager {
 
     public void simpanSPSring(String keySP, String value){
         loginEditor.putString(keySP, value);
+        loginEditor.commit();
+    }
+    public void simpanSPInt(String keySP, int value){
+        loginEditor.putInt(keySP, value);
         loginEditor.commit();
     }
 
@@ -74,5 +80,8 @@ public class SharedPrefManager {
 
     public Boolean udahBacaBlum(){
         return sp.getBoolean(CEK_BACA, false);
+    }
+    public int getView() {
+        return sp.getInt(View, 0 );
     }
 }
