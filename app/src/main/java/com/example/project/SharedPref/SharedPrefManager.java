@@ -18,6 +18,7 @@ public class SharedPrefManager {
     public static final String CEK_GAMBAR = "CekGambar";
     public static final String CEK_BACA = "CekBaca";
     public static final String View=  "view";
+    public static final String cekIntent ="cekIntent";
 
 
 
@@ -72,6 +73,9 @@ public class SharedPrefManager {
 
     public Boolean getSPSudahLogin(){
         return sp.getBoolean(CEK_SESSION, false);
+    }
+    public Boolean getCekIntent() {
+        return sp.getBoolean(cekIntent, false);
     }
 
     public Boolean AdaGambarApaNgga(){

@@ -3,6 +3,7 @@ package com.example.project.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class PdfActivity extends AppCompatActivity implements OnLoadCompleteList
         sharedPrefManager = new SharedPrefManager(this);
         toolbar = findViewById(R.id.ToolbarPdf);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String judul = getIntent().getStringExtra("judul");
         getSupportActionBar().setTitle(judul);
         Intent i = this.getIntent();
@@ -65,6 +68,12 @@ public class PdfActivity extends AppCompatActivity implements OnLoadCompleteList
 
                     }
                 });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 

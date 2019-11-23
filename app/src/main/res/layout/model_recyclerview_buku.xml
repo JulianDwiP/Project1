@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/llBook1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="190dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -16,62 +16,57 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/CardViewBuku"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="180dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="130dp"
-                        android:layout_height="200dp"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
+                        android:layout_marginLeft="8dp"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/fotoBuku"
                             android:layout_marginTop="10dp"
-                            android:layout_width="130dp"
-                            android:layout_height="120dp" />
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="3dp"
+                            android:layout_width="110dp"
+                            android:layout_height="150dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars = "vertical"
+                        android:layout_marginLeft="8dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/judulBuku"
-                            android:layout_width="130dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:text=""
-                            android:textAlignment="center"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
+                            android:layout_marginTop="3dp"
+                            android:paddingLeft="5dp"
+                            android:fontFamily="sans-serif"
+                            android:text="Test blalalalalalallal alalallalala allalalalalalalallal"
+                            android:textColor="#3C3B3B"
+                            android:textSize="18dp" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
                             android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pengarang  : "
-                                android:textSize="16dp" />
 
-                            <TextView
-                                android:id="@+id/penulisBuku"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textSize="18dp"/>
                         </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/peringkatRecyclerView"
                             android:textSize="16dp"
-                            android:textColor="#535353"
+                            android:textColor="#6F6F6F"
                             android:drawableRight="@drawable/ic_star_rv"
                             android:text="4.5 "
                             android:layout_gravity="center_vertical"
@@ -81,13 +76,14 @@
                 android:paddingLeft="5dp"
                 android:layout_height="wrap_content"
                 android:text="Sinopsis : "
-                android:textSize="16dp"/>
+                android:textSize="14dp"/>
             <TextView
                 android:id="@+id/sinopsisBuku"
-                android:padding="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text=""
+                android:textSize="12dp"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

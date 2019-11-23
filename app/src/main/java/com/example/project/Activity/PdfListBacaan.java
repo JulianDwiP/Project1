@@ -88,6 +88,7 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
 
     @Override
     public void onBackPressed() {
-        finish();
+        Intent intent = new Intent(PdfListBacaan.this, deskripsiRakBuku.class);
+        startActivity(intent);
     }
 }

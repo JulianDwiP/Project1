@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activity.deskripsiBuku;
+import com.example.project.Activity.deskripsiKategori;
 import com.example.project.Api.ApiClient;
 import com.example.project.R;
 import com.example.project.entity.Buku;
@@ -39,7 +40,7 @@ public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             judulBuku = itemView.findViewById(R.id.judulBuku);
-            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+//            penulisBuku = itemView.findViewById(R.id.penulisBuku);
             sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
@@ -73,14 +74,14 @@ public class cobaAdapter extends RecyclerView.Adapter<cobaAdapter.ViewHolder> {
         }
         holder.fotoBuku.setImageBitmap(bmp);
         holder.judulBuku.setText(buku.getNama());
-        holder.penulisBuku.setText(buku.getAuthor());
+//        holder.penulisBuku.setText(buku.getAuthor());
         holder.sinopsisBuku.setText(buku.getDeskripsi());
         holder.peringkatBuku.setText(buku.getPeringkat());
 
         holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, deskripsiBuku.class);
+                Intent intent = new Intent(mContext, deskripsiKategori.class);
                 intent.putExtra("id_buku", buku.getId());
                 intent.putExtra("judul", buku.getNama());
                 intent.putExtra("deskripsi", buku.getDeskripsi());

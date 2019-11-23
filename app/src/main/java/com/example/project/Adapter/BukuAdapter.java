@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +38,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
         public BukuViewHolder(@NonNull View itemView) {
             super(itemView);
             judulBuku = itemView.findViewById(R.id.judulBuku);
-            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+//            penulisBuku = itemView.findViewById(R.id.penulisBuku);
             sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
@@ -74,7 +76,7 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
         int pembaca = buku.getPengunjung();
         holder.fotoBuku.setImageBitmap(bmp);
         holder.judulBuku.setText(buku.getNama());
-        holder.penulisBuku.setText(buku.getAuthor());
+//        holder.penulisBuku.setText(buku.getAuthor());
         holder.sinopsisBuku.setText(buku.getDeskripsi());
         holder.peringkatBuku.setText(buku.getPeringkat());
 

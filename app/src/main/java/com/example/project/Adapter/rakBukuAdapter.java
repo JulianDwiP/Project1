@@ -34,7 +34,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
         public rakBukuHolder(View view) {
             super(view);
             Rb_judulBuku = view.findViewById(R.id.judulBuku);
-            Rb_penulisBuku = view.findViewById(R.id.penulisBuku);
+//            Rb_penulisBuku = view.findViewById(R.id.penulisBuku);
             Rb_sinopsisBuku = view.findViewById(R.id.sinopsisBuku);
             Rb_fotoBuku = view.findViewById(R.id.fotoBuku);
             Rb_cardViewBuku = view.findViewById(R.id.CardViewBuku);
@@ -74,7 +74,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
         }
         holder.Rb_fotoBuku.setImageBitmap(bmp);
         holder.Rb_judulBuku.setText(rakBuku.getNama());
-        holder.Rb_penulisBuku.setText(rakBuku.getAuthor());
+//        holder.Rb_penulisBuku.setText(rakBuku.getAuthor());
         holder.Rb_sinopsisBuku.setText(rakBuku.getDeskripsi());
         holder.peringkat.setText(rakBuku.getPeringkat());
         holder.Rb_cardViewBuku.setOnClickListener(new View.OnClickListener() {

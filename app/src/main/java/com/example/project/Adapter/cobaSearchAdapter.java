@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activity.deskripsiBuku;
+import com.example.project.Activity.deskripsiKategori;
 import com.example.project.Api.ApiClient;
 import com.example.project.R;
 import com.example.project.entity.cobaSearchModel;
@@ -40,7 +41,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             judulBuku = itemView.findViewById(R.id.judulBuku);
-            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+//            penulisBuku = itemView.findViewById(R.id.penulisBuku);
             sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
@@ -74,7 +75,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
             }
             holder.fotoBuku.setImageBitmap(bmp);
             holder.judulBuku.setText(search.getNama());
-            holder.penulisBuku.setText(search.getAuthor());
+//            holder.penulisBuku.setText(search.getAuthor());
             holder.sinopsisBuku.setText(search.getDeskripsi());
             holder.peringkat.setText(search.getPeringkat());
 
@@ -82,7 +83,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     try{
-                        Intent i = new Intent(mContext, deskripsiBuku.class);
+                        Intent i = new Intent(mContext, deskripsiKategori.class);
                         i.putExtra("judul", search.getNama());
                         i.putExtra("deskripsi", search.getDeskripsi());
                         i.putExtra("img", search.getPdfIcon());

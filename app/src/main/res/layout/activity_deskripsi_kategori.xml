@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.deskripsiRakBuku">
+    tools:context=".Activity.deskripsiKategori">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/desRakToolbar"
+                android:id="@+id/desKatToolbar"
                 app:titleTextColor="@color/md_white_1000"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imgDesRakBuku"
+                    android:id="@+id/imgDesKatBuku"
                     android:layout_width="130dp"
                     android:layout_height="190dp"
                     android:layout_marginStart="15dp"
@@ -44,7 +44,7 @@
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/judulDesRakBuku"
+                        android:id="@+id/judulDesBuku"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="viewStart"
@@ -54,7 +54,7 @@
                         android:textStyle="bold"
                         android:textSize="22dp" />
                     <TextView
-                        android:id="@+id/authorDesRakBuku"
+                        android:id="@+id/authorDesBuku"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -63,7 +63,7 @@
                         android:textSize="12dp" />
 
                     <Button
-                        android:id="@+id/btnDesRakBaca"
+                        android:id="@+id/btnBaca"
                         android:layout_width="200dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="70dp"
@@ -73,14 +73,14 @@
                         android:text="Baca buku"
                         android:textSize="12dp" />
                     <Button
-                        android:id="@+id/btnDesRakHapus"
+                        android:id="@+id/btnTambah"
                         android:layout_width="200dp"
                         android:layout_marginRight="10dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="6dp"
                         android:textColor="#fff"
                         android:background="@drawable/corner_button_deskripsi"
-                        android:text="Hapus dari list"
+                        android:text="Tambah ke list"
                         android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -96,7 +96,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/peringkatDesRakBuku"
+                    android:id="@+id/peringkatDesBuku"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:drawableRight="@drawable/ic_star"
@@ -117,7 +117,7 @@
                     android:layout_marginTop="13dp"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/tvListPembaca"
+                        android:id="@+id/tvPembaca"
                         android:layout_gravity="center"
                         android:text="1"
                         android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                     android:layout_height="55dp"/>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:id="@+id/tvDesRakKategori"
+                    android:id="@+id/tvDesKategori"
                     android:text="Kategori"
                     android:textAlignment="center"
                     android:textSize="14dp"
@@ -164,7 +164,7 @@
                 android:textSize="19dp"
                 android:text="Sinopsis"/>
             <TextView
-                android:id="@+id/sinopsisDesRakBuku"
+                android:id="@+id/sinopsisDesBuku"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -173,9 +173,20 @@
                 android:textSize="12dp"/>
 
 
+            <Button
+                android:id="@+id/btnSebelumloginDesBuk"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/biru"
+                android:text="Lanjut Baca"
+                android:textSize="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/ratingRakLinear"
+                android:id="@+id/ratingLinear"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="70dp"

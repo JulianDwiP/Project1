@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.PdfListBacaan"></activity>
+        <activity android:name=".Activity.deskripsiKategori"></activity>
+        <activity android:name=".Activity.PdfListBacaan" />
         <activity android:name=".Activity.searchCoba" />
         <activity android:name=".Activity.GantiPassword" />
         <activity android:name=".Activity.deskripsiRakBuku" />

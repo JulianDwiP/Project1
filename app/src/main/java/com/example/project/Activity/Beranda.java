@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,14 +70,14 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         sharedPrefManager = new SharedPrefManager(this);
         init();
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
-        if (sharedPrefManager.getSPSudahLogin()){
+        if (sharedPrefManager.getSPSudahLogin()) {
             hideLogin();
             namauser.setText(sharedPrefManager.getSPNama());
             emailuser.setText(sharedPrefManager.getSPEmail());
             String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
             String shared = sharedPrefManager.getSPImage();
 
-            if (shared.equals(email)){
+            if (shared.equals(email)) {
                 URL url = null;
                 try {
                     url = new URL(sharedPrefManager.getSPImage());
@@ -91,13 +92,41 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 }
                 potoPropil.setImageBitmap(null);
                 potoPropil.setImageBitmap(bmp);
-            }else{
+            } else {
                 potoPropil.setImageResource(R.drawable.images);
             }
-        }else{
+        } else {
             showNavMenu();
             namauser.setText("Pengguna");
             emailuser.setText("example@gmail.com");
+        }
+        if (!sharedPrefManager.getCekIntent()) {
+            Fragment fragment = new fragment_beranda();
+            if (fragment != null) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.flContent, fragment).commit();
+            }
+        }else {
+            String s1 = getIntent().getStringExtra("backTo");
+            if (s1.equals("1")) {
+                setTitle("List Bacaan");
+                Fragment fragmentRakbuk = new fragment_rakbuk();
+                if (fragmentRakbuk != null) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.flContent, fragmentRakbuk).commit();
+                    sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, false);
+                }
+            }if (s1.equals("2")){
+                Fragment fragment = new fragment_beranda();
+                if (fragment != null) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.flContent, fragment).commit();
+                    sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, false);
+                }
+            }
         }
     }
 
@@ -112,6 +141,14 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Beranda.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        potoPropil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Beranda.this, profilePengguna.class);
                 startActivity(intent);
             }
         });
@@ -256,5 +293,11 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         View headerView = nVdrawer.getHeaderView(0);
         headerView.findViewById(R.id.namaUser).setVisibility(View.GONE);
         headerView.findViewById(R.id.emailUser).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        finish();
     }
 }

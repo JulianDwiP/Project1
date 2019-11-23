@@ -19,6 +19,7 @@
                 android:textColorHint="@color/md_white_1000"
                 android:textAlignment="center"
                 android:imeOptions="actionSearch"
+                android:backgroundTint="@color/md_white_1000"
                 android:inputType="text"
                 android:layout_height="50dp" />
 
@@ -26,6 +27,7 @@
                 android:id="@+id/imgSearch"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_search"/>
         </LinearLayout>

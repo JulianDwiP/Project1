@@ -195,7 +195,10 @@ public class deskripsiRakBuku extends AppCompatActivity {
         desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
+                intent.putExtra("backTo", "1");
+                sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
+                startActivity(intent);
             }
         });
     }
@@ -215,5 +218,13 @@ public class deskripsiRakBuku extends AppCompatActivity {
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
+        intent.putExtra("backTo", "1");
+        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
+        startActivity(intent);
     }
 }

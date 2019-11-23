@@ -1,5 +1,9 @@
 package com.example.project.Activity;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,16 +20,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
-import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.View;
+import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
 
 import java.io.ByteArrayOutputStream;
@@ -37,19 +37,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class deskripsiBuku extends AppCompatActivity {
+public class deskripsiKategori extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, pembaca;
     ImageView imageDesBuku;
     Button baca, add, sebelumLogin;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
-    Toolbar desToolbar;
+    Toolbar desKatToolbar;
     LinearLayout linearRating;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deskripsi_buku);
+        setContentView(R.layout.activity_deskripsi_kategori);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
@@ -105,7 +105,7 @@ public class deskripsiBuku extends AppCompatActivity {
         perinkatDesBuku.setText(peringkat);
         authorDesBuku.setText(author);
         kategoriDesBuku.setText(kategori);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(judul);
 
         baca.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -115,7 +115,7 @@ public class deskripsiBuku extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
-                                Intent i = new Intent(deskripsiBuku.this, PdfActivity.class);
+                                Intent i = new Intent(deskripsiKategori.this, PdfActivity.class);
                                 i.putExtra("pdf_urll", pdf_url);
                                 i.putExtra("judul", judul);
                                 startActivity(i);
@@ -129,7 +129,7 @@ public class deskripsiBuku extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(getApplicationContext(), "Harap Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                    Intent intent = new Intent(deskripsiKategori.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -148,27 +148,27 @@ public class deskripsiBuku extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Ditambahkan ke List Bacaan",Toast.LENGTH_LONG).show();
                                     }if (sharedPrefManager.getId().equals("")){
                                         Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                                        Intent intent = new Intent(deskripsiKategori.this, MainActivity.class);
                                         startActivity(intent);
                                     }if (Status == false){
-                                        Toast.makeText(deskripsiBuku.this, "Gagal, buku sudah ada", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(deskripsiKategori.this, "Gagal, buku sudah ada", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
                             @Override
                             public void onFailure(Call<rakBukuInsert> call, Throwable t) {
                                 Toast.makeText(getApplicationContext(), "Login Terlebih Dahulu", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                                Intent intent = new Intent(deskripsiKategori.this, MainActivity.class);
                                 startActivity(intent);
-                     }
-                });
+                            }
+                        });
             }
         });
         linearRating.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
                 try{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(deskripsiBuku.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(deskripsiKategori.this);
                     android.view.View layout = null;
                     LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     layout = inflater.inflate(R.layout.rating, null);
@@ -206,13 +206,10 @@ public class deskripsiBuku extends AppCompatActivity {
                 }
             }
         });
-        desToolbar.setNavigationOnClickListener(new android.view.View.OnClickListener() {
+        desKatToolbar.setNavigationOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-                intent.putExtra("backTo", "2");
-                sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -220,8 +217,8 @@ public class deskripsiBuku extends AppCompatActivity {
         sebelumLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                Toast.makeText(deskripsiBuku.this, "Harap login terlebih dahulu", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(deskripsiBuku.this, MainActivity.class);
+                Toast.makeText(deskripsiKategori.this, "Harap login terlebih dahulu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(deskripsiKategori.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -230,25 +227,22 @@ public class deskripsiBuku extends AppCompatActivity {
     private void init() {
         judulBuku = findViewById(R.id.judulDesBuku);
         deskripsiBuku1 = findViewById(R.id.sinopsisDesBuku);
-        imageDesBuku = findViewById(R.id.imgDesBuku);
+        imageDesBuku = findViewById(R.id.imgDesKatBuku);
         baca = findViewById(R.id.btnBaca);
         authorDesBuku = findViewById(R.id.authorDesBuku);
         kategoriDesBuku = findViewById(R.id.tvDesKategori);
         add = findViewById(R.id.btnTambah);
         perinkatDesBuku = findViewById(R.id.peringkatDesBuku);
         pembaca = findViewById(R.id.tvPembaca);
-        desToolbar = findViewById(R.id.desToolbar);
+        desKatToolbar = findViewById(R.id.desKatToolbar);
         linearRating  = findViewById(R.id.ratingLinear);
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
-        setSupportActionBar(desToolbar);
+        setSupportActionBar(desKatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-        intent.putExtra("backTo", "2");
-        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-        startActivity(intent);
+        finish();
     }
 }
