@@ -3,7 +3,9 @@ package com.example.project.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,6 +61,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
         setFragment(new fragment_beranda());
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav2);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -69,6 +72,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
 
         sharedPrefManager = new SharedPrefManager(this);
         init();
+
         apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         if (sharedPrefManager.getSPSudahLogin()) {
             hideLogin();
@@ -212,6 +216,12 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 Intent iCatatan = new Intent(Beranda.this, NotesActivity.class);
                 startActivity(iCatatan);
                 break;
+            case R.id.terdownload:
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +"Ebook Download/");
+                intent.setDataAndType(uri, "application/pdf");
+                startActivity(Intent.createChooser(intent, "Open Folder Download"));
+                break;
             case R.id.keluar:
                 sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, false);
                 sharedPrefManager.simpanSPSring(SharedPrefManager.NAMA, "");
@@ -290,6 +300,7 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
         nav_menu.findItem(R.id.profile_pengguna).setVisible(false);
         nav_menu.findItem(R.id.catatan_pribadi).setVisible(false);
         nav_menu.findItem(R.id.keluar).setVisible(false);
+        nav_menu.findItem(R.id.terdownload).setVisible(false);
         View headerView = nVdrawer.getHeaderView(0);
         headerView.findViewById(R.id.namaUser).setVisibility(View.GONE);
         headerView.findViewById(R.id.emailUser).setVisibility(View.GONE);

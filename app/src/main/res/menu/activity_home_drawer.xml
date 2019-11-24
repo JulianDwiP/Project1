@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_edit_user"
             android:title="Profile Pengguna" />
         <item
+            android:id="@+id/terdownload"
+            android:icon="@drawable/ic_file_download"
+            android:title="Buku Terdownload"/>
+        <item
             android:id="@+id/catatan_pribadi"
             android:icon="@drawable/ic_notes"
             android:title="Catatan Pribadi" />

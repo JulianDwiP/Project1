@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ public class profilePengguna extends AppCompatActivity {
     public static final int REQUEST_IMAGE = 100;
 
     ImageView imgProfile;
-    TextView prof_nama, prof_username, prof_email;
+    TextView prof_nama, prof_username, prof_email, lokDownload;
     Button btnProf_ubah;
     Beranda beranda;
     SharedPrefManager sharedPrefManager;
@@ -49,9 +50,13 @@ public class profilePengguna extends AppCompatActivity {
         prof_username = findViewById(R.id.prof_username);
         btnProf_ubah = findViewById(R.id.btnProf_ubah);
         imgProfile = findViewById(R.id.prof_poto);
-        prof_nama.setText(": "+sharedPrefManager.getSPNama());
-        prof_email.setText(": "+sharedPrefManager.getSPEmail());
-        prof_username.setText(": "+sharedPrefManager.getUsername());
+        lokDownload = findViewById(R.id.lokDownload);
+
+        prof_nama.setText(sharedPrefManager.getSPNama());
+        prof_email.setText(sharedPrefManager.getSPEmail());
+        prof_username.setText(sharedPrefManager.getUsername());
+        String s = Environment.getExternalStorageDirectory().getPath() +"/Ebook Download/";
+        lokDownload.setText(s);
 
         String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();

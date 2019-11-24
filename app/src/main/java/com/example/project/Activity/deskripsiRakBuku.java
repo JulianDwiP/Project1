@@ -5,7 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,8 +32,10 @@ import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
+import com.example.project.utils.DownloadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -43,7 +48,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, listPembaca;
     ImageView imageDesBuku;
-    Button baca, hapus;
+    Button baca, hapus, downloadRak;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     Toolbar desToolbar;
@@ -103,6 +108,16 @@ public class deskripsiRakBuku extends AppCompatActivity {
 //        listPembaca.setText(pembaca);
         getSupportActionBar().setTitle(judul);
 
+        File exStore = Environment.getExternalStorageDirectory();
+        String a = judul+".pdf";
+        File myFile = new File(exStore.getAbsolutePath() + "/Ebook Download/"+a);
+        if (myFile.exists()){
+            downloadRak.setText("Terdownload");
+            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, true);
+        }else{
+            downloadRak.setText("Download");
+            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
+        }
         baca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,7 +216,36 @@ public class deskripsiRakBuku extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        downloadRak.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                if (sharedPrefManager.getCekDownload()){
+                    Toast.makeText(deskripsiRakBuku.this, "Buku sudah di download", Toast.LENGTH_LONG).show();
+                }else{
+                    sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
+                    sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
+                    String url = ApiClient.BASE_URL+pdf_url;
+                    if (isConnectingToInternet()){
+                        new DownloadTask(deskripsiRakBuku.this, downloadRak, url);
+                    }else{
+                        Toast.makeText(deskripsiRakBuku.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
+    private boolean isConnectingToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     private void init() {
         judulBuku = findViewById(R.id.judulDesRakBuku);
         deskripsiBuku1 = findViewById(R.id.sinopsisDesRakBuku);
@@ -214,6 +258,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         desToolbar = findViewById(R.id.desRakToolbar);
         linearRating  = findViewById(R.id.ratingRakLinear);
         listPembaca = findViewById(R.id.tvListPembaca);
+        downloadRak = findViewById(R.id.btnRakDownload);
 
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

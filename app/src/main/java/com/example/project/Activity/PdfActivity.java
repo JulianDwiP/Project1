@@ -33,12 +33,14 @@ public class PdfActivity extends AppCompatActivity implements OnLoadCompleteList
         setContentView(R.layout.activity_pdf);
         final PDFView pdfView = findViewById(R.id.pdfView);
         sharedPrefManager = new SharedPrefManager(this);
+
         toolbar = findViewById(R.id.ToolbarPdf);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String judul = getIntent().getStringExtra("judul");
         getSupportActionBar().setTitle(judul);
+
         Intent i = this.getIntent();
         final String pdf_url = i.getExtras().getString("pdf_urll");
         FileLoader.with(this)

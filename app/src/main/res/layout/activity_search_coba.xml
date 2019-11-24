@@ -16,6 +16,7 @@
                 android:layout_width="300dp"
                 android:layout_marginLeft="10dp"
                 android:hint="Cari eBook"
+                android:textColor="#fff"
                 android:textColorHint="@color/md_white_1000"
                 android:textAlignment="center"
                 android:imeOptions="actionSearch"
@@ -43,6 +44,7 @@
         android:text="Buku tidak ditemukan"
         android:textSize="@dimen/dimen_20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="250dp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

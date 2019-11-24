@@ -19,8 +19,9 @@ public class SharedPrefManager {
     public static final String CEK_BACA = "CekBaca";
     public static final String View=  "view";
     public static final String cekIntent ="cekIntent";
-
-
+    public static final String namaFile = "namaFile";
+    public static final String urlFile = "urlFile";
+    public static final String cekDownload = "cekDownload";
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -31,6 +32,9 @@ public class SharedPrefManager {
     }
 
 
+    public Boolean getCekDownload() {
+        return sp.getBoolean(cekDownload, false);
+    }
 
     public SharedPrefManager(Context context){
         sp = context.getSharedPreferences(PERPUS_APP, context.MODE_PRIVATE);
@@ -81,6 +85,14 @@ public class SharedPrefManager {
     public Boolean AdaGambarApaNgga(){
         return sp.getBoolean(CEK_GAMBAR, false);
     }
+    public String getNamaFile() {
+        return sp.getString(namaFile, "");
+    }
+
+    public String getUrlFile() {
+        return sp.getString(urlFile, "");
+    }
+
 
     public Boolean udahBacaBlum(){
         return sp.getBoolean(CEK_BACA, false);

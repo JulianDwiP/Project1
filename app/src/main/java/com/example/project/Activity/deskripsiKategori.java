@@ -9,7 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,8 +30,10 @@ import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.View;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
+import com.example.project.utils.DownloadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -41,7 +46,7 @@ public class deskripsiKategori extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, pembaca;
     ImageView imageDesBuku;
-    Button baca, add, sebelumLogin;
+    Button baca, add, sebelumLogin, downloadKat;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     Toolbar desKatToolbar;
@@ -60,6 +65,7 @@ public class deskripsiKategori extends AppCompatActivity {
         }else{
             baca.setVisibility(android.view.View.GONE);
             add.setVisibility(android.view.View.GONE);
+            downloadKat.setVisibility(android.view.View.GONE);
             linearRating.setVisibility(android.view.View.GONE);
         }
         ambilDataBuku();
@@ -106,6 +112,17 @@ public class deskripsiKategori extends AppCompatActivity {
         authorDesBuku.setText(author);
         kategoriDesBuku.setText(kategori);
         getSupportActionBar().setTitle(judul);
+
+        File exStore = Environment.getExternalStorageDirectory();
+        String a = judul+".pdf";
+        File myFile = new File(exStore.getAbsolutePath() + "/Ebook Download/"+a);
+        if (myFile.exists()){
+            downloadKat.setText("Terdownload");
+            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, true);
+        }else{
+            downloadKat.setText("Download");
+            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
+        }
 
         baca.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -222,6 +239,35 @@ public class deskripsiKategori extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        downloadKat.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                if (sharedPrefManager.getCekDownload()){
+                    Toast.makeText(deskripsiKategori.this, "Buku sudah di download", Toast.LENGTH_LONG).show();
+                }else{
+                    sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
+                    sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
+                    String url = ApiClient.BASE_URL+pdf_url;
+                    if (isConnectingToInternet()){
+                        new DownloadTask(deskripsiKategori.this, downloadKat, url);
+                    }else{
+                        Toast.makeText(deskripsiKategori.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean isConnectingToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     private void init() {
@@ -237,6 +283,8 @@ public class deskripsiKategori extends AppCompatActivity {
         desKatToolbar = findViewById(R.id.desKatToolbar);
         linearRating  = findViewById(R.id.ratingLinear);
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
+        downloadKat = findViewById(R.id.btnKatDownload);
+
         setSupportActionBar(desKatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
