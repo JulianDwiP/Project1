@@ -65,6 +65,7 @@ public class DownloadTask {
                     btnDownload.setEnabled(true);
                     loading.dismiss();
                     btnDownload.setText("Terdownload");
+                    Toast.makeText(mContext, "Berhasil Terdownload", Toast.LENGTH_SHORT).show();
                     sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, "");
                 }else{
                     btnDownload.setText("Downnload Gagal");
@@ -107,7 +108,7 @@ public class DownloadTask {
                 if (new CekForSDCard().isSDCardPresent()){
                     apkStorage = new File(Environment.getExternalStorageDirectory()+ "/Ebook Download");
                 }else{
-                    Toast.makeText(mContext, "Oops!! There is no SD Card.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Tidak Ada SD Card.", Toast.LENGTH_SHORT).show();
                 }
 
                 if (!apkStorage.exists()){

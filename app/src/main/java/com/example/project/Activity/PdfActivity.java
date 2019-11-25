@@ -24,7 +24,6 @@ import com.krishna.fileloader.request.FileLoadRequest;
 import java.io.File;
 
 public class PdfActivity extends AppCompatActivity implements OnLoadCompleteListener, OnPageErrorListener {
-    private ProgressDialog loading;
     SharedPrefManager sharedPrefManager;
     Toolbar toolbar;
     @Override

@@ -28,6 +28,7 @@ import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.View;
 import com.example.project.entity.rakBukuInsert;
@@ -44,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class deskripsiBuku extends AppCompatActivity {
-
+    public static  final String TAG = "Masukan Ke db Download";
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, pembaca;
     ImageView imageDesBuku;
     Button baca, add, sebelumLogin, downlaod, folder;
@@ -248,13 +249,27 @@ public class deskripsiBuku extends AppCompatActivity {
             @Override
             public void onClick(android.view.View view) {
                 if (sharedPrefManager.getCekDownload()){
-                    Toast.makeText(deskripsiBuku.this, "Buku sudah di download", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(deskripsiBuku.this, downloadedActivity.class);
+                    startActivity(intent);
                 }else{
+
                     sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
                     sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
                     String url = ApiClient.BASE_URL+pdf_url;
                     if (isConnectingToInternet()){
                         new DownloadTask(deskripsiBuku.this, downlaod, url);
+                        mApiInterface.masukanDownload(judul, pdf_url, sharedPrefManager.getId()).enqueue(new Callback<downloadResponse>() {
+                            @Override
+                            public void onResponse(Call<downloadResponse> call, Response<downloadResponse> response) {
+                                Log.i(TAG, "Berhasil Memasukan ke DB");
+                            }
+
+                            @Override
+                            public void onFailure(Call<downloadResponse> call, Throwable t) {
+                                Log.e(TAG, "Error saat memasukan ke db, errornya "+t.getMessage());
+
+                            }
+                        });
                     }else{
                         Toast.makeText(deskripsiBuku.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
                     }

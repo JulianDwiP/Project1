@@ -5,6 +5,7 @@ import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
 import com.example.project.entity.cobaSearchResponse;
 import com.example.project.entity.deleteListBuku;
+import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.View;
 import com.example.project.entity.rakBukuInsert;
@@ -49,6 +50,12 @@ public interface ApiInterface {
                                       @Field("id_buku") String id_buku,
                                       @Field("pengunjung") int pengunjung);
 
+
+    @FormUrlEncoded
+    @POST("downloaded.php")
+    Call<downloadResponse> masukanDownload(@Field("nama") String  nama,
+                                           @Field("pdf_url") String pdf_url,
+                                           @Field("id_user") String id_user);
     @FormUrlEncoded
     @POST("insertPeringkat.php")
     Call<masukanPeringkatModel> masukanPeringkat(@Field("id_buku") String id_buku,
@@ -65,6 +72,9 @@ public interface ApiInterface {
     @POST("deleteListBuku.php")
     Call<deleteListBuku> deleteBuku(@Field("nama") String nama,
                                     @Field("id_user") String id_user);
+    @FormUrlEncoded
+    @POST("ambilDownloaded.php")
+    Call<downloadResponse> getDownloaded(@Field("id_user") String id_user);
 
     @FormUrlEncoded
     @POST("verifikasiAcc.php")

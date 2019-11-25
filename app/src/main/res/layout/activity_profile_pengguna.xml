@@ -128,19 +128,6 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:text="Lokasi Download"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lokDownload"
-                    android:layout_gravity="center"
-                    android:textSize="18dp"/>
                 <Button
                     android:id="@+id/btnProf_ubah"
                     android:layout_width="match_parent"

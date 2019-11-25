@@ -217,10 +217,12 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(iCatatan);
                 break;
             case R.id.terdownload:
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +"Ebook Download/");
-                intent.setDataAndType(uri, "application/pdf");
-                startActivity(Intent.createChooser(intent, "Open Folder Download"));
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +"Ebook Download/");
+//                intent.setDataAndType(uri, "application/pdf");
+//                startActivity(Intent.createChooser(intent, "Open Folder Download"));
+                Intent intent = new Intent(Beranda.this, downloadedActivity.class);
+                startActivity(intent);
                 break;
             case R.id.keluar:
                 sharedPrefManager.simpanSPBoolean(SharedPrefManager.CEK_SESSION, false);
