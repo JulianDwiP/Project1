@@ -3,7 +3,9 @@ package com.example.project.Api;
 import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
 import com.example.project.entity.BukuResponse;
+import com.example.project.entity.cekDownload;
 import com.example.project.entity.cobaSearchResponse;
+import com.example.project.entity.deleteDownload;
 import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
@@ -88,6 +90,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("getView.php")
     Call<View> getViewBuku(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("cekDownload.php")
+    Call<cekDownload> cekDownload(@Field("nama") String nama,
+                                  @Field("id_user") String id_user);
     @FormUrlEncoded
     @POST("getViewRak.php")
     Call<View> getViewRak(@Field("id_buku") String id_buku);
@@ -102,6 +109,11 @@ public interface ApiInterface {
     @POST("gantiPassword.php")
     Call<ResponseBody> setPassword(@Field("id") String id,
                                    @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("deleteDownload.php")
+    Call<deleteDownload> deleteDownload(@Field("id_user") String id_user,
+                                        @Field("nama") String nama);
 
     @GET("ambilBuku.php")
     Call<BukuResponse> getSemuaBuku();

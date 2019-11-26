@@ -79,7 +79,7 @@
                 android:textSize="14dp"/>
             <TextView
                 android:id="@+id/sinopsisBuku"
-                android:padding="5dp"
+                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text=""

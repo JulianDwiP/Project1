@@ -62,8 +62,9 @@ public class deskripsiRakBuku extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         init();
-        ambilDataBuku();
         sharedPrefManager = new SharedPrefManager(this);
+        ambilDataBuku();
+
     }
 
     private void ambilDataBuku() {
@@ -153,7 +154,6 @@ public class deskripsiRakBuku extends AppCompatActivity {
                     public void onResponse(Call<deleteListBuku> call, Response<deleteListBuku> response) {
                         if (response.isSuccessful()){
                             Toast.makeText(deskripsiRakBuku.this, "Berhasil dihapus dari list", Toast.LENGTH_SHORT).show();
-
                         }else{
                             Toast.makeText(deskripsiRakBuku.this, "Gagal Menghapus", Toast.LENGTH_SHORT).show();
                         }

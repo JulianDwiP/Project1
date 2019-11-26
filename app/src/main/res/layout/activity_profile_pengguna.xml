@@ -49,6 +49,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,20 +60,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
                 android:text="Nama"/>
             <TextView
                 android:id="@+id/prof_nama"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:text="nama"
+                android:layout_marginLeft="40dp"
                 android:textSize="18dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,14 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
                 android:text="Username"/>
             <TextView
                 android:id="@+id/prof_username"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textAlignment="center"
-                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
                 android:text="nama"
                 android:textSize="18dp"/>
             </LinearLayout>
@@ -99,6 +101,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,7 +111,7 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
                 android:textStyle="bold"
                 android:text="Email"/>
             <TextView
@@ -117,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:textAlignment="center"
                 android:text="Juliansadwi7552@gmail.com"
-                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
                 android:textSize="18dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
