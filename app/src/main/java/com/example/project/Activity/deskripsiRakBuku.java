@@ -29,7 +29,11 @@ import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.Hasil;
+import com.example.project.entity.cekDownload;
+import com.example.project.entity.deleteDownload;
 import com.example.project.entity.deleteListBuku;
+import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.utils.DownloadTask;
@@ -53,6 +57,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
     ApiInterface mApiInterface;
     Toolbar desToolbar;
     LinearLayout linearRating;
+    String judul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +66,65 @@ public class deskripsiRakBuku extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
-        init();
         sharedPrefManager = new SharedPrefManager(this);
-        ambilDataBuku();
+        init();
+        String cek = getIntent().getStringExtra("judul");
+        File exStore = Environment.getExternalStorageDirectory();
+        String a = cek+".pdf";
+        File myFile = new File(exStore.getAbsolutePath() + "/Ebook Download/"+a);
+        if (myFile.exists()){
+//            downlaod.setText("Terdownload");
+        }else{
+            mApiInterface.deleteDownload(sharedPrefManager.getId(), cek).enqueue(new Callback<deleteDownload>() {
+                @Override
+                public void onResponse(Call<deleteDownload> call, Response<deleteDownload> response) {
+                    Log.e("Hapus Data", "Berhasil");
+                    sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
+                    downloadRak.setText("download");
+                }
 
+                @Override
+                public void onFailure(Call<deleteDownload> call, Throwable t) {
+                    Log.e("Hapus Data", "Gagal");
+                }
+            });
+        }
+        cekUdahDownload();
+        ambilDataBuku();
+        if (sharedPrefManager.getCekDownload()){
+            downloadRak.setText("Terunduh");
+        }else{
+            downloadRak.setText("Unduh");
+        }
+    }
+
+    private void cekUdahDownload() {
+        judul = getIntent().getStringExtra("judul");
+        String hasil = judul;
+        mApiInterface.cekDownload(hasil, sharedPrefManager.getId()).enqueue(new Callback<cekDownload>() {
+            @Override
+            public void onResponse(Call<cekDownload> call, Response<cekDownload> response) {
+                if (response.isSuccessful()){
+                    Hasil hasili = response.body().getHasil();
+                    if (hasili == null){
+                        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
+                    }else{
+                        downloadRak.setText("Terdownload");
+                        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, true);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<cekDownload> call, Throwable t) {
+                Toast.makeText(deskripsiRakBuku.this, "Gagal " + judul, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void ambilDataBuku() {
         String img_url = getIntent().getStringExtra("img");
-        String judul = getIntent().getStringExtra("judul");
+        judul = getIntent().getStringExtra("judul");
         String deskripsi = getIntent().getStringExtra("deskripsi");
         String pdf_url = getIntent().getStringExtra("pdf_url");
         String peringkat = getIntent().getStringExtra("peringkat");
@@ -109,16 +164,6 @@ public class deskripsiRakBuku extends AppCompatActivity {
 //        listPembaca.setText(pembaca);
         getSupportActionBar().setTitle(judul);
 
-        File exStore = Environment.getExternalStorageDirectory();
-        String a = judul+".pdf";
-        File myFile = new File(exStore.getAbsolutePath() + "/Ebook Download/"+a);
-        if (myFile.exists()){
-            downloadRak.setText("Terdownload");
-            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, true);
-        }else{
-            downloadRak.setText("Download");
-            sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
-        }
         baca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,13 +265,25 @@ public class deskripsiRakBuku extends AppCompatActivity {
             @Override
             public void onClick(android.view.View view) {
                 if (sharedPrefManager.getCekDownload()){
-                    Toast.makeText(deskripsiRakBuku.this, "Buku sudah di download", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(deskripsiRakBuku.this, downloadedActivity.class);
+                    startActivity(intent);
                 }else{
                     sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
                     sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
                     String url = ApiClient.BASE_URL+pdf_url;
                     if (isConnectingToInternet()){
                         new DownloadTask(deskripsiRakBuku.this, downloadRak, url);
+                        mApiInterface.masukanDownload(judul, pdf_url, sharedPrefManager.getId()).enqueue(new Callback<downloadResponse>() {
+                            @Override
+                            public void onResponse(Call<downloadResponse> call, Response<downloadResponse> response) {
+                                Log.i("Deskripsi List", "Berhasil Memasukan ke DB");
+                            }
+                            @Override
+                            public void onFailure(Call<downloadResponse> call, Throwable t) {
+                                Log.e("Deskripsi List", "Error saat memasukan ke db, errornya "+t.getMessage());
+
+                            }
+                        });
                     }else{
                         Toast.makeText(deskripsiRakBuku.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
                     }

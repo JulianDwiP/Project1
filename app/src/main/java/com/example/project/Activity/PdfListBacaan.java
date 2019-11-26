@@ -34,6 +34,8 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
         setSupportActionBar(toolbar);
         String nama_buku = getIntent().getStringExtra("nama");
         getSupportActionBar().setTitle(nama_buku);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final PDFView pdfView = findViewById(R.id.pdfViewLis);
         sharedPrefManager = new SharedPrefManager(this);
 
@@ -88,7 +90,6 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(PdfListBacaan.this, deskripsiRakBuku.class);
-        startActivity(intent);
+        finish();
     }
 }

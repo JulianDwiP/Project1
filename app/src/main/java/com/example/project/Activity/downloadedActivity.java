@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -63,6 +64,14 @@ public class downloadedActivity extends AppCompatActivity {
 
         String s = Environment.getExternalStorageDirectory().getPath() +"/Ebook Download/";
         lokasiDownload.setText(s);
+
+        toolbarDownload.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(downloadedActivity.this, Beranda.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

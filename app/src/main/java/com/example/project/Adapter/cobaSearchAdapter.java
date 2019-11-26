@@ -92,6 +92,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
                         i.putExtra("author", search.getAuthor());
                         i.putExtra("kategori", search.getKategori());
                         i.putExtra("pengunjung", String.valueOf(search.getPengunjung()));
+                        i.putExtra("id_buku", search.getId());
                         mContext.startActivity(i);
                     } catch (Exception e) {
                         e.printStackTrace();

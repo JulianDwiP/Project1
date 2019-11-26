@@ -103,9 +103,9 @@ public class deskripsiBuku extends AppCompatActivity {
         cekUdahDownload();
         ambilDataBuku();
         if (sharedPrefManager.getCekDownload()){
-            downlaod.setText("Terdownload");
+            downlaod.setText("Terunduh");
         }else{
-            downlaod.setText("Download");
+            downlaod.setText("Unduh");
         }
 
     }
@@ -336,7 +336,6 @@ public class deskripsiBuku extends AppCompatActivity {
         }else{
             return false;
         }
-
     }
 
     private void init() {

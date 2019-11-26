@@ -55,7 +55,7 @@ public class DownloadTask {
         protected void onPreExecute() {
             super.onPreExecute();
             btnDownload.setEnabled(false);
-            loading = ProgressDialog.show(mContext, null, "Mendownload..", true, false);
+            loading = ProgressDialog.show(mContext, null, "Mengunduh..", true, false);
         }
 
         @Override
@@ -64,30 +64,30 @@ public class DownloadTask {
                 if (outputFile!= null){
                     btnDownload.setEnabled(true);
                     loading.dismiss();
-                    btnDownload.setText("Terdownload");
-                    Toast.makeText(mContext, "Berhasil Terdownload", Toast.LENGTH_SHORT).show();
+                    btnDownload.setText("Terunduh");
+                    Toast.makeText(mContext, "Berhasil Terunduh", Toast.LENGTH_SHORT).show();
                     sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, "");
                 }else{
-                    btnDownload.setText("Downnload Gagal");
+                    btnDownload.setText("Unduh Gagal");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             btnDownload.setEnabled(true);
-                            btnDownload.setText("Download");
+                            btnDownload.setText("Unduh");
                         }
                     }, 3000);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 loading.dismiss();
-                btnDownload.setText("Download Gagal");new Handler().postDelayed(new Runnable() {
+                btnDownload.setText("Unduh Gagal");new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         btnDownload.setEnabled(true);
-                        btnDownload.setText("Download");
+                        btnDownload.setText("Unduh");
                     }
                 }, 3000);
-                Log.e(TAG, "Download Failed with Exception - " + e.getLocalizedMessage());
+                Log.e(TAG, "Mengunduh Gagal - " + e.getLocalizedMessage());
             }
             super.onPostExecute(aVoid);
         }
@@ -136,7 +136,7 @@ public class DownloadTask {
             } catch (IOException e) {
                 e.printStackTrace();
                 outputFile = null;
-                Log.e(TAG, "Download Error Exception " + e.getMessage());
+                Log.e(TAG, "Unduh Error Exception " + e.getMessage());
             }
             return null;
         }

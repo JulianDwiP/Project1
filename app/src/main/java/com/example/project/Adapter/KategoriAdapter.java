@@ -89,6 +89,7 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.Katego
                 i.putExtra("peringkat", kategori.getPeringkat());
                 i.putExtra("author", kategori.getAuthor());
                 i.putExtra("kategori", kategori.getKategori());
+                i.putExtra("id_buku", kategori.getId());
                 mContext.startActivity(i);
             }
         });

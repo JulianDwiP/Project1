@@ -35,7 +35,7 @@
                 android:layout_width="130dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/images" />
 
             <LinearLayout
@@ -91,7 +91,7 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:background="@drawable/corner_button_deskripsi"
-                    android:text="Download"
+                    android:text="Unduh"
                     android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
