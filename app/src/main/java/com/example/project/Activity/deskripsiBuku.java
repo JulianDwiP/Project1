@@ -83,7 +83,7 @@ public class deskripsiBuku extends AppCompatActivity {
                 public void onResponse(Call<deleteDownload> call, Response<deleteDownload> response) {
                     Log.e("Hapus Data", "Berhasil");
                     sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
-                    downlaod.setText("download");
+                    downlaod.setText("Unduh");
                 }
 
                 @Override

@@ -71,8 +71,7 @@ public class PdfListBacaan extends AppCompatActivity implements OnLoadCompleteLi
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PdfListBacaan.this, deskripsiRakBuku.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

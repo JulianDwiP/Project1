@@ -80,7 +80,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
                 public void onResponse(Call<deleteDownload> call, Response<deleteDownload> response) {
                     Log.e("Hapus Data", "Berhasil");
                     sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
-                    downloadRak.setText("download");
+                    downloadRak.setText("Unduh");
                 }
 
                 @Override
@@ -109,7 +109,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
                     if (hasili == null){
                         sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, false);
                     }else{
-                        downloadRak.setText("Terdownload");
+                        downloadRak.setText("Terunduh");
                         sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekDownload, true);
                     }
                 }

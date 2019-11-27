@@ -33,8 +33,30 @@
                 android:background="@drawable/ic_search"/>
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/spinnerFilter"
+            android:layout_width="170dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="40dp"
+            android:entries="@array/Filter"/>
+        <Spinner
+            android:id="@+id/spinnerKategori"
+            android:layout_width="170dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="40dp"
+            android:entries="@array/kategori"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCobaSearch"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

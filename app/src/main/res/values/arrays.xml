@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Filter">
+        <item>Semua Buku</item>
+        <item>Peringkat Terbaik</item>
+        <item>Paling Banyak Dibaca</item>
+    </string-array>
+
+    <string-array name="kategori">
+        <item>Semua Kategori</item>
+        <item>Programming</item>
+        <item>Pendidikan</item>
+        <item>Novel</item>
+        <item>Ilmu Pengetahuan</item>
+        <item>Non Fiksi</item>
+    </string-array>
+</resources>

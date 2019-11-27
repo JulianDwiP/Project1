@@ -85,7 +85,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("search.php")
-    Call<cobaSearchResponse> cobaSearch(@Field("nama") String nama);
+    Call<cobaSearchResponse> cobaSearch(@Field("nama") String nama,
+                                        @Field("deskripsi") String deskripsi,
+                                        @Field("kategori") String kategori);
 
     @FormUrlEncoded
     @POST("getView.php")

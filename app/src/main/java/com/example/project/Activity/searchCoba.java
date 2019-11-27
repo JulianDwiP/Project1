@@ -10,8 +10,11 @@ import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,8 @@ public class searchCoba extends AppCompatActivity {
     cobaSearchAdapter cobaSearchAdapter;
     cobaAdapter cobaAdapterr;
     TextView tvNull;
+    Spinner spinnerFilter, spinnerKategori;
+    String filter, kategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +100,7 @@ public class searchCoba extends AppCompatActivity {
 
     private void getData() {
         String search = cobaSearch.getText().toString();
-        mApiInterface.cobaSearch(search).enqueue(new Callback<cobaSearchResponse>() {
+        mApiInterface.cobaSearch(search, filter, kategori).enqueue(new Callback<cobaSearchResponse>() {
             @Override
             public void onResponse(Call<cobaSearchResponse> call, Response<cobaSearchResponse> response) {
                 if (response.isSuccessful()){
@@ -124,5 +129,31 @@ public class searchCoba extends AppCompatActivity {
         cobaSearch = findViewById(R.id.etSearch);
         img = findViewById(R.id.imgSearch);
         tvNull = findViewById(R.id.tvSearchNull);
+        spinnerFilter = findViewById(R.id.spinnerFilter);
+        spinnerKategori = findViewById(R.id.spinnerKategori);
+
+        spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                filter = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                kategori = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
