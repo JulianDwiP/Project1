@@ -2,6 +2,7 @@ package com.example.project.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.project.Adapter.rakBukuAdapter;
 import com.example.project.Api.ApiClient;
@@ -42,7 +44,7 @@ public class fragment_rakbuk extends Fragment {
     fragment_rakbuk context;
     SharedPrefManager sharedPrefManager;
     TextView tvNull;
-
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public fragment_rakbuk() {
         // Required empty public constructor
@@ -59,6 +61,20 @@ public class fragment_rakbuk extends Fragment {
         rvRakBuku.setLayoutManager(new LinearLayoutManager(c));
         sharedPrefManager = new SharedPrefManager(c);
         getRakBuku();
+        swipeRefreshLayout = view.findViewById(R.id.swipeList);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getRakBuku();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
+
 
        return view;
     }

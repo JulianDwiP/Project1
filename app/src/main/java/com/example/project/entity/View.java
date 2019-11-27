@@ -7,6 +7,17 @@ public class View {
     @SerializedName("pengunjung")
     @Expose
     private int pengunjung;
+    @SerializedName("peringkat")
+    @Expose
+    private float peringkat;
+
+    public float getPeringkat() {
+        return peringkat;
+    }
+
+    public void setPeringkat(float peringkat) {
+        this.peringkat = peringkat;
+    }
 
     public int getPengunjung() {
         return pengunjung;

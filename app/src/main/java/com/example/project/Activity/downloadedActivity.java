@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +40,7 @@ public class downloadedActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     TextView lokasiDownload, gadaBuku;
     Toolbar toolbarDownload;
+    SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "Download List";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,18 @@ public class downloadedActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
         init();
         getDownloadList();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getDownloadList();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
     }
 
     private void init() {
@@ -61,6 +76,7 @@ public class downloadedActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle("Buku Terdownload");
+        swipeRefreshLayout = findViewById(R.id.swipeDownload);
 
         String s = Environment.getExternalStorageDirectory().getPath() +"/Ebook Download/";
         lokasiDownload.setText(s);

@@ -54,6 +54,14 @@
             android:entries="@array/kategori"/>
     </LinearLayout>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipeSearch">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCobaSearch"
         android:layout_marginTop="5dp"
@@ -68,5 +76,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="250dp"
         android:layout_height="wrap_content"/>
-
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

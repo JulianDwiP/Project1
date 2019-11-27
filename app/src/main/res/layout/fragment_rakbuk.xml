@@ -3,16 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRakBuku"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvRakBukNull"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tidak ada eBook"
-        android:layout_gravity="center"
-        android:textSize="@dimen/dimen_20dp"
-        android:layout_marginTop="250dp"/>
+        android:id="@+id/swipeList"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRakBuku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvRakBukNull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak ada Buku"
+            android:layout_gravity="center"
+            android:textSize="@dimen/dimen_20dp"
+            android:layout_marginTop="250dp"/>
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

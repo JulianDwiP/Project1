@@ -3,6 +3,7 @@ package com.example.project.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class searchCoba extends AppCompatActivity {
     TextView tvNull;
     Spinner spinnerFilter, spinnerKategori;
     String filter, kategori;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,14 @@ public class searchCoba extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getData();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -131,6 +141,7 @@ public class searchCoba extends AppCompatActivity {
         tvNull = findViewById(R.id.tvSearchNull);
         spinnerFilter = findViewById(R.id.spinnerFilter);
         spinnerKategori = findViewById(R.id.spinnerKategori);
+        swipeRefreshLayout = findViewById(R.id.swipeSearch);
 
         spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

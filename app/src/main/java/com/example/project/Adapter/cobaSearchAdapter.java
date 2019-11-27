@@ -83,7 +83,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     try{
-                        Intent i = new Intent(mContext, deskripsiKategori.class);
+                        Intent i = new Intent(mContext, deskripsiBuku.class);
                         i.putExtra("judul", search.getNama());
                         i.putExtra("deskripsi", search.getDeskripsi());
                         i.putExtra("img", search.getPdfIcon());

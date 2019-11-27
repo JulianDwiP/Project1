@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
@@ -60,6 +62,9 @@ public class deskripsiBuku extends AppCompatActivity {
     Toolbar desToolbar;
     LinearLayout linearRating;
     String judul;
+    SwipeRefreshLayout swipeRefreshLayout;
+    String id_buku, img_url, deskripsi, pdf_url, kategori,peringkat, author,Stpembacaa;
+    Float value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,12 +107,43 @@ public class deskripsiBuku extends AppCompatActivity {
         }
         cekUdahDownload();
         ambilDataBuku();
+        ambilPembaca();
         if (sharedPrefManager.getCekDownload()){
             downlaod.setText("Terunduh");
         }else{
             downlaod.setText("Unduh");
         }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                ambilDataBuku();
+                ambilPembaca();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
+    }
 
+    private void ambilPembaca() {
+        mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
+            @Override
+            public void onResponse(Call<View> call, Response<View> response) {
+                int c = response.body().getPengunjung();
+                sharedPrefManager.simpanSPInt(SharedPrefManager.View, c);
+                float m = response.body().getPeringkat();
+                pembaca.setText(String.valueOf(c));
+                perinkatDesBuku.setText(String.valueOf(m));
+            }
+
+            @Override
+            public void onFailure(Call<View> call, Throwable t) {
+
+            }
+        });
     }
 
     private void cekUdahDownload() {
@@ -134,31 +170,33 @@ public class deskripsiBuku extends AppCompatActivity {
         });
     }
 
-
-    private void ambilDataBuku() {
-        String id_buku = getIntent().getStringExtra("id_buku");
-        String img_url = getIntent().getStringExtra("img");
-
-        String deskripsi = getIntent().getStringExtra("deskripsi");
-        String pdf_url = getIntent().getStringExtra("pdf_url");
-        String peringkat = getIntent().getStringExtra("peringkat");
-        String author = getIntent().getStringExtra("author");
-        String kategori = getIntent().getStringExtra("kategori");
-        String Stpembacaa = getIntent().getStringExtra("pengunjung");
-
-        mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
+    private void masukanPeringkat(){
+        mApiInterface.masukanPeringkat(id_buku, value).enqueue(new Callback<masukanPeringkatModel>() {
             @Override
-            public void onResponse(Call<View> call, Response<View> response) {
-                int c = response.body().getPengunjung();
-                sharedPrefManager.simpanSPInt(SharedPrefManager.View, c);
-                pembaca.setText(String.valueOf(c));
+            public void onResponse(Call<masukanPeringkatModel> call, Response<masukanPeringkatModel> response) {
+                if (response.isSuccessful()){
+                    String peringkat = response.body().getPeringkat();
+                    perinkatDesBuku.setText(peringkat);
+                }
             }
-
             @Override
-            public void onFailure(Call<View> call, Throwable t) {
-
+            public void onFailure(Call<masukanPeringkatModel> call, Throwable t) {
             }
         });
+    }
+
+
+    private void ambilDataBuku() {
+         id_buku = getIntent().getStringExtra("id_buku");
+         img_url = getIntent().getStringExtra("img");
+
+         deskripsi = getIntent().getStringExtra("deskripsi");
+         pdf_url = getIntent().getStringExtra("pdf_url");
+         peringkat = getIntent().getStringExtra("peringkat");
+         author = getIntent().getStringExtra("author");
+         kategori = getIntent().getStringExtra("kategori");
+         Stpembacaa = getIntent().getStringExtra("pengunjung");
+
         Bitmap bmp = null;
         try{
             URL url = new URL(ApiClient.BASE_URL+img_url);
@@ -246,19 +284,8 @@ public class deskripsiBuku extends AppCompatActivity {
                     builder.setMessage("Terima kasih");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Float value = ratingBar.getRating();
-                            mApiInterface.masukanPeringkat(id_buku, value).enqueue(new Callback<masukanPeringkatModel>() {
-                                @Override
-                                public void onResponse(Call<masukanPeringkatModel> call, Response<masukanPeringkatModel> response) {
-                                    if (response.isSuccessful()){
-                                        String peringkat = response.body().getPeringkat();
-                                        perinkatDesBuku.setText(peringkat);
-                                    }
-                                }
-                                @Override
-                                public void onFailure(Call<masukanPeringkatModel> call, Throwable t) {
-                                }
-                            });
+                            value = ratingBar.getRating();
+                            masukanPeringkat();
                         }
                     });
                     builder.setNegativeButton("Maaf, Tidak", new DialogInterface.OnClickListener() {
@@ -278,13 +305,9 @@ public class deskripsiBuku extends AppCompatActivity {
         desToolbar.setNavigationOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-                intent.putExtra("backTo", "2");
-                sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-                startActivity(intent);
+                finish();
             }
         });
-
 
         sebelumLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -352,6 +375,7 @@ public class deskripsiBuku extends AppCompatActivity {
         linearRating  = findViewById(R.id.ratingLinear);
         downlaod = findViewById(R.id.btnDownload);
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
+        swipeRefreshLayout = findViewById(R.id.swipeDeskripsiBuku);
 
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -359,9 +383,6 @@ public class deskripsiBuku extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(deskripsiBuku.this, Beranda.class);
-        intent.putExtra("backTo", "2");
-        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-        startActivity(intent);
+        finish();
     }
 }

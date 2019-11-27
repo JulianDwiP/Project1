@@ -255,10 +255,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         desToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
-                intent.putExtra("backTo", "1");
-                sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-                startActivity(intent);
+                finish();
             }
         });
         downloadRak.setOnClickListener(new android.view.View.OnClickListener() {
@@ -324,9 +321,6 @@ public class deskripsiRakBuku extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(deskripsiRakBuku.this, Beranda.class);
-        intent.putExtra("backTo", "1");
-        sharedPrefManager.simpanSPBoolean(SharedPrefManager.cekIntent, true);
-        startActivity(intent);
+        finish();
     }
 }

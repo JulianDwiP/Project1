@@ -1,7 +1,10 @@
 package com.example.project.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.project.Adapter.BukuAdapter;
 import com.example.project.Api.ApiClient;
@@ -37,6 +41,7 @@ public class fragment_beranda extends Fragment {
     BukuAdapter bukuAdapter;
     RecyclerView recyclerView;
     fragment_beranda context;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public fragment_beranda() {
     }
@@ -52,7 +57,20 @@ public class fragment_beranda extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(c));
         getBuku();
+        swipeRefreshLayout = view.findViewById(R.id.testSwipe);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getBuku();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
         return view;
     }
 

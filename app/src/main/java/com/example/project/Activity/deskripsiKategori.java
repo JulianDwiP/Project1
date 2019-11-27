@@ -3,6 +3,7 @@ package com.example.project.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,7 +57,8 @@ public class deskripsiKategori extends AppCompatActivity {
     ApiInterface mApiInterface;
     Toolbar desKatToolbar;
     LinearLayout linearRating;
-    String judul;
+    String judul, img_url, pdf_url, deskripsi, Stpembacaa, author, kategori,id_buku,peringkat;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +105,19 @@ public class deskripsiKategori extends AppCompatActivity {
         }else{
             downloadKat.setText("Unduh");
         }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                cekUdahDownload();
+                ambilDataBuku();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
     }
 
     private void cekUdahDownload() {
@@ -130,15 +146,15 @@ public class deskripsiKategori extends AppCompatActivity {
 
 
     private void ambilDataBuku() {
-        String id_buku = getIntent().getStringExtra("id_buku");
-        String img_url = getIntent().getStringExtra("img");
-        judul = getIntent().getStringExtra("judul");
-        String deskripsi = getIntent().getStringExtra("deskripsi");
-        String pdf_url = getIntent().getStringExtra("pdf_url");
-        String peringkat = getIntent().getStringExtra("peringkat");
-        String author = getIntent().getStringExtra("author");
-        String kategori = getIntent().getStringExtra("kategori");
-        String Stpembacaa = getIntent().getStringExtra("pengunjung");
+         id_buku = getIntent().getStringExtra("id_buku");
+         img_url = getIntent().getStringExtra("img");
+         judul = getIntent().getStringExtra("judul");
+         deskripsi = getIntent().getStringExtra("deskripsi");
+         pdf_url = getIntent().getStringExtra("pdf_url");
+         peringkat = getIntent().getStringExtra("peringkat");
+         author = getIntent().getStringExtra("author");
+         kategori = getIntent().getStringExtra("kategori");
+         Stpembacaa = getIntent().getStringExtra("pengunjung");
 
         mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
             @Override
@@ -288,32 +304,36 @@ public class deskripsiKategori extends AppCompatActivity {
         downloadKat.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                if (sharedPrefManager.getCekDownload()){
-                    Intent intent = new Intent(deskripsiKategori.this, downloadedActivity.class);
-                    startActivity(intent);
-                }else{
-                    sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
-                    sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
-                    String url = ApiClient.BASE_URL+pdf_url;
-                    if (isConnectingToInternet()){
-                        new DownloadTask(deskripsiKategori.this, downloadKat, url);
-                        mApiInterface.masukanDownload(judul, pdf_url, sharedPrefManager.getId()).enqueue(new Callback<downloadResponse>() {
-                            @Override
-                            public void onResponse(Call<downloadResponse> call, Response<downloadResponse> response) {
-                                Log.i("Deskripsi Kategori", "Berhasil Memasukan ke DB");
-                            }
-                            @Override
-                            public void onFailure(Call<downloadResponse> call, Throwable t) {
-                                Log.e("Deskripsi Kategori", "Error saat memasukan ke db, errornya "+t.getMessage());
-
-                            }
-                        });
-                    }else{
-                        Toast.makeText(deskripsiKategori.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                download();
             }
         });
+    }
+
+    private void download() {
+        if (sharedPrefManager.getCekDownload()){
+            Intent intent = new Intent(deskripsiKategori.this, downloadedActivity.class);
+            startActivity(intent);
+        }else{
+            sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, judul);
+            sharedPrefManager.simpanSPSring(SharedPrefManager.urlFile, ApiClient.BASE_URL+pdf_url);
+            String url = ApiClient.BASE_URL+pdf_url;
+            if (isConnectingToInternet()){
+                new DownloadTask(deskripsiKategori.this, downloadKat, url);
+                mApiInterface.masukanDownload(judul, pdf_url, sharedPrefManager.getId()).enqueue(new Callback<downloadResponse>() {
+                    @Override
+                    public void onResponse(Call<downloadResponse> call, Response<downloadResponse> response) {
+                        Log.i("Deskripsi Kategori", "Berhasil Memasukan ke DB");
+                    }
+                    @Override
+                    public void onFailure(Call<downloadResponse> call, Throwable t) {
+                        Log.e("Deskripsi Kategori", "Error saat memasukan ke db, errornya "+t.getMessage());
+
+                    }
+                });
+            }else{
+                Toast.makeText(deskripsiKategori.this, "Tidak Ada Internet", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private boolean isConnectingToInternet() {
@@ -342,6 +362,7 @@ public class deskripsiKategori extends AppCompatActivity {
         linearRating  = findViewById(R.id.ratingLinear);
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
         downloadKat = findViewById(R.id.btnKatDownload);
+        swipeRefreshLayout = findViewById(R.id.swipeDeskripsiKategori);
 
         setSupportActionBar(desKatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
