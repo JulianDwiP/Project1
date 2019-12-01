@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_home"
         android:title="Beranda"/>
     <item
+        android:id="@+id/menu_buku_bayar"
+        android:icon="@drawable/ic_buku_dibeli"
+        android:title="Berbayar"/>
+    <item
         android:id="@+id/menu_kategori"
         android:title="Kategori"
         android:icon="@drawable/ic_categori"/>

@@ -2,7 +2,9 @@ package com.example.project.Api;
 
 import com.example.project.Model.KategoriResponse;
 import com.example.project.Model.ListSpinnerResponse;
+import com.example.project.entity.BukuBayarResponse;
 import com.example.project.entity.BukuResponse;
+import com.example.project.entity.ambilStatusResponse;
 import com.example.project.entity.cekDownload;
 import com.example.project.entity.cobaSearchResponse;
 import com.example.project.entity.deleteDownload;
@@ -10,6 +12,7 @@ import com.example.project.entity.deleteListBuku;
 import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
 import com.example.project.entity.View;
+import com.example.project.entity.masukanStatusBuku;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.entity.rakBukuResponse;
 
@@ -117,8 +120,22 @@ public interface ApiInterface {
     Call<deleteDownload> deleteDownload(@Field("id_user") String id_user,
                                         @Field("nama") String nama);
 
+    @FormUrlEncoded
+    @POST("insertPembelian.php")
+    Call<masukanStatusBuku> masukanStatus(@Field("id_buku")String id_buku,
+                                          @Field("id_user")String id_user,
+                                          @Field("status") String status);
+
+    @FormUrlEncoded
+    @POST("ambilStatusBuku.php")
+    Call<ambilStatusResponse> ambilStatusBuku(@Field("id_user") String  id_user,
+                                              @Field("id_buku") String id_buku);
+
     @GET("ambilBuku.php")
     Call<BukuResponse> getSemuaBuku();
+
+    @GET("ambilBukuBayar.php")
+    Call<BukuBayarResponse> getSemuaBukuBayar();
 
     @GET("listKategori.php")
     Call<ListSpinnerResponse> getListSpinner();

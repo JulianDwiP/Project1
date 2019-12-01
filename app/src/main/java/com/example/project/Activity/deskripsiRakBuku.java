@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
@@ -57,8 +59,8 @@ public class deskripsiRakBuku extends AppCompatActivity {
     ApiInterface mApiInterface;
     Toolbar desToolbar;
     LinearLayout linearRating;
-    String judul;
-
+    String judul, img_url, pdf_url, deskripsi, author, peringkat, pembaca, kategori, id, id_user, id_buku;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +93,26 @@ public class deskripsiRakBuku extends AppCompatActivity {
         }
         cekUdahDownload();
         ambilDataBuku();
+        ambilPembaca();
         if (sharedPrefManager.getCekDownload()){
             downloadRak.setText("Terunduh");
         }else{
             downloadRak.setText("Unduh");
         }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                cekUdahDownload();
+                ambilDataBuku();
+                ambilPembaca();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },1500);
+            }
+        });
     }
 
     private void cekUdahDownload() {
@@ -121,20 +138,37 @@ public class deskripsiRakBuku extends AppCompatActivity {
             }
         });
     }
+    private void ambilPembaca() {
+        mApiInterface.getViewBuku(id_buku).enqueue(new Callback<com.example.project.entity.View>() {
+            @Override
+            public void onResponse(Call<com.example.project.entity.View> call, Response<com.example.project.entity.View> response) {
+                int c = response.body().getPengunjung();
+                sharedPrefManager.simpanSPInt(SharedPrefManager.View, c);
+                float m = response.body().getPeringkat();
+                listPembaca.setText(String.valueOf(c));
+                perinkatDesBuku.setText(String.valueOf(m));
+            }
+
+            @Override
+            public void onFailure(Call<com.example.project.entity.View> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void ambilDataBuku() {
-        String img_url = getIntent().getStringExtra("img");
-        judul = getIntent().getStringExtra("judul");
-        String deskripsi = getIntent().getStringExtra("deskripsi");
-        String pdf_url = getIntent().getStringExtra("pdf_url");
-        String peringkat = getIntent().getStringExtra("peringkat");
-        String author = getIntent().getStringExtra("author");
-        String id = getIntent().getStringExtra("id");
-        String kategori = getIntent().getStringExtra("kategori");
-        String id_user = getIntent().getStringExtra("id_user");
-        String id_buku = getIntent().getStringExtra("id_buku");
-        String pembaca = getIntent().getStringExtra("pengunjung");
-        mApiInterface.getViewRak(id_buku).enqueue(new Callback<com.example.project.entity.View>() {
+         img_url = getIntent().getStringExtra("img");
+         judul = getIntent().getStringExtra("judul");
+         deskripsi = getIntent().getStringExtra("deskripsi");
+         pdf_url = getIntent().getStringExtra("pdf_url");
+         peringkat = getIntent().getStringExtra("peringkat");
+         author = getIntent().getStringExtra("author");
+         id = getIntent().getStringExtra("id");
+         kategori = getIntent().getStringExtra("kategori");
+         id_user = getIntent().getStringExtra("id_user");
+         id_buku = getIntent().getStringExtra("id_buku");
+         pembaca = getIntent().getStringExtra("pengunjung");
+         mApiInterface.getViewRak(id_buku).enqueue(new Callback<com.example.project.entity.View>() {
             @Override
             public void onResponse(Call<com.example.project.entity.View> call, Response<com.example.project.entity.View> response) {
                 int x = response.body().getPengunjung();
@@ -313,6 +347,7 @@ public class deskripsiRakBuku extends AppCompatActivity {
         linearRating  = findViewById(R.id.ratingRakLinear);
         listPembaca = findViewById(R.id.tvListPembaca);
         downloadRak = findViewById(R.id.btnRakDownload);
+        swipeRefreshLayout = findViewById(R.id.swipeDeskripsiList);
 
         setSupportActionBar(desToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

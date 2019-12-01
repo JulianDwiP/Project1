@@ -31,7 +31,17 @@ public class cobaSearchModel {
     @SerializedName("pengunjung")
     @Expose
     private int pengunjung;
+    @SerializedName("harga")
+    @Expose
+    private String harga;
 
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
 
     public cobaSearchModel(String id, String nama, String deskripsi, String author, String pdfIcon, String pdfUrl, String peringkat, String kategori, int pengunjung) {
         this.id = id;

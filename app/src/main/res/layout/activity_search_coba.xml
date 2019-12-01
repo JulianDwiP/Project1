@@ -15,7 +15,7 @@
                 android:id="@+id/etSearch"
                 android:layout_width="300dp"
                 android:layout_marginLeft="10dp"
-                android:hint="Cari eBook"
+                android:hint="Cari Buku"
                 android:textColor="#fff"
                 android:textColorHint="@color/md_white_1000"
                 android:textAlignment="center"

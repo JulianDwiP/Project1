@@ -61,7 +61,7 @@
             android:textColorHint="#eee"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
-            android:hint="Password"
+            android:hint="Kata Sandi"
             android:inputType="textPassword"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
@@ -85,7 +85,7 @@
             android:id="@+id/tvLupaPassword"
             android:layout_marginTop="20dp"
             android:textColor="#fff"
-            android:text="Lupa Password?"
+            android:text="Lupa Kata Sandi?"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -65,18 +65,7 @@ public class daftar extends AppCompatActivity {
         daftarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (passwordText.length()==0 || passwordText.length() <4 || passwordText.length()>14){
-                    passwordText.setError("Field harus terisi 4 sampai 14 huruf");
-                }if (emailText.length()==0|| !isValidEmail(emailText.getText().toString())){
-                    emailText.setError("Email tidak valid");
-                }if (namaText.length()==0){
-                    namaText.setError("Field harus diisi");
-                }if (usernameText.length()==0){
-                    usernameText.setError("Field harus diisi");
-                }else{
-                    loading = ProgressDialog.show(mContext, null, "Harap Tunggu..", true, false);
-                    reqRegister();
-                }
+                validata();
             }
         });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -86,6 +75,34 @@ public class daftar extends AppCompatActivity {
             }
         });
     }
+
+    private void validata() {
+        if (emailText.length()==0|| !isValidEmail(emailText.getText().toString())) {
+            emailText.setError("Email tidak valid");
+            if (passwordText.length() == 0 || passwordText.length() < 4 || passwordText.length() > 14) {
+                passwordText.setError("Field harus terisi 4 sampai 14 huruf");
+            }
+            if (namaText.length() == 0) {
+                namaText.setError("Field harus diisi");
+            }
+            if (usernameText.length() == 0) {
+                usernameText.setError("Field harus diisi");
+            }
+        }else if ( passwordText.length()==0 || passwordText.length() <4 || passwordText.length()>14){
+            passwordText.setError("Field harus terisi 4 sampai 14 huruf");
+            if (emailText.length()==0|| !isValidEmail(emailText.getText().toString())){
+                emailText.setError("Email tidak valid");
+            }if (namaText.length()==0){
+                namaText.setError("Field harus diisi");
+            }if (usernameText.length()==0){
+                usernameText.setError("Field harus diisi");
+            }
+        }else{
+            loading = ProgressDialog.show(mContext, null, "Harap Tunggu..", true, false);
+            reqRegister();
+        }
+    }
+
     private void reqRegister(){
         mApiInterface.registerRequest(
                 namaText.getText().toString(),

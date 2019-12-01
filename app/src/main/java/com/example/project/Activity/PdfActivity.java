@@ -30,6 +30,7 @@ public class PdfActivity extends AppCompatActivity implements OnLoadCompleteList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
+
         final PDFView pdfView = findViewById(R.id.pdfView);
         sharedPrefManager = new SharedPrefManager(this);
 

@@ -17,7 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.Activity.deskripsiBuku;
 import com.example.project.Activity.deskripsiKategori;
 import com.example.project.Api.ApiClient;
+import com.example.project.Api.ApiInterface;
 import com.example.project.R;
+import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.entity.ambilStatus;
+import com.example.project.entity.ambilStatusResponse;
 import com.example.project.entity.cobaSearchModel;
 
 import java.io.ByteArrayOutputStream;
@@ -25,9 +29,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.ViewHolder> {
     List<cobaSearchModel> cobaSearchModels;
     Context mContext;
+    ApiInterface mApiInterface;
+    SharedPrefManager sharedPrefManager;
 
     public cobaSearchAdapter(List<cobaSearchModel> cobaSearchModels, Context mContext) {
         this.cobaSearchModels = cobaSearchModels;
@@ -35,7 +45,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView judulBuku, penulisBuku, sinopsisBuku, peringkat, gadaBuku;
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkat, hargaRp, hargaGratis, status;
         ImageView fotoBuku;
         CardView cardViewBuku;
         public ViewHolder(View itemView) {
@@ -46,6 +56,9 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
             fotoBuku = itemView.findViewById(R.id.fotoBuku);
             cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
             peringkat = itemView.findViewById(R.id.peringkatRecyclerView);
+            hargaRp = itemView.findViewById(R.id.hargaRp);
+            hargaGratis = itemView.findViewById(R.id.hargaGratis);
+            status = itemView.findViewById(R.id.status);
         }
     }
     @Override
@@ -73,6 +86,37 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
             }catch (IOException e){
                 e.printStackTrace();
             }
+        mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+        sharedPrefManager = new SharedPrefManager(mContext);
+
+        if (sharedPrefManager.getId().equals("")){
+        }else{
+            mApiInterface.ambilStatusBuku(sharedPrefManager.getId(),search.getId()).enqueue(new Callback<ambilStatusResponse>() {
+                @Override
+                public void onResponse(Call<ambilStatusResponse> call, Response<ambilStatusResponse> response) {
+                    ambilStatus ambilStatus = new ambilStatus();
+                    holder.hargaRp.setVisibility(View.GONE);
+                    holder.status.setVisibility(View.VISIBLE);
+                    holder.hargaGratis.setVisibility(View.GONE);
+                    holder.status.setText("dibeli");
+                }
+
+                @Override
+                public void onFailure(Call<ambilStatusResponse> call, Throwable t) {
+                    if (search.getHarga().equals("Gratis")){
+                        holder.hargaRp.setVisibility(View.GONE);
+                        holder.status.setVisibility(View.GONE);
+                        holder.hargaGratis.setVisibility(View.VISIBLE);
+                        holder.hargaGratis.setText(search.getHarga());
+                    }else{
+                        holder.hargaRp.setVisibility(View.VISIBLE);
+                        holder.hargaGratis.setVisibility(View.GONE);
+                        holder.status.setVisibility(View.GONE);
+                        holder.hargaRp.setText("Rp " + search.getHarga());
+                    }
+                }
+            });
+        }
             holder.fotoBuku.setImageBitmap(bmp);
             holder.judulBuku.setText(search.getNama());
 //            holder.penulisBuku.setText(search.getAuthor());
@@ -93,6 +137,7 @@ public class cobaSearchAdapter extends RecyclerView.Adapter<cobaSearchAdapter.Vi
                         i.putExtra("kategori", search.getKategori());
                         i.putExtra("pengunjung", String.valueOf(search.getPengunjung()));
                         i.putExtra("id_buku", search.getId());
+                        i.putExtra("harga", search.getHarga());
                         mContext.startActivity(i);
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.example.project.utils;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,13 +32,19 @@ public class DownloadTask {
     private Button btnDownload;
     private String downloadUrl ="", downloadFileName ="";
     SharedPrefManager sharedPrefManager;
-    private ProgressDialog loading;
+    private ProgressDialog mProgressDialog;
+    PowerManager.WakeLock mWakeLock;
 
     public DownloadTask(Context mContext, Button btnDownload, String downloadUrl) {
         this.mContext = mContext;
         this.btnDownload = btnDownload;
         this.downloadUrl = downloadUrl;
 
+//        mProgressDialog = new ProgressDialog(mContext);
+//        mProgressDialog.setMessage("Mengunduh");
+//        mProgressDialog.setIndeterminate(true);
+//        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//        mProgressDialog.setCancelable(true);
 
         sharedPrefManager = new SharedPrefManager(mContext);
 
@@ -46,7 +54,7 @@ public class DownloadTask {
         new DownloadingTask().execute();
     }
 
-    private class DownloadingTask extends AsyncTask<Void, Void, Void>{
+    private class DownloadingTask extends AsyncTask<Void, Integer, Void>{
 
         File apkStorage = null;
         File outputFile = null;
@@ -55,15 +63,30 @@ public class DownloadTask {
         protected void onPreExecute() {
             super.onPreExecute();
             btnDownload.setEnabled(false);
-            loading = ProgressDialog.show(mContext, null, "Mengunduh..", true, false);
+            mProgressDialog = ProgressDialog.show(mContext, null, "Mengunduh..", true, false);
+//            PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+//            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+//                    getClass().getName());
+//            mWakeLock.acquire();
+//            mProgressDialog.show();
         }
+
+//        @Override
+//        protected void onProgressUpdate(Integer... progress) {
+//            super.onProgressUpdate(progress);
+//            // if we get here, length is known, now set indeterminate to false
+//            mProgressDialog.setIndeterminate(false);
+//            mProgressDialog.setMax(100);
+//            mProgressDialog.setProgress(progress[0]);
+//        }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             try{
                 if (outputFile!= null){
                     btnDownload.setEnabled(true);
-                    loading.dismiss();
+//                    mWakeLock.release();
+                    mProgressDialog.dismiss();
                     btnDownload.setText("Terunduh");
                     Toast.makeText(mContext, "Berhasil Terunduh", Toast.LENGTH_SHORT).show();
                     sharedPrefManager.simpanSPSring(SharedPrefManager.namaFile, "");
@@ -79,7 +102,8 @@ public class DownloadTask {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                loading.dismiss();
+//                mWakeLock.release();
+                mProgressDialog.dismiss();
                 btnDownload.setText("Unduh Gagal");new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -140,7 +164,10 @@ public class DownloadTask {
             }
             return null;
         }
+
+
     }
+
 
 
 

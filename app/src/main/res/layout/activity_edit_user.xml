@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".editUser">
+    tools:context="Activity.editUser">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -45,24 +45,50 @@
             app:civ_shadow="true"
             app:civ_shadow_radius="1" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama"
+        android:layout_marginLeft="40dp"
+        android:textSize="20dp" />
+
     <EditText
         android:id="@+id/edtUser_nama"
-        android:layout_marginTop="@dimen/dimen_40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="@dimen/dimen_40dp"
         android:hint="Nama"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:layout_marginLeft="40dp"
+        android:textSize="20dp" />
     <EditText
         android:id="@+id/edtUser_Username"
-        android:layout_marginTop="@dimen/dimen_40dp"
         android:layout_width="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="@dimen/dimen_40dp"
         android:layout_height="wrap_content"
         android:hint="Username"/>
 
     <Button
-        android:layout_marginTop="@dimen/dimen_40dp"
+        android:layout_marginTop="130dp"
         android:id="@+id/btnUser_simpan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="@dimen/dimen_40dp"
+
         android:text="Simpan"/>
+    </LinearLayout>
 
 </LinearLayout>

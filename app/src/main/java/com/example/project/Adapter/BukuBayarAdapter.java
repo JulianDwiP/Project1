@@ -20,6 +20,7 @@ import com.example.project.Api.ApiInterface;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.Buku;
+import com.example.project.entity.BukuBayar;
 import com.example.project.entity.ambilStatus;
 import com.example.project.entity.ambilStatusResponse;
 
@@ -32,48 +33,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder> {
-
-    List<Buku> semuaBuku;
+public class BukuBayarAdapter extends RecyclerView.Adapter<BukuBayarAdapter.BukuBayarHolder> {
+    List<BukuBayar> bukuBayars;
     Context mContext;
     ApiInterface mApiInterface;
     SharedPrefManager sharedPrefManager;
-    class BukuViewHolder extends  RecyclerView.ViewHolder{
-        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku, hargaRp, hargaGratis, status;
-        ImageView fotoBuku;
-        CardView cardViewBuku;
 
-        public BukuViewHolder(@NonNull View itemView) {
-            super(itemView);
-            judulBuku = itemView.findViewById(R.id.judulBuku);
-            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
-            fotoBuku = itemView.findViewById(R.id.fotoBuku);
-            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
-            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
-            hargaRp = itemView.findViewById(R.id.hargaRp);
-            hargaGratis = itemView.findViewById(R.id.hargaGratis);
-            status = itemView.findViewById(R.id.status);
-        }
-    }
-    public BukuAdapter (Context context, List<Buku> bukuList ){
+    public BukuBayarAdapter(List<BukuBayar> bukuBayar, Context context) {
+        bukuBayars = bukuBayar;
         mContext = context;
-        semuaBuku = bukuList;
-    }
-    @Override
-    public BukuViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_recyclerview_buku, parent, false);
-        return  new BukuViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final BukuViewHolder holder, int position) {
-        final Buku buku = semuaBuku.get(position);
+    public BukuBayarHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_recyclerview_buku, parent, false);
+        return new BukuBayarHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull BukuBayarHolder holder, int position) {
+        final BukuBayar bukuBayar = bukuBayars.get(position);
         Bitmap bmp = null;
         String poto;
-        if (buku.getPdfIcon().equals("")){
+        if (bukuBayar.getPdfIcon().equals("")){
             poto = "pdf-icons/pingu.jpg";
         }else{
-            poto = buku.getPdfIcon();
+            poto = bukuBayar.getPdfIcon();
         }
         try{
             URL url = new URL(ApiClient.BASE_URL+poto);
@@ -83,13 +68,12 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
         }catch (IOException e){
             e.printStackTrace();
         }
-
         mApiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         sharedPrefManager = new SharedPrefManager(mContext);
 
         if (sharedPrefManager.getId().equals("")){
         }else{
-            mApiInterface.ambilStatusBuku(sharedPrefManager.getId(),buku.getId()).enqueue(new Callback<ambilStatusResponse>() {
+            mApiInterface.ambilStatusBuku(sharedPrefManager.getId(),bukuBayar.getId()).enqueue(new Callback<ambilStatusResponse>() {
                 @Override
                 public void onResponse(Call<ambilStatusResponse> call, Response<ambilStatusResponse> response) {
                     ambilStatus ambilStatus = new ambilStatus();
@@ -101,48 +85,66 @@ public class BukuAdapter extends RecyclerView.Adapter<BukuAdapter.BukuViewHolder
 
                 @Override
                 public void onFailure(Call<ambilStatusResponse> call, Throwable t) {
-                    if (buku.getHarga().equals("Gratis")){
+                    if (bukuBayar.getHarga().equals("Gratis")){
                         holder.hargaRp.setVisibility(View.GONE);
                         holder.status.setVisibility(View.GONE);
                         holder.hargaGratis.setVisibility(View.VISIBLE);
-                        holder.hargaGratis.setText(buku.getHarga());
+                        holder.hargaGratis.setText(bukuBayar.getHarga());
                     }else{
                         holder.hargaRp.setVisibility(View.VISIBLE);
                         holder.hargaGratis.setVisibility(View.GONE);
                         holder.status.setVisibility(View.GONE);
-                        holder.hargaRp.setText("Rp " + buku.getHarga());
+                        holder.hargaRp.setText("Rp " + bukuBayar.getHarga());
                     }
                 }
             });
         }
-        int pembaca = buku.getPengunjung();
+        int pembaca = bukuBayar.getPengunjung();
         holder.fotoBuku.setImageBitmap(bmp);
-        holder.judulBuku.setText(buku.getNama());
-        holder.sinopsisBuku.setText(buku.getDeskripsi());
-        holder.peringkatBuku.setText(buku.getPeringkat());
+        holder.judulBuku.setText(bukuBayar.getNama());
+        holder.sinopsisBuku.setText(bukuBayar.getDeskripsi());
+        holder.peringkatBuku.setText(bukuBayar.getPeringkat());
 
         holder.cardViewBuku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, deskripsiBuku.class);
-                i.putExtra("id_buku", buku.getId());
-                i.putExtra("judul", buku.getNama());
-                i.putExtra("deskripsi", buku.getDeskripsi());
-                i.putExtra("img", buku.getPdfIcon());
-                i.putExtra("pdf_url", buku.getPdfUrl());
-                i.putExtra("peringkat", buku.getPeringkat());
-                i.putExtra("author", buku.getAuthor());
-                i.putExtra("kategori", buku.getKategori());
+                i.putExtra("id_buku", bukuBayar.getId());
+                i.putExtra("judul", bukuBayar.getNama());
+                i.putExtra("deskripsi", bukuBayar.getDeskripsi());
+                i.putExtra("img", bukuBayar.getPdfIcon());
+                i.putExtra("pdf_url", bukuBayar.getPdfUrl());
+                i.putExtra("peringkat", bukuBayar.getPeringkat());
+                i.putExtra("author", bukuBayar.getAuthor());
+                i.putExtra("kategori", bukuBayar.getKategori());
                 i.putExtra("pengunjung", String.valueOf(pembaca));
-                i.putExtra("harga", buku.getHarga());
+                i.putExtra("harga", bukuBayar.getHarga());
+                i.putExtra("status", bukuBayar.getStatus());
                 mContext.startActivity(i);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return semuaBuku.size();
+        return bukuBayars.size();
+    }
+
+    public class BukuBayarHolder extends RecyclerView.ViewHolder {
+        TextView judulBuku, penulisBuku, sinopsisBuku, peringkatBuku, hargaRp, hargaGratis, status;
+        ImageView fotoBuku;
+        CardView cardViewBuku;
+        public BukuBayarHolder(@NonNull View itemView) {
+            super(itemView);
+            judulBuku = itemView.findViewById(R.id.judulBuku);
+//            penulisBuku = itemView.findViewById(R.id.penulisBuku);
+            sinopsisBuku = itemView.findViewById(R.id.sinopsisBuku);
+            fotoBuku = itemView.findViewById(R.id.fotoBuku);
+            cardViewBuku = itemView.findViewById(R.id.CardViewBuku);
+            peringkatBuku = itemView.findViewById(R.id.peringkatRecyclerView);
+            hargaRp = itemView.findViewById(R.id.hargaRp);
+            hargaGratis = itemView.findViewById(R.id.hargaGratis);
+            status = itemView.findViewById(R.id.status);
+        }
     }
 }

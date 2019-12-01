@@ -16,6 +16,11 @@
             android:id="@+id/terdownload"
             android:icon="@drawable/ic_file_download"
             android:title="Buku Terunduh"/>
+<!--        <item-->
+<!--            android:id="@+id/bukuDibeli"-->
+<!--            android:icon="@drawable/ic_buku_dibeli"-->
+<!--            android:title="Buku dibeli"-->
+<!--            />-->
         <item
             android:id="@+id/catatan_pribadi"
             android:icon="@drawable/ic_notes"

@@ -31,10 +31,12 @@ import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
 import com.example.project.entity.Hasil;
 import com.example.project.entity.View;
+import com.example.project.entity.ambilStatusResponse;
 import com.example.project.entity.cekDownload;
 import com.example.project.entity.deleteDownload;
 import com.example.project.entity.downloadResponse;
 import com.example.project.entity.masukanPeringkatModel;
+import com.example.project.entity.masukanStatusBuku;
 import com.example.project.entity.rakBukuInsert;
 import com.example.project.utils.DownloadTask;
 
@@ -52,12 +54,12 @@ public class deskripsiKategori extends AppCompatActivity {
 
     TextView judulBuku, deskripsiBuku1, authorDesBuku, perinkatDesBuku, kategoriDesBuku, pembaca;
     ImageView imageDesBuku;
-    Button baca, add, sebelumLogin, downloadKat;
+    Button baca, add, sebelumLogin, downloadKat, beli;
     SharedPrefManager sharedPrefManager;
     ApiInterface mApiInterface;
     Toolbar desKatToolbar;
     LinearLayout linearRating;
-    String judul, img_url, pdf_url, deskripsi, Stpembacaa, author, kategori,id_buku,peringkat;
+    String judul, img_url, pdf_url, deskripsi, Stpembacaa, author, kategori,id_buku,peringkat, harga;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,8 @@ public class deskripsiKategori extends AppCompatActivity {
         }
         cekUdahDownload();
         ambilDataBuku();
+        cekUdahBeli();
+        ambilPembaca();
         if (sharedPrefManager.getCekDownload()){
             downloadKat.setText("Terunduh");
         }else{
@@ -111,6 +115,7 @@ public class deskripsiKategori extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(true);
                 cekUdahDownload();
                 ambilDataBuku();
+                ambilPembaca();
                 new Handler().postDelayed(new Runnable() {
                     @Override public void run() {
                         swipeRefreshLayout.setRefreshing(false);
@@ -118,6 +123,28 @@ public class deskripsiKategori extends AppCompatActivity {
                 },1500);
             }
         });
+    }
+    private void cekUdahBeli() {
+        if (harga.equals("Gratis")){
+            beli.setVisibility(android.view.View.GONE);
+        }else{
+            mApiInterface.ambilStatusBuku(sharedPrefManager.getId(), id_buku).enqueue(new Callback<ambilStatusResponse>() {
+                @Override
+                public void onResponse(Call<ambilStatusResponse> call, Response<ambilStatusResponse> response) {
+                    beli.setVisibility(android.view.View.GONE);
+                }
+
+                @Override
+                public void onFailure(Call<ambilStatusResponse> call, Throwable t) {
+                    baca.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
+                    linearRating.setVisibility(android.view.View.GONE);
+                    downloadKat.setVisibility(android.view.View.GONE);
+                    sebelumLogin.setVisibility(android.view.View.GONE);
+                    beli.setText("Beli Rp." + harga);
+                }
+            });
+        }
     }
 
     private void cekUdahDownload() {
@@ -144,7 +171,23 @@ public class deskripsiKategori extends AppCompatActivity {
         });
     }
 
+    private void ambilPembaca() {
+        mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
+            @Override
+            public void onResponse(Call<View> call, Response<View> response) {
+                int c = response.body().getPengunjung();
+                sharedPrefManager.simpanSPInt(SharedPrefManager.View, c);
+                float m = response.body().getPeringkat();
+                pembaca.setText(String.valueOf(c));
+                perinkatDesBuku.setText(String.valueOf(m));
+            }
 
+            @Override
+            public void onFailure(Call<View> call, Throwable t) {
+                Log.e("Deskripsi Kategori", t.getMessage());
+            }
+        });
+    }
     private void ambilDataBuku() {
          id_buku = getIntent().getStringExtra("id_buku");
          img_url = getIntent().getStringExtra("img");
@@ -155,6 +198,7 @@ public class deskripsiKategori extends AppCompatActivity {
          author = getIntent().getStringExtra("author");
          kategori = getIntent().getStringExtra("kategori");
          Stpembacaa = getIntent().getStringExtra("pengunjung");
+         harga = getIntent().getStringExtra("harga");
 
         mApiInterface.getViewBuku(id_buku).enqueue(new Callback<View>() {
             @Override
@@ -307,6 +351,55 @@ public class deskripsiKategori extends AppCompatActivity {
                 download();
             }
         });
+        beli.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(deskripsiKategori.this);
+                builder.setTitle("Beli Buku " + judul);
+                builder.setMessage("Harga Rp. "+ harga);
+                builder.setPositiveButton("Beli", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(sharedPrefManager.getSPSudahLogin()){
+                            masukanStatus();
+                        }else{
+                            Toast.makeText(deskripsiKategori.this, "Login Terlebih dahulu", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(deskripsiKategori.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+            }
+        });
+    }
+    private void masukanStatus() {
+        mApiInterface.masukanStatus(id_buku, sharedPrefManager.getId(), "dibeli").enqueue(new Callback<masukanStatusBuku>() {
+            @Override
+            public void onResponse(Call<masukanStatusBuku> call, Response<masukanStatusBuku> response) {
+                if (response.isSuccessful()){
+                    baca.setVisibility(android.view.View.VISIBLE);
+                    add.setVisibility(android.view.View.VISIBLE);
+                    linearRating.setVisibility(android.view.View.VISIBLE);
+                    downloadKat.setVisibility(android.view.View.VISIBLE);
+                    beli.setVisibility(android.view.View.GONE);
+                    Toast.makeText(deskripsiKategori.this, "Pembelian Berhasil", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<masukanStatusBuku> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void download() {
@@ -363,6 +456,7 @@ public class deskripsiKategori extends AppCompatActivity {
         sebelumLogin = findViewById(R.id.btnSebelumloginDesBuk);
         downloadKat = findViewById(R.id.btnKatDownload);
         swipeRefreshLayout = findViewById(R.id.swipeDeskripsiKategori);
+        beli = findViewById(R.id.btnBeli);
 
         setSupportActionBar(desKatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

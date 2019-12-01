@@ -31,6 +31,18 @@ public class Buku {
     @SerializedName("pengunjung")
     @Expose
     private int pengunjung;
+    @SerializedName("harga")
+    @Expose
+    private String harga;
+
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
 
     public int getPengunjung() {
         return pengunjung;

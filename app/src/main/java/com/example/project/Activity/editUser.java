@@ -82,6 +82,8 @@ public class editUser extends AppCompatActivity implements View.OnClickListener 
         edtUser_username = findViewById(R.id.edtUser_Username);
         simpan = findViewById(R.id.btnUser_simpan);
         edt_prof_poto = findViewById(R.id.edit_prof_poto);
+        edtUser_nama.setText(sharedPrefManager.getSPNama());
+        edtUser_username.setText(sharedPrefManager.getUsername());
 
         String email = "http://192.168.43.236/perpus_db/uploads/" + sharedPrefManager.getId() + ".png";
         String shared = sharedPrefManager.getSPImage();

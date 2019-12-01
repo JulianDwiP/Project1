@@ -28,6 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.project.Activity.daftar.isValidEmail;
+
 public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog loading;
@@ -75,10 +77,16 @@ public class MainActivity extends AppCompatActivity {
         btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (passwordText.length()==0 || passwordText.length() <4 || passwordText.length()>14){
+                if (emailText.length()==0|| !isValidEmail(emailText.getText().toString())){
+                    emailText.setError("Email tidak valid");
+                    if ( passwordText.length()==0 || passwordText.length() <4 || passwordText.length()>14){
+                        passwordText.setError("Field harus terisi 4 sampai 14 huruf");
+                    }
+                }else if (passwordText.length()==0 || passwordText.length() <4 || passwordText.length()>14) {
                     passwordText.setError("Field harus terisi 4 sampai 14 huruf");
-                }if (emailText.length()==0|| !isValidEmail(emailText.getText().toString())){
+                    if (emailText.length() == 0 || !isValidEmail(emailText.getText().toString())) {
                         emailText.setError("Email tidak valid");
+                    }
                 }else{
                     loading = ProgressDialog.show(mContext, null, "Harap Tunggu..", true, false);
                     reqLogin();

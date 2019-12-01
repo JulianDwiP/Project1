@@ -97,6 +97,24 @@
                     android:background="@drawable/corner_button_deskripsi"
                     android:text="Unduh"
                     android:textSize="12dp" />
+                <Button
+                    android:id="@+id/btnSebelumloginDesBuk"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="35dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/corner_button_deskripsi"
+                    android:text="Lanjut Baca"
+                    android:textSize="12dp" />
+                <Button
+                    android:id="@+id/btnBeli"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="35dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/corner_button_deskripsi"
+                    android:text="Beli rp10.000"
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -189,16 +207,7 @@
             android:textSize="12dp"/>
 
 
-        <Button
-            android:id="@+id/btnSebelumloginDesBuk"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/biru"
-            android:text="Lanjut Baca"
-            android:textSize="12dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -22,6 +22,7 @@ public class SharedPrefManager {
     public static final String namaFile = "namaFile";
     public static final String urlFile = "urlFile";
     public static final String cekDownload = "cekDownload";
+    public static final String cekBeli = "cekBeli";
 
     SharedPreferences sp;
     SharedPreferences.Editor loginEditor;
@@ -99,5 +100,9 @@ public class SharedPrefManager {
     }
     public int getView() {
         return sp.getInt(View, 0 );
+    }
+
+    public Boolean getCekBaca() {
+        return sp.getBoolean(cekBeli, false);
     }
 }

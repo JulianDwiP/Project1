@@ -221,7 +221,6 @@ public class NotesActivity extends AppCompatActivity implements NoteEventListene
     }
 
     private void onDeleteMultiNotes() {
-        // TODO: 22/07/2018 delete multi notes
 
         List<Note> chackedNotes = adapter.getCheckedNotes();
         if (chackedNotes.size() != 0) {
@@ -275,7 +274,6 @@ public class NotesActivity extends AppCompatActivity implements NoteEventListene
                         notes.remove(swipedNote);
                         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                         showEmptyView();
-
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

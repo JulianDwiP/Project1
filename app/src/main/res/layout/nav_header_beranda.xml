@@ -33,7 +33,7 @@
         android:text="Julian"
         android:layout_marginBottom="15dp"/>
     <Button
-        android:text="Login"
+        android:text="Masuk"
         android:id="@+id/drawLogin"
         android:background="@drawable/corners_header"
         android:layout_marginLeft="20dp"

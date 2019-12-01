@@ -27,10 +27,14 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.project.Api.ApiClient;
 import com.example.project.Api.ApiInterface;
+import com.example.project.Model.Note;
 import com.example.project.R;
 import com.example.project.SharedPref.SharedPrefManager;
+import com.example.project.db_note.NotesDB;
+import com.example.project.db_note.NotesDao;
 import com.example.project.entity.UserModel;
 import com.example.project.fragment.fragment_beranda;
+import com.example.project.fragment.fragment_buku_berbayar;
 import com.example.project.fragment.fragment_kategori;
 import com.example.project.fragment.fragment_rakbuk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,6 +43,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 
 public class Beranda extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +55,8 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
     SharedPrefManager sharedPrefManager;
     ApiInterface apiInterface;
     UserModel userModel;
+    private NotesDao dao;
+    private Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,10 +224,6 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 startActivity(iCatatan);
                 break;
             case R.id.terdownload:
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +"Ebook Download/");
-//                intent.setDataAndType(uri, "application/pdf");
-//                startActivity(Intent.createChooser(intent, "Open Folder Download"));
                 Intent intent = new Intent(Beranda.this, downloadedActivity.class);
                 startActivity(intent);
                 break;
@@ -232,6 +235,9 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 sharedPrefManager.simpanSPSring(SharedPrefManager.ID, "");
                 sharedPrefManager.simpanSPSring(SharedPrefManager.EMAIL, "");
                 sharedPrefManager.simpanSPSring(SharedPrefManager.IMAGE, "");
+                dao = NotesDB.getInstance(this).notesDao();
+                dao.deleteNote();
+
                 startActivity(new Intent(Beranda.this, Beranda.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
@@ -268,6 +274,9 @@ public class Beranda extends AppCompatActivity implements BottomNavigationView.O
                 break;
             case R.id.menu_kategori:
                 fragmentClass = fragment_kategori.class;
+                break;
+            case R.id.menu_buku_bayar:
+                fragmentClass = fragment_buku_berbayar.class;
                 break;
             default:
                 fragmentClass = fragment_beranda.class;

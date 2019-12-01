@@ -1,9 +1,9 @@
-package com.example.project.Model;
+package com.example.project.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Kategori {
+public class BukuBayar {
     @SerializedName("id")
     @Expose
     private String id;
@@ -34,33 +34,12 @@ public class Kategori {
     @SerializedName("harga")
     @Expose
     private String harga;
-
-    public int getPengunjung() {
-        return pengunjung;
-    }
-
-    public void setPengunjung(int pengunjung) {
-        this.pengunjung = pengunjung;
-    }
-
-    public String getHarga() {
-        return harga;
-    }
-
-    public void setHarga(String harga) {
-        this.harga = harga;
-    }
-
-    public Kategori(String id, String nama, String deskripsi, String author, String pdfIcon, String pdfUrl, String peringkat, String kategori) {
-        this.id = id;
-        this.nama = nama;
-        this.deskripsi = deskripsi;
-        this.author = author;
-        this.pdfIcon = pdfIcon;
-        this.pdfUrl = pdfUrl;
-        this.peringkat = peringkat;
-        this.kategori = kategori;
-    }
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("tipe")
+    @Expose
+    private String tipe;
 
     public String getId() {
         return id;
@@ -124,5 +103,37 @@ public class Kategori {
 
     public void setKategori(String kategori) {
         this.kategori = kategori;
+    }
+
+    public int getPengunjung() {
+        return pengunjung;
+    }
+
+    public void setPengunjung(int pengunjung) {
+        this.pengunjung = pengunjung;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTipe() {
+        return tipe;
+    }
+
+    public void setTipe(String tipe) {
+        this.tipe = tipe;
     }
 }

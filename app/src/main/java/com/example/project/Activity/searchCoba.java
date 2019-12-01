@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.project.Adapter.cobaAdapter;
 import com.example.project.Adapter.cobaSearchAdapter;
@@ -142,6 +143,7 @@ public class searchCoba extends AppCompatActivity {
         spinnerFilter = findViewById(R.id.spinnerFilter);
         spinnerKategori = findViewById(R.id.spinnerKategori);
         swipeRefreshLayout = findViewById(R.id.swipeSearch);
+
 
         spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
