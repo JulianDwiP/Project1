@@ -28,7 +28,7 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
     Context mContext;
 
     public class rakBukuHolder extends RecyclerView.ViewHolder {
-        TextView Rb_judulBuku, Rb_penulisBuku, Rb_sinopsisBuku, peringkat;
+        TextView Rb_judulBuku, Rb_penulisBuku, Rb_sinopsisBuku, peringkat, hargaRp, hargaGratis, status;
         ImageView Rb_fotoBuku;
         CardView Rb_cardViewBuku;
         public rakBukuHolder(View view) {
@@ -39,6 +39,9 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
             Rb_fotoBuku = view.findViewById(R.id.fotoBuku);
             Rb_cardViewBuku = view.findViewById(R.id.CardViewBuku);
             peringkat = view.findViewById(R.id.peringkatRecyclerView);
+            hargaRp = itemView.findViewById(R.id.hargaRp);
+            hargaGratis = itemView.findViewById(R.id.hargaGratis);
+            status = itemView.findViewById(R.id.status);
         }
     }
 
@@ -74,7 +77,9 @@ public class rakBukuAdapter extends RecyclerView.Adapter<rakBukuAdapter.rakBukuH
         }
         holder.Rb_fotoBuku.setImageBitmap(bmp);
         holder.Rb_judulBuku.setText(rakBuku.getNama());
-//        holder.Rb_penulisBuku.setText(rakBuku.getAuthor());
+        holder.hargaGratis.setVisibility(View.GONE);
+        holder.hargaRp.setVisibility(View.GONE);
+        holder.status.setVisibility(View.GONE);
         holder.Rb_sinopsisBuku.setText(rakBuku.getDeskripsi());
         holder.peringkat.setText(rakBuku.getPeringkat());
         holder.Rb_cardViewBuku.setOnClickListener(new View.OnClickListener() {
